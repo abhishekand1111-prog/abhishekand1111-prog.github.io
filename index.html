@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Diagnosis Room — Systems Consulting for Restaurants</title>
-<meta name="description" content="We don't fix problems, we fix the system producing them. Diagnosis Room traces what's costing your restaurant money back to its root cause, rebuilds the system, and makes sure the fix holds.">
+<title>Diagnosis Room — Does your restaurant run on a system, or on people?</title>
+<meta name="description" content="Diagnosis Room is a systems consultant for restaurants. Take the free 60-second System Map to see which parts of your restaurant run on a system and which run on one person.">
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Diagnosis Room">
-<meta property="og:title" content="Diagnosis Room — Systems Consulting for Restaurants">
-<meta property="og:description" content="Your floor isn't broken. The system running it is. Check your restaurant in 60 seconds.">
+<meta property="og:title" content="Does your restaurant run on a system, or on people?">
+<meta property="og:description" content="A free 60-second check that maps your restaurant from supply to management. No sales figures asked.">
 <meta property="og:url" content="https://abhishekand1111-prog.github.io/">
 <meta property="og:image" content="https://abhishekand1111-prog.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -18,487 +18,938 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
   :root{
-    --ink:#000000; --ink-600:#4a4a4a; --ink-400:#8a8a8a;
-    --paper:#ffffff; --surface:#ffffff; --surface-2:#f4f4f4;
-    --line:#e4e4e4; --line-strong:#000000; --dot:#e2e2e2;
-    --font-d:'Inter',"Segoe UI",sans-serif;
-    --font-b:'Inter',-apple-system,"Segoe UI",sans-serif;
-    --font-m:'IBM Plex Mono',"SFMono-Regular",Consolas,monospace;
-    --r-s:8px; --r-m:14px; --r-l:20px;
+    --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#F4F4F4;
+    --ink:#000000; --ink-600:#4B4B4B; --ink-400:#8A8A8A;
+    --line:#E6E6E6; --line-strong:#C9C9C9; --dot:#DCDCDC;
+    --warn:#B26B00; --bad:#C1392B;
+    --r-s:8px; --r-m:12px; --r-l:18px;
+    --font:'Inter',-apple-system,"Segoe UI",sans-serif;
+    --mono:'IBM Plex Mono',Consolas,monospace;
   }
+  /* Always white with black, to match the brand (no dark variant). */
+  :root{ color-scheme:light; }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth; overflow-x:clip;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
-  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; -webkit-font-smoothing:antialiased;}
-  h1,h2,h3{font-family:var(--font-d); font-weight:800; letter-spacing:-0.015em; margin:0; color:var(--ink); text-wrap:balance;}
-  p{margin:0; color:var(--ink-600); line-height:1.6;}
-  a{color:var(--ink);}
-  button{font-family:var(--font-b); cursor:pointer;}
-  input,textarea{font-family:var(--font-b);}
-  .mono{font-family:var(--font-m); font-variant-numeric:tabular-nums;}
-  .wrap{max-width:880px; margin:0 auto; padding:0 20px;}
-  .ico{width:20px; height:20px; display:block; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+  html,body{background:var(--paper); margin:0; overflow-x:clip;}
+  body{color:var(--ink); font-family:var(--font); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  button,input,select,textarea{font-family:var(--font); font-size:16px;}
+  button{cursor:pointer;}
+  h1,h2,h3{margin:0; letter-spacing:-0.015em; text-wrap:balance;}
+  .shell{max-width:720px; margin:0 auto; padding:20px 16px 48px; min-height:100vh;}
+  .top{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:26px;}
+  .top{padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--ink); text-decoration:none;}
+  .brand img{height:26px; width:auto; display:block;}
+  .brand span{color:var(--ink-400); font-weight:600;}
+  .top{position:sticky; top:0; z-index:20; background:rgba(255,255,255,.94); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); margin:-20px -16px 26px; padding:14px 16px;}
+  .toplinks{display:flex; align-items:center; gap:16px;}
+  .toplink{font-size:13.5px; font-weight:600; color:var(--ink-600); text-decoration:none;}
+  .toppill{background:var(--ink); color:#fff !important; padding:7px 13px; border-radius:20px; font-weight:700;}
+  @media (max-width:460px){ .toplinks .hide-sm{display:none;} .brand .bsub{display:none;} }
 
-  /* nav */
-  .nav{position:sticky; top:0; z-index:20; background:rgba(255,255,255,.94); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
-  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:12px 20px;}
-  .navbrand{display:flex; align-items:center; gap:10px; text-decoration:none;}
-  .navbrand img{height:30px; width:auto; display:block;}
-  .navbrand span{font-family:var(--font-d); font-weight:800; font-size:16px; color:var(--ink); letter-spacing:-0.01em;}
-  .navlinks{display:flex; align-items:center; gap:22px;}
-  .navlinks a{font-size:14px; font-weight:600; text-decoration:none; color:var(--ink-600); transition:color .15s;}
-  .navlinks a:hover{color:var(--ink);}
-  .navcta{background:var(--ink); color:#fff !important; padding:9px 16px; border-radius:20px; font-weight:700 !important;}
-  .navcta:hover{opacity:.85;}
-  section{scroll-margin-top:64px;}
-
-  /* hero */
-  .hero{position:relative; overflow:hidden; padding:72px 0 56px; border-bottom:1px solid var(--line);}
-  .hero .wrap{position:relative;} .hero .wrap > :not(.watermark){position:relative; z-index:1;}
-  .watermark{position:absolute; right:-30px; top:-20px; height:440px; width:auto; opacity:.05; pointer-events:none; user-select:none; z-index:0;}
-  .eyebrow{font-size:12.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400); margin-bottom:14px;}
-  .hero h1{font-size:46px; line-height:1.1; max-width:680px;}
-  .hero p.lede{font-size:17px; max-width:560px; margin-top:18px;}
-  .herobtns{display:flex; gap:12px; margin-top:30px; flex-wrap:wrap;}
-  .trust{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:14px; font-size:13px; color:var(--ink-600);}
-  .trust span{display:inline-flex; align-items:center; gap:6px;}
-  .trust svg{width:15px; height:15px;}
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:26px; font-weight:700; font-size:14.5px; padding:13px 24px; border:1.5px solid var(--ink); transition:transform .12s, background .15s, color .15s, opacity .15s;}
-  a.btn{text-decoration:none;}
-  .btn:active{transform:scale(.97);}
-  .btn-primary{background:var(--ink); color:#fff;}
-  .btn-primary:hover{opacity:.86;}
-  .btn-ghost{background:#fff; color:var(--ink);}
-  .btn-ghost:hover{background:var(--surface-2);}
-  .herostrip{margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line);}
-  .herostrip div{padding:16px 16px 0 0; border-right:1px solid var(--line);}
-  .herostrip div + div{padding-left:16px;}
-  .herostrip div:last-child{border-right:none;}
-  .herostrip .v{font-family:var(--font-m); font-size:20px; font-weight:600;}
-  .herostrip .k{font-size:12px; color:var(--ink-400); margin-top:2px; line-height:1.45;}
-
-  /* section shell */
-  section{padding:64px 0;}
-  section.bordered{border-bottom:1px solid var(--line);}
-  .sectitle{font-size:30px; max-width:560px; line-height:1.2;}
-  .secsub{margin-top:10px; max-width:540px; font-size:15px;}
-
-  /* symptoms */
-  .signs{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:32px;}
-  .sign{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); border-radius:var(--r-m); padding:16px 18px; background:#fff;}
-  .sign .x{flex:none; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; margin-top:1px;}
-  .sign .x svg{width:12px; height:12px; stroke-width:2.4;}
-  .sign p{color:var(--ink); font-size:14.5px; line-height:1.5; font-weight:500;}
-  .signsend{margin-top:26px; display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:22px;}
-  .signsend p{color:var(--ink); font-weight:700; font-size:16.5px; max-width:480px; line-height:1.45;}
-
-  /* flow charts */
-  .fchart{display:flex; flex-direction:column; margin-top:40px;}
-  .fnode{border:1.5px solid var(--ink); border-radius:var(--r-m); padding:22px 20px; background:#fff; display:flex; gap:16px; align-items:flex-start;}
-  .fnode .fic{flex:none; width:42px; height:42px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center;}
-  .fnode h3{font-size:16px;}
-  .fnode p{margin-top:6px; font-size:13.5px;}
-  .farrow, .parrow{display:flex; justify-content:center; padding:6px 0;}
-  .farrow svg, .parrow svg{width:18px; height:26px; display:block;}
-
-  .pchart{margin-top:40px; display:flex; flex-direction:column;}
-  .pnode{border:1.5px solid var(--ink); border-radius:var(--r-m); padding:20px 22px; background:#fff; display:flex; gap:16px; align-items:flex-start;}
-  .pnode .pbadge{flex:none; width:34px; height:34px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-weight:600; font-size:13.5px;}
-  .pnode h3{font-size:16px; margin-top:6px;}
-  .pnode p{margin-top:6px; font-size:13.5px;}
-
-  /* deliverables */
-  .gets{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:32px;}
-  .get{border-top:2px solid var(--ink); padding-top:14px;}
-  .get .n{font-family:var(--font-m); font-size:12px; color:var(--ink-400); font-weight:600;}
-  .get h3{font-size:15px; margin-top:6px;}
-  .get p{font-size:13px; margin-top:6px;}
-
-  /* System Map band */
-  .mapcard{border:1.5px solid var(--ink); border-radius:var(--r-l); padding:34px 30px; display:flex; align-items:center; justify-content:space-between; gap:28px;
-    background-color:#fff; background-image:radial-gradient(var(--dot) 1.2px, transparent 1.2px); background-size:18px 18px;}
-  .mapcard .btn{flex:none;}
-  .mapmini{display:flex; gap:6px; margin-top:16px; flex-wrap:wrap;}
-  .mapmini span{font-size:12px; font-weight:600; border:1.5px solid var(--ink); border-radius:6px; padding:4px 9px; background:#fff; display:inline-flex; align-items:center; gap:6px;}
-  .mapmini i{width:8px; height:8px; border-radius:50%; display:inline-block;}
-
-  /* faq */
-  .faq{margin-top:28px; border-top:1px solid var(--line);}
+  /* About sections under the System Map — only on the opening screen and after booking */
+  .site{display:none;}
+  body[data-step="landing"] .site, body[data-step="booked"] .site{display:block;}
+  .sec{padding:48px 0 0; margin-top:48px; border-top:1px solid var(--line); scroll-margin-top:70px;}
+  .sec h2{font-size:27px; line-height:1.2; margin-top:8px;}
+  .sec .sub{color:var(--ink-600); font-size:15px; margin:10px 0 0; max-width:560px;}
+  .ico{width:18px; height:18px; display:block; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .steps{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; counter-reset:st;}
+  .step{border:1.5px solid var(--ink); border-radius:var(--r-m); padding:16px; background:var(--surface);}
+  .step .num{width:28px; height:28px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12.5px; font-weight:600;}
+  .step h3{font-size:15px; margin-top:10px;}
+  .step p{font-size:13.5px; color:var(--ink-600); margin:5px 0 0; line-height:1.5;}
+  .results{margin-top:24px; border-top:1px solid var(--line);}
+  .res{display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); align-items:flex-start;}
+  .res .ic{flex:none; width:36px; height:36px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center;}
+  .res h3{font-size:15.5px;}
+  .res p{font-size:14px; color:var(--ink-600); margin:4px 0 0; line-height:1.5;}
+  .outcomes{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px;}
+  .outcome{background:var(--ink); color:#fff; border-radius:var(--r-m); padding:16px;}
+  .outcome b{display:block; font-size:15px;}
+  .outcome span{display:block; font-size:13px; opacity:.72; margin-top:4px; line-height:1.45;}
+  .faq{margin-top:20px; border-top:1px solid var(--line);}
   .faq details{border-bottom:1px solid var(--line);}
-  .faq summary{list-style:none; cursor:pointer; padding:18px 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-weight:700; font-size:15.5px;}
+  .faq summary{list-style:none; cursor:pointer; padding:16px 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-weight:700; font-size:15px;}
   .faq summary::-webkit-details-marker{display:none;}
-  .faq summary .pm{flex:none; width:26px; height:26px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; transition:transform .2s;}
-  .faq summary .pm svg{width:12px; height:12px; stroke-width:2.2;}
-  .faq details[open] summary .pm{transform:rotate(45deg);}
-  .faq details p{padding:0 42px 18px 0; font-size:14.5px;}
-
-  /* contact */
-  .contactgrid{display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:36px; align-items:start;}
-  .field{margin-bottom:16px;}
-  .field label{display:block; font-size:12.5px; font-weight:700; color:var(--ink-600); margin-bottom:6px;}
-  .field input, .field textarea{width:100%; border:1.5px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:var(--r-s); padding:12px 13px; font-size:16px; font-family:inherit;}
-  .field input:focus, .field textarea:focus{outline:2px solid var(--ink); outline-offset:1px;}
-  .field textarea{resize:vertical; min-height:90px; line-height:1.45;}
-  .req{color:var(--ink-400);}
-  #leadForm .btn{width:100%; margin-top:4px;}
-  .contactside .item{display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--line); align-items:center;}
-  .contactside .item:first-child{border-top:none;}
-  .contactside .ic{flex:none; width:34px; height:34px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center;}
-  .contactside .ic svg{width:17px; height:17px;}
-  .contactside a{text-decoration:none; font-weight:600; font-size:14.5px; word-break:break-all;}
-  .sidecard{margin-top:18px; border:1.5px solid var(--ink); border-radius:var(--r-m); padding:18px;}
-  .sidecard h3{font-size:15px;}
-  .sidecard p{font-size:13.5px; margin-top:6px;}
-  .sidecard a{display:inline-block; margin-top:12px; font-weight:700; font-size:14px;}
-  .helper{font-size:12.5px; color:var(--ink-400); margin-top:6px;}
-  .formstate{display:none; text-align:center; padding:40px 10px;}
-  .formstate.show{display:block;}
-  .formstate .big{width:52px; height:52px; border-radius:50%; border:2px solid var(--ink); display:flex; align-items:center; justify-content:center; margin:0 auto 14px;}
-  #leadForm.hidden{display:none;}
-
-  /* footer */
-  footer{padding:36px 0 44px; border-top:1px solid var(--line);}
-  footer .wrap{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px;}
-  footer .fbrand{display:flex; align-items:center; gap:10px; text-decoration:none;}
-  footer .fbrand img{height:26px; width:auto;}
-  footer .fbrand span{font-weight:800; font-size:14px;}
-  footer .flinks{display:flex; gap:18px; flex-wrap:wrap;}
-  footer .flinks a{font-size:13px; font-weight:600; color:var(--ink-600); text-decoration:none;}
-  footer .fnote{font-size:12px; color:var(--ink-400); width:100%;}
-
-  /* sticky mobile CTA */
+  .faq .pm{flex:none; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; transition:transform .2s;}
+  .faq .pm .ico{width:11px; height:11px; stroke-width:2.4;}
+  .faq details[open] .pm{transform:rotate(45deg);}
+  .faq details p{margin:0; padding:0 36px 16px 0; font-size:14px; color:var(--ink-600); line-height:1.55;}
+  .field{margin-top:14px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--ink-600); margin-bottom:6px;}
+  .field input, .field textarea{width:100%; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:var(--r-s); padding:11px 12px; min-height:50px; font-size:16px; font-family:inherit;}
+  .field textarea{min-height:90px; resize:vertical; line-height:1.45;}
+  .field input:focus, .field textarea:focus{outline:none; border-color:var(--ink);}
+  .contactline{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:16px; font-size:14px;}
+  .contactline a{color:var(--ink); font-weight:600;}
+  .foot{margin-top:48px; padding-top:22px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ink-400);}
+  .foot .brand{font-size:13.5px;}
+  .foot .brand img{height:22px;}
   .mcta{display:none;}
   @media (max-width:760px){
-    .mcta{display:flex; position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); z-index:30; transform:translateY(140%); transition:transform .25s ease; box-shadow:0 8px 24px rgba(0,0,0,.18);}
-    .mcta.show{transform:none;}
-    .mcta .btn{width:100%;}
+    .mcta{display:block; position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); z-index:30; transform:translateY(160%); transition:transform .25s ease;}
+    .mcta .btn{width:100%; box-shadow:0 8px 24px rgba(0,0,0,.2);}
+    body[data-step="landing"] .mcta.show{transform:none;}
+    body[data-step="landing"] .shell{padding-bottom:96px;}
+  }
+  @media (max-width:560px){
+    .steps{grid-template-columns:1fr;}
+    .outcomes{grid-template-columns:1fr;}
+    .sec h2{font-size:24px;}
+  }
+  .toplink:hover{color:var(--ink);}
+  .hero{position:relative;}
+  .hero h1{font-size:34px; line-height:1.12;}
+  @media (max-width:460px){ .hero h1{font-size:29px;} }
+  .trust{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:14px; font-size:13px; color:var(--ink-600);}
+  .trust span{display:inline-flex; align-items:center; gap:6px;}
+  .trust svg, .perks svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex:none;}
+  .card{border:1.5px solid var(--ink); border-radius:var(--r-l); padding:20px 20px 18px; margin-top:18px; background:var(--surface);}
+  .perks{list-style:none; padding:0; margin:12px 0 0;}
+  .perks li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink-600); margin-top:8px; line-height:1.45;}
+  .perks li svg{margin-top:3px; color:var(--ink);}
+  .after{display:flex; justify-content:center; gap:6px 20px; flex-wrap:wrap; margin-top:12px;}
+  .eyebrow{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-400);}
+  .lead{color:var(--ink-600); font-size:16px; margin:10px 0 0;}
+  .muted{color:var(--ink-400); font-size:13px;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-weight:600; border-radius:var(--r-m); padding:12px 20px; min-height:50px; transition:background .15s, opacity .15s;}
+  .btn:hover{background:var(--surface-2);}
+  .btn-primary{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .btn-primary:hover{background:var(--ink); opacity:.86;}
+  .btn:disabled{opacity:.35; cursor:not-allowed;}
+  .btn-text{border:none; background:none; color:var(--ink-600); padding:8px 2px; min-height:auto; font-weight:600; font-size:14px;}
+  .btn-text:hover{background:none; color:var(--ink);}
+  a.btn-text{text-decoration:none;}
+  .cta{display:flex; justify-content:center; margin-top:26px;}
+  .cta .btn{min-width:300px;}
+  @media (max-width:460px){ .cta .btn{width:100%; min-width:0;} }
+
+  /* questions */
+  .progress{height:3px; background:var(--line); border-radius:3px; overflow:hidden; margin-bottom:18px;}
+  .progress i{display:block; height:3px; background:var(--ink); transition:width .25s ease;}
+  .qhead{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+  .qtext{font-size:23px; font-weight:800; line-height:1.3; margin:8px 0 16px;}
+  .opt{display:block; position:relative; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:var(--r-m); padding:15px 16px 15px 50px; margin-top:10px; font-size:16px; line-height:1.4; transition:border-color .12s, background .12s, transform .12s, box-shadow .12s;}
+  .opt::before{content:""; position:absolute; left:17px; top:50%; width:18px; height:18px; margin-top:-9px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface); box-sizing:border-box;}
+  .opt:hover{border-color:var(--ink); box-shadow:0 2px 0 var(--ink);}
+  .opt:active{transform:translateY(1px); box-shadow:none;}
+  .opt.on{border-color:var(--ink); background:var(--ink); color:var(--paper); font-weight:600;}
+  .opt.on::before{border-color:var(--paper); background:radial-gradient(circle, var(--paper) 0 4px, transparent 4.5px);}
+  .opt b{display:block; font-size:16px;}
+  .opt span{display:block; font-size:13px; color:var(--ink-600); margin-top:2px;}
+  .opt.on span{color:var(--paper); opacity:.75;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:9px 15px; font-size:14.5px; font-weight:500;}
+  .chip.on{border-color:var(--ink); background:var(--ink); color:var(--paper);}
+  .sublab{font-size:12px; font-weight:600; color:var(--ink-400); text-transform:uppercase; letter-spacing:.05em; margin:20px 0 8px;}
+  label.f{display:block; font-size:13px; font-weight:600; color:var(--ink-600); margin:16px 0 6px;}
+  input.t{width:100%; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:var(--r-s); padding:11px 12px; min-height:50px;}
+  input.t:focus{outline:none; border-color:var(--ink);}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:460px){ .two{grid-template-columns:1fr;} }
+  .err{color:var(--bad); font-size:13px; margin-top:6px;}
+
+  /* report */
+  .report-head{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:10px;}
+  .level{display:flex; align-items:center; gap:14px; margin-top:18px;}
+  .meter{display:flex; gap:4px; flex:none;}
+  .meter i{width:26px; height:8px; border-radius:2px; background:var(--line);}
+  .meter i.on{background:var(--ink);}
+  .level .lv{font-size:26px; font-weight:800; line-height:1.2;}
+  @media (max-width:460px){ .level .lv{font-size:22px;} }
+  .finding{display:flex; gap:10px; align-items:flex-start; margin-top:12px; font-size:15.5px; line-height:1.45;}
+  .finding .dot{margin-top:7px;}
+  .finding b{font-weight:700;}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:14px; font-size:13px; color:var(--ink-600);}
+  .legend span{display:inline-flex; align-items:center; gap:7px;}
+  .dot{width:9px; height:9px; border-radius:50%; flex:none; display:inline-block; background:var(--ink-400);}
+  .dot.bad{background:var(--bad);} .dot.warn{background:var(--warn);}
+  .dot.ok{background:none; border:1.5px solid var(--ink-400);}
+  .sample-tag{display:inline-block; font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--ink); border-radius:4px; padding:2px 7px;}
+
+  /* hierarchy board */
+  .board{--bw:min(calc(100vw - 32px), 1240px); width:var(--bw); margin:20px 0 0 calc((100% - var(--bw)) / 2);
+    border:1px solid var(--line); border-radius:var(--r-l); padding:26px 18px;
+    background-color:var(--paper); background-image:radial-gradient(var(--dot) 1.2px, transparent 1.2px); background-size:18px 18px;}
+  .n{background:var(--surface); border:1.5px solid var(--line-strong); border-radius:var(--r-s); padding:9px 11px; position:relative;}
+  .n .t1{font-weight:700; font-size:13.5px; line-height:1.25;}
+  .n .t2{font-size:11.5px; color:var(--ink-400); font-weight:600; margin-top:3px; line-height:1.3;}
+  .n.root{background:var(--ink); border-color:var(--ink); color:var(--paper); border-radius:999px; padding:11px 22px; text-align:center;}
+  .n.root .t1{font-size:15px;} .n.root .t2{color:var(--paper); opacity:.65;}
+  .n.dept{border-color:var(--ink); border-radius:var(--r-m); text-align:center; padding:9px 14px;}
+  .n.dept .t1{text-transform:uppercase; letter-spacing:.05em; font-size:12.5px;}
+  .n.area.s-person{border-color:var(--warn);} .n.area.s-person .t2{color:var(--warn);}
+  .n.area.s-missing{border-color:var(--bad);} .n.area.s-missing .t2{color:var(--bad);}
+  .n.leaf{border-width:1px; border-color:var(--line);}
+  .n.leaf .t2{font-size:12px; color:var(--ink-600); font-weight:400; margin:0;}
+  .cnt .bad{color:var(--bad);} .cnt .warn{color:var(--warn);}
+
+  .hwrap{position:relative; overflow:hidden;}
+  .ht{position:relative; width:1134px; display:grid; grid-template-columns:repeat(7,150px); column-gap:14px; transform-origin:0 0;}
+  .ht svg.wires{position:absolute; left:0; top:0; overflow:visible; pointer-events:none;}
+  .ht .wires path{fill:none; stroke:var(--line-strong); stroke-width:1.5;}
+  .ht .rootcell{grid-column:1 / -1; display:flex; justify-content:center; margin-bottom:46px;}
+  .ht .deptcell{display:flex; justify-content:center; margin-bottom:46px;}
+  .ht .deptcell .n{min-width:140px; max-width:100%;}
+  .ht .areacell{display:flex; flex-direction:column;}
+  .ht .leafwrap{margin-left:14px; position:relative; padding-top:12px;}
+  .ht .leafwrap::before{content:""; position:absolute; left:-9px; top:0; height:30px; width:9px; border-left:1.5px solid var(--line-strong); border-bottom:1.5px solid var(--line-strong); border-bottom-left-radius:6px;}
+
+  .vt .kids{margin-left:13px;}
+  .vt .item{position:relative; padding:10px 0 0 22px;}
+  .vt .item::before{content:""; position:absolute; left:0; top:0; height:30px; width:16px; border-left:1.5px solid var(--line-strong); border-bottom:1.5px solid var(--line-strong); border-bottom-left-radius:8px;}
+  .vt .item:not(:last-child)::after{content:""; position:absolute; left:0; top:30px; bottom:0; border-left:1.5px solid var(--line-strong);}
+  .vt .n.root, .vt .n.dept{display:inline-block; text-align:left;}
+  .vt .n.area{display:inline-block; min-width:220px; max-width:100%;}
+  .vt .n.leaf{display:inline-block; max-width:100%;}
+
+  .done-ic{width:52px; height:52px; border-radius:50%; border:2px solid var(--ink); display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+  .fine{font-size:12px; color:var(--ink-400); margin-top:32px; text-align:center;}
+  .fade{animation:fade .22s ease;}
+  .fixcard{margin-top:16px; background:var(--ink); color:#fff; border-radius:var(--r-l); padding:18px 18px 16px;}
+  .fixcard .eyebrow{color:#fff; opacity:.7;}
+  .fixtext{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:21px; font-weight:700; line-height:1.25; margin-top:8px;}
+  .fixnote{font-size:13px; opacity:.7; margin-top:10px;}
+  .printonly{display:none;}
+  @media print{
+    @page{ margin:12mm; }
+    html, body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; background:#fff; }
+    .top, .fine, .site, .mcta, .after, #app .card, #app .cta{ display:none !important; }
+    .shell{ padding:0; min-height:0; max-width:none; }
+    .printonly{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; border-bottom:1.5px solid #000; padding-bottom:10px; margin-bottom:14px; font-size:12px; color:#4B4B4B; }
+    .board{ width:auto !important; margin:14px 0 0 !important; box-shadow:none !important; break-inside:auto; }
+    .vt .item, .n{ break-inside:avoid; }
+    .fade{ animation:none; }
   }
 
-  @media (max-width:760px){
-    .hero{padding:48px 0 40px;}
-    .hero h1{font-size:34px;}
-    .watermark{right:-110px; top:10px; height:360px; opacity:.045;}
-    .herobtns .btn{flex:1 1 100%;}
-    .herostrip{grid-template-columns:1fr; }
-    .herostrip div, .herostrip div + div{border-right:none; padding:14px 0 0; }
-    .herostrip div + div{border-top:1px solid var(--line); margin-top:14px;}
-    .signs{grid-template-columns:1fr;}
-    .gets{grid-template-columns:1fr 1fr; row-gap:22px;}
-    .mapcard{flex-direction:column; align-items:flex-start; gap:22px; padding:26px 20px;}
-    .mapcard .btn{width:100%;}
-    .contactgrid{grid-template-columns:1fr; gap:8px;}
-    .contactside{margin-top:8px;}
-    .navlinks a:not(.navcta){display:none;}
-    .sectitle{font-size:26px;}
-    section{padding:48px 0;}
-    footer{padding-bottom:96px;}
-  }
+  /* ---- Type: Barlow Semi Condensed for headings and labels (echoes the logo), Inter for reading ---- */
+  :root{ --disp:'Barlow Semi Condensed','Inter',sans-serif; }
+  h1, h2, h3, .qtext, .level .lv, .showtitle, .showlevel, .outcome b, .brand, .n .t1{font-family:var(--disp); letter-spacing:0;}
+  h1{font-weight:800;} h2, .qtext{font-weight:700;} h3{font-weight:700;}
+  .hero h1{font-size:46px; line-height:1.02; text-transform:none;}
+  @media (max-width:460px){ .hero h1{font-size:38px;} }
+  .sec h2{font-size:34px; line-height:1.08;}
+  @media (max-width:560px){ .sec h2{font-size:30px;} }
+  .qtext{font-size:28px; line-height:1.15;}
+  .level .lv{font-size:32px; line-height:1.05;}
+  .step h3, .res h3{font-size:18px;}
+  .outcome b{font-size:18px;}
+  .brand{font-size:17px; font-weight:700;}
+  .eyebrow, .sample-tag{font-family:var(--disp); font-size:13px; font-weight:600; letter-spacing:.16em;}
+  .n .t1{font-size:15px; font-weight:700;}
+  .n.dept .t1{font-size:13.5px; letter-spacing:.1em;}
+  .btn{font-weight:600; letter-spacing:.005em;}
+
+  /* ---- The System Map spotlight on the opening screen ---- */
+  body[data-step="landing"] .hero{padding:8px 0 4px;}
+  .showcase{position:relative; margin-top:34px; padding:22px 0 26px; isolation:isolate;}
+  .showcase::before{content:""; position:absolute; z-index:-1; top:0; bottom:0; left:50%; width:100vw; margin-left:-50vw;
+    background-color:#FAFAFA; background-image:radial-gradient(#D6D6D6 1.2px, transparent 1.2px); background-size:18px 18px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .showhead{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+  .showhead > *{white-space:nowrap;}
+  .sample-tag{background:var(--ink); color:#fff; border-color:var(--ink); border-radius:999px; padding:4px 11px 3px;}
+  .showtitle{font-size:30px; font-weight:800; line-height:1.05; margin-top:14px;}
+  .showlevel{display:flex; align-items:center; gap:10px; font-size:17px; font-weight:600; margin-top:6px;}
+  .showlevel .meter i{width:20px; height:7px;}
+  .showcase .board{border:1.5px solid var(--ink); background-color:#fff; box-shadow:0 18px 40px -18px rgba(0,0,0,.28);}
+  .showfoot{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-top:18px;}
+  .showfoot span{font-family:var(--disp); font-size:18px; font-weight:600;}
+  @media (max-width:460px){ .showfoot .btn{width:100%;} .showtitle{font-size:26px;} }
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
 </style>
 </head>
 <body>
+<div class="shell">
+  <div class="top"><a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room</a>
+    <div class="toplinks"><a class="toplink hide-sm" href="#how" data-sec>How we work</a><a class="toplink toppill" href="#contact" data-sec>Contact</a></div></div>
+  <div id="app"></div>
+  <div class="fine">Answers are saved anonymously. Your number is only saved if you book a call. <a href="privacy.html" style="color:inherit;">Privacy</a></div>
 
-<div class="nav">
-  <div class="wrap">
-    <a class="navbrand" href="#top" aria-label="Diagnosis Room — home">
-      <img src="assets/dr-mark.png" alt="" width="26" height="30">
-      <span>Diagnosis Room</span>
-    </a>
-    <div class="navlinks">
-      <a href="#work">How we think</a>
-      <a href="#how">How it works</a>
-      <a href="#faq">FAQ</a>
-      <a href="system-map/">System Map</a>
-      <a href="#contact" class="navcta">Get in touch</a>
+  <div class="site">
+    <section class="sec" id="how">
+      <div class="eyebrow">How we do it</div>
+      <h2>We don't fix problems. We fix the system that keeps producing them.</h2>
+      <p class="sub">The map above shows where your system breaks. This is the loop we run with you until it holds on its own, without you standing over it.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>You reach out</h3><p>Tell us what's not working. We listen for the pattern behind it, not just the complaint, and book a visit.</p></div>
+        <div class="step"><div class="num">2</div><h3>We observe the system</h3><p>We walk your floor against a full checklist, not to catch people, but to see how the real system behaves under pressure.</p></div>
+        <div class="step"><div class="num">3</div><h3>We trace it to numbers</h3><p>Every observation becomes a number (cost, wastage, cycle time), so the system's behaviour is visible, not a feeling.</p></div>
+        <div class="step"><div class="num">4</div><h3>We redesign the structure</h3><p>A prioritised plan that targets root causes, not symptoms: the fewest changes that fix the most leaks.</p></div>
+        <div class="step"><div class="num">5</div><h3>We install it with your team</h3><p>We build the SOPs and habits alongside your team, and stay until the new system is actually running.</p></div>
+        <div class="step"><div class="num">6</div><h3>We monitor the drift</h3><p>Every system drifts. Regular re-checks catch it early, so we tune it instead of rebuilding it.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="results">
+      <div class="eyebrow">What it results in</div>
+      <h2>Not advice. A system you can see, run and measure.</h2>
+      <div class="results">
+        <div class="res"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M7 5H5v15h14V5h-2"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>A scored floor audit</h3><p>How your restaurant actually runs, observed on the floor and turned into numbers.</p></div></div>
+        <div class="res"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></div><div><h3>A root-cause plan</h3><p>The fewest changes that fix the most leaks, in priority order.</p></div></div>
+        <div class="res"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h7M9 14h7M9 18h4"/></svg></div><div><h3>SOPs your team runs</h3><p>Written with your team, so the fix lives in the structure, not in one person's memory.</p></div></div>
+        <div class="res"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 15l4-5 3 3 5-6"/></svg></div><div><h3>Re-checks that catch drift</h3><p>Regular check-ins and a dashboard that show whether the system is holding or slipping.</p></div></div>
+      </div>
+      <div class="outcomes">
+        <div class="outcome"><b>Runs without one person</b><span>A week off for the chef or manager stops being a crisis.</span></div>
+        <div class="outcome"><b>Leaks you can see</b><span>Wastage and cost show up in numbers, not months later.</span></div>
+        <div class="outcome"><b>Fixes that stay fixed</b><span>The same complaints stop coming back.</span></div>
+      </div>
+      <div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary js-begin">Check my restaurant · 60 seconds</button></div>
+    </section>
+
+    <section class="sec" id="faq">
+      <div class="eyebrow">Questions owners ask</div>
+      <h2>Before you get in touch</h2>
+      <div class="faq">
+        <details><summary>Is the first conversation really free?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>Yes. The first call is to understand what's going on in your restaurant and whether we can help. No commitment, no charge.</p></details>
+        <details><summary>Do I have to share my sales figures?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>Not to get started. The System Map and the first call are about how your restaurant runs, not what it earns. Numbers come in later, when we trace problems to what they cost you.</p></details>
+        <details><summary>Is this about catching my staff out?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>No. We observe the floor to see how the system behaves under pressure. When the same mistake keeps happening, it's usually the system producing it, not the person.</p></details>
+        <details><summary>Is this a one-time report?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>No. We run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it.</p></details>
+        <details><summary>What kind of restaurants do you work with?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>We design systems for dine-in restaurants and QSRs. Not sure if we're a fit? Take the 60-second check above, or send us a message below.</p></details>
+      </div>
+    </section>
+
+    <section class="sec" id="contact">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Rather just talk to us?</h2>
+      <p class="sub">Tell us what's not working and we'll reach out to set up a first conversation. No commitment, no charge.</p>
+      <form id="leadForm" novalidate>
+        <div class="two">
+          <div class="field"><label for="ldName">Your name *</label><input id="ldName" type="text" autocomplete="name" maxlength="80"></div>
+          <div class="field"><label for="ldPhone">Phone / WhatsApp *</label><input id="ldPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="10-digit mobile"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="ldBiz">Restaurant name *</label><input id="ldBiz" type="text" autocomplete="organization" maxlength="80"></div>
+          <div class="field"><label for="ldLoc">City / area</label><input id="ldLoc" type="text" autocomplete="address-level2" maxlength="80"></div>
+        </div>
+        <div class="field"><label for="ldEmail">Email (optional)</label><input id="ldEmail" type="email" autocomplete="email" maxlength="120"></div>
+        <div class="field"><label for="ldMsg">What are you looking for?</label><textarea id="ldMsg" maxlength="1000" placeholder="e.g. Tickets take too long at peak — not sure if it's staffing or the system"></textarea></div>
+        <div class="err" id="ldError"></div>
+        <div class="cta" style="justify-content:flex-start; margin-top:18px;"><button type="submit" class="btn btn-primary" id="ldSubmit">Send inquiry</button></div>
+        <p class="muted" style="margin-top:12px;">We only use this to get in touch about your inquiry. <a href="privacy.html" style="color:inherit;">Privacy</a></p>
+      </form>
+      <div id="ldThanks" style="display:none; margin-top:20px;" class="card">
+        <div style="font-size:18px; font-weight:800;">Thanks, we've got it.</div>
+        <p class="lead" style="font-size:15px;">We'll reach out within one business day.</p>
+      </div>
+   </section>
+
+    <div class="foot">
+      <a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="19" height="22">Diagnosis Room</a>
+      <span>© <span id="fyear"></span> Diagnosis Room · Systems consulting for restaurants · <a href="privacy.html" style="color:inherit;">Privacy</a></span>
     </div>
   </div>
 </div>
-
-<div id="top"></div>
-<section class="hero">
-  <div class="wrap">
-    <img class="watermark" src="assets/dr-mark.png" alt="" aria-hidden="true">
-    <div class="eyebrow">A systems consultant for restaurants</div>
-    <h1>Your floor isn't broken. The system running it is.</h1>
-    <p class="lede">Wastage, slow tickets, inconsistent quality — these aren't isolated problems, they're outputs of a system nobody designed on purpose. We find that system, redesign it, and make sure it holds without you standing over it.</p>
-    <div class="herobtns">
-      <a class="btn btn-primary" href="system-map/">Check your restaurant · 60 seconds</a>
-      <a class="btn btn-ghost" href="#contact">Get in touch</a>
-    </div>
-    <div class="trust">
-      <span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Free</span>
-      <span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>9 questions</span>
-      <span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>No sales figures asked</span>
-    </div>
-    <div class="herostrip">
-      <div><div class="v mono">Root cause</div><div class="k">Every symptom traced back to the system producing it</div></div>
-      <div><div class="v mono">6-step loop</div><div class="k">Run with you until it holds — not a report you file away</div></div>
-      <div><div class="v mono">Dine‑in &amp; QSR</div><div class="k">Formats we design systems for</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="signs" class="bordered">
-  <div class="wrap">
-    <div class="eyebrow">Sound familiar?</div>
-    <h2 class="sectitle">If any of these happen in your restaurant, it's a system problem.</h2>
-    <div class="signs">
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>Food cost moves every month and nobody can say why.</p></div>
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>Everything slows down the day your head chef is off.</p></div>
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>The same complaints come back after you've already "fixed" them.</p></div>
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>You can't take a week off without the phone ringing.</p></div>
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>New staff take weeks to learn "how we do things here".</p></div>
-      <div class="sign"><span class="x"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><p>Stock runs out mid-service — or piles up and goes to waste.</p></div>
-    </div>
-    <div class="signsend">
-      <p>These aren't six separate problems. They come from one system — and a system can be redesigned.</p>
-      <a class="btn btn-ghost" href="system-map/">See where yours breaks →</a>
-    </div>
-  </div>
-</section>
-
-<section id="work" class="bordered">
-  <div class="wrap">
-    <div class="eyebrow">How we think</div>
-    <h2 class="sectitle">We don't fix problems. We fix the system that keeps producing them.</h2>
-    <p class="secsub">A symptom treated once comes back. A system redesigned holds — on its own, without you in the room.</p>
-    <div class="fchart">
-      <div class="fnode">
-        <div class="fic"><svg class="ico" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20v-4h-4"/></svg></div>
-        <div><h3>See the system</h3>
-        <p>A repeating audit isn't about catching mistakes once — it's how we observe the real system at work, not the one written on paper.</p></div>
-      </div>
-      <div class="farrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="fnode">
-        <div class="fic"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></div>
-        <div><h3>Map the structure</h3>
-        <p>Every leak has a structural cause. We map how people, process and pressure interact to quietly produce the numbers you're seeing.</p></div>
-      </div>
-      <div class="farrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="fnode">
-        <div class="fic"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h7M9 14h7M9 18h4"/></svg></div>
-        <div><h3>Encode it</h3>
-        <p>The redesigned system gets written down as SOPs your team can run without you — so the fix depends on structure, not memory.</p></div>
-      </div>
-      <div class="farrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="fnode">
-        <div class="fic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 15l4-5 3 3 5-6"/></svg></div>
-        <div><h3>Watch it hold</h3>
-        <p>A dashboard shows whether the system is holding or drifting — so you catch slippage in numbers, not months later in complaints.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how" class="bordered">
-  <div class="wrap">
-    <div class="eyebrow">The systems loop</div>
-    <h2 class="sectitle">One loop. Run until the system holds on its own.</h2>
-    <p class="secsub">This isn't a one-time report. It's a loop we run with you until the system runs itself.</p>
-    <div class="pchart">
-      <div class="pnode"><div class="pbadge">1</div><div><h3>You reach out</h3><p>Tell us what's not working. We listen for the pattern behind it, not just the complaint, and book a visit.</p></div></div>
-      <div class="parrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="pnode"><div class="pbadge">2</div><div><h3>We observe the system</h3><p>We walk your floor against a full checklist — not to catch people, but to see how the real system behaves under pressure.</p></div></div>
-      <div class="parrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="pnode"><div class="pbadge">3</div><div><h3>We trace it to numbers</h3><p>Every observation becomes a number — cost, wastage, cycle time — so the system's behaviour is visible, not a feeling.</p></div></div>
-      <div class="parrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="pnode"><div class="pbadge">4</div><div><h3>We redesign the structure</h3><p>A prioritised plan that targets root causes, not symptoms — the fewest changes that fix the most leaks.</p></div></div>
-      <div class="parrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="pnode"><div class="pbadge">5</div><div><h3>We install it with your team</h3><p>We build the SOPs and habits alongside your team, and stay until the new system is actually running — not just written down.</p></div></div>
-      <div class="parrow" aria-hidden="true"><svg viewBox="0 0 18 26"><line x1="9" y1="0" x2="9" y2="18" stroke="#000" stroke-width="1.6"/><path d="M3 13 L9 20 L15 13" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="pnode"><div class="pbadge">6</div><div><h3>We monitor the drift</h3><p>Every system drifts. Regular re-checks catch it early, so we tune it — not rebuild it from scratch.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="gets" class="bordered">
-  <div class="wrap">
-    <div class="eyebrow">What you walk away with</div>
-    <h2 class="sectitle">Not advice. A system you can see, run and measure.</h2>
-    <div class="gets">
-      <div class="get"><div class="n">01</div><h3>A scored floor audit</h3><p>How your restaurant actually runs, observed on the floor and turned into numbers.</p></div>
-      <div class="get"><div class="n">02</div><h3>A root-cause plan</h3><p>The fewest changes that fix the most leaks, in priority order.</p></div>
-      <div class="get"><div class="n">03</div><h3>SOPs your team runs</h3><p>Written with your team, so the fix lives in the structure, not in one person.</p></div>
-      <div class="get"><div class="n">04</div><h3>Re-checks that catch drift</h3><p>Regular check-ins and a dashboard that show whether it's holding.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="map" class="bordered">
-  <div class="wrap">
-    <div class="mapcard">
-      <div>
-        <div class="eyebrow">Free · 60 seconds · no sales figures</div>
-        <h2 class="sectitle">Not sure where your system breaks?</h2>
-        <p class="secsub">Answer 9 quick questions and get a map of your restaurant, from supply to management, showing which parts run on a system and which stop when one person is away.</p>
-        <div class="mapmini" aria-hidden="true">
-          <span><i style="border:1.5px solid #8a8a8a;"></i>Systemized</span>
-          <span><i style="background:#B26B00;"></i>Depends on a person</span>
-          <span><i style="background:#C1392B;"></i>Missing</span>
-        </div>
-      </div>
-      <a class="btn btn-primary" href="system-map/">Get my System Map</a>
-    </div>
-  </div>
-</section>
-
-<section id="faq" class="bordered">
-  <div class="wrap">
-    <div class="eyebrow">Questions owners ask</div>
-    <h2 class="sectitle">Before you get in touch</h2>
-    <div class="faq">
-      <details><summary>Is the first conversation really free?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <p>Yes. The first call is to understand what's going on in your restaurant and whether we can help. No commitment, no charge.</p></details>
-      <details><summary>Do I have to share my sales figures?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <p>Not to get started. The System Map and the first call are about how your restaurant runs, not what it earns. Numbers come in later, when we trace problems to what they cost you.</p></details>
-      <details><summary>Is this about catching my staff out?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <p>No. We observe the floor to see how the system behaves under pressure. When the same mistake keeps happening, it's usually the system producing it, not the person.</p></details>
-      <details><summary>Is this a one-time report?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <p>No. We run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it.</p></details>
-      <details><summary>What kind of restaurants do you work with?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <p>We design systems for dine-in restaurants and QSRs. Not sure if we're a fit? Take the 60-second System Map or send us a message.</p></details>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="eyebrow">Get in touch</div>
-    <h2 class="sectitle">Tell us what the system behind your numbers looks like</h2>
-    <p class="secsub">Fill this in and we'll reach out to schedule a first conversation — no commitment, no charge.</p>
-    <div class="contactgrid">
-      <div>
-        <form id="leadForm" novalidate>
-          <div class="field"><label for="ldName">Your name <span class="req">*</span></label><input id="ldName" type="text" required autocomplete="name" placeholder="e.g. Priya Sharma"></div>
-          <div class="field"><label for="ldBiz">Restaurant / business name <span class="req">*</span></label><input id="ldBiz" type="text" required autocomplete="organization" placeholder="e.g. Northside Grill"></div>
-          <div class="field"><label for="ldLoc">Location</label><input id="ldLoc" type="text" autocomplete="address-level2" placeholder="City / area"></div>
-          <div class="field"><label for="ldPhone">Phone / WhatsApp <span class="req">*</span></label><input id="ldPhone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="e.g. 98765 43210"></div>
-          <div class="field"><label for="ldEmail">Email</label><input id="ldEmail" type="email" autocomplete="email" placeholder="Optional"></div>
-          <div class="field"><label for="ldMsg">What are you looking for?</label><textarea id="ldMsg" placeholder="e.g. Tickets take too long at peak — not sure if it's staffing or the system"></textarea></div>
-          <div id="ldError" class="helper" style="color:#b00020;display:none;"></div>
-          <button type="submit" class="btn btn-primary" id="ldSubmit">Send inquiry</button>
-          <div class="helper">We only use this to get in touch about your inquiry.</div>
-        </form>
-        <div class="formstate" id="ldThanks">
-          <div class="big"><svg class="ico" viewBox="0 0 24 24" style="width:24px;height:24px;stroke-width:2.4;"><path d="M5 12l5 5L20 7"/></svg></div>
-          <h3 style="font-size:19px;">Thanks — we've got it.</h3>
-          <p style="margin-top:8px;">We'll reach out within one business day. In the meantime, see where your system breaks with the <a href="system-map/">60-second System Map</a>.</p>
-        </div>
-      </div>
-      <div class="contactside">
-        <div class="item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div><a href="mailto:abhishekand.1111@gmail.com">abhishekand.1111@gmail.com</a><div class="helper" style="margin-top:2px;">Email</div></div></div>
-        <div class="item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><span style="font-weight:600;font-size:14.5px;">Usually replies within 1 business day</span></div></div>
-        <div class="sidecard">
-          <h3>Not ready to talk yet?</h3>
-          <p>Take the 60-second System Map first. You'll see which parts of your restaurant run on a system and which run on one person.</p>
-          <a href="system-map/">Check my restaurant →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <a class="fbrand" href="#top">
-      <img src="assets/dr-mark.png" alt="" width="22" height="26">
-      <span>Diagnosis Room</span>
-    </a>
-    <div class="flinks">
-      <a href="#work">How we think</a>
-      <a href="#how">How it works</a>
-      <a href="system-map/">System Map</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="fnote">© <span id="fyear"></span> Diagnosis Room · Systems consulting for restaurants. All rights reserved.</div>
-  </div>
-</footer>
-
-<div class="mcta" id="mcta"><a class="btn btn-primary" href="system-map/">Check your restaurant · 60 seconds</a></div>
+<div class="mcta" id="mcta"><button class="btn btn-primary js-begin">Check my restaurant · 60 seconds</button></div>
 
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
 <script>
-  firebase.initializeApp({
-    apiKey: "AIzaSyBbEjsvTcWKqQs5pGsSdVYTxWtwKdr3zcU",
-    authDomain: "diahnosis-room.firebaseapp.com",
-    projectId: "diahnosis-room",
-    storageBucket: "diahnosis-room.firebasestorage.app",
-    messagingSenderId: "197732013160",
-    appId: "1:197732013160:web:86f938ffbabb1858fa57dd"
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     CONTENT — edit this block to change what is shown and asked.
+     Everything below the "ENGINE" line works from this data.
+     ===================================================================== */
+
+  var FORMATS = {
+    dinein: { label:'Dine-in restaurant', hint:'Tables, servers, a full kitchen' },
+    qsr:    { label:'QSR / quick service', hint:'Counter or pickup, fast turnaround' },
+    cloud:  { label:'Cloud kitchen',      hint:'Delivery-only, orders through apps' }
+  };
+
+  // The hierarchy: restaurant → department → area. A department name can differ by format.
+  var DEPTS = [
+    { id:'supply',  name:'Supply',     areas:['purchase','storage'] },
+    { id:'kitchen', name:'Kitchen',    areas:['prep','kitchen'] },
+    { id:'front',   name:{ dinein:'Front of house', qsr:'Counter', cloud:'Delivery' }, areas:['service'] },
+    { id:'mgmt',    name:'Management', areas:['cash','review'] }
+  ];
+
+  // One question per area (placeholder wording — to be finalised).
+  // Each option is [level, text]: 0 = nobody handles it, 1 = works because someone remembers, 2 = runs on a system.
+  // Keep options out of level order so there is no obvious "right" position.
+  // An area can have a different name/question per format via byFormat (a string value reuses another format's).
+  var AREAS = [
+    { id:'purchase', name:'Purchase', risk:'Buying isn\'t controlled by stock levels or agreed rates.',
+      fix:'Set a fixed stock level for your top 20 items and order only up to it. Buying stops depending on who noticed what.',
+      q:'How do you decide what to order, and how much?', opts:[
+        [0,'Someone notices we\'re running low and orders'],
+        [2,'Stock is counted and we order up to a fixed level'],
+        [1,'The chef or manager decides from experience'] ]},
+    { id:'storage', name:'Receiving & storage', risk:'Nobody can say what stock you should have on the shelf.',
+      fix:'Count your 20 most expensive items every Monday, on the same sheet, by the same person. Gaps show up in a week.',
+      q:'How do you know what\'s in stock right now?', opts:[
+        [1,'The chef or storekeeper just knows'],
+        [2,'It\'s counted on fixed days and matched against usage'],
+        [0,'We find out when something runs out'] ]},
+    { id:'prep', name:'Prep', risk:'Daily prep isn\'t tied to expected sales, so wastage goes unmeasured.',
+      fix:'Write tomorrow\'s prep list from today\'s sales: how many portions of each main dish you expect to sell.',
+      q:'How is the day\'s prep quantity decided?', opts:[
+        [1,'The chef decides each morning'],
+        [0,'Roughly the same every day'],
+        [2,'A prep list based on expected sales'] ]},
+    { id:'kitchen', name:'Cooking & portions', risk:'Portions aren\'t fixed, so food cost moves with whoever is cooking.',
+      fix:'Put a written recipe card with weights at the station for your top 5 dishes, and weigh every plate for one week.',
+      q:'How is a portion decided in your kitchen?', opts:[
+        [0,'The chef judges by eye'],
+        [1,'We have measurements, but they\'re not always followed'],
+        [2,'Weighed every time against a written recipe'] ]},
+    { id:'service', byFormat:{
+      dinein:{ name:'Floor service', risk:'The floor runs on whoever is directing it that night.',
+        fix:'Give each server a fixed section and a one-page list of the service steps, from greeting to bill.',
+        q:'It\'s a busy Saturday night. How does the floor run?', opts:[
+          [1,'The manager or captain directs everyone as it happens'],
+          [2,'Each server has a fixed section and set steps'],
+          [0,'Staff figure it out as tables come in'] ]},
+      qsr:{ name:'Counter & pickup', risk:'Nobody knows how long orders really take at peak.',
+        fix:'Note order time and handover time for 20 orders at peak. That is your baseline to beat.',
+        q:'How do you know how long an order takes from order to handover?', opts:[
+          [1,'The manager pushes the line when it feels slow'],
+          [0,'We don\'t really track it'],
+          [2,'Order times are tracked against a target'] ]},
+      cloud:{ name:'Packing & dispatch', risk:'Packing depends on memory, which shows up as missing-item refunds.',
+        fix:'Make a packing checklist per dish (items, sauces, cutlery) and tick it before every handover.',
+        q:'How does a packer know what goes into each order?', opts:[
+          [1,'The senior packer knows'],
+          [2,'Each item has a packing standard, checked before handover'],
+          [0,'They pack what\'s on the ticket as best they can'] ]}
+    }},
+    { id:'cash', byFormat:{
+      dinein:{ name:'Billing & cash', risk:'Nobody checks bills and cash against kitchen orders.',
+        fix:'Every night, match kitchen tickets to bills, and let only the manager approve a void.',
+        q:'How do you know every order was billed?', opts:[
+          [2,'Each kitchen ticket is matched to a bill, and voids need approval'],
+          [1,'I check when I\'m there'],
+          [0,'We trust the cashier'] ]},
+      qsr:'dinein',
+      cloud:{ name:'Payouts & offers', risk:'App payouts aren\'t matched against orders, commissions and refunds.',
+        fix:'Once a week, match each app payout against orders, commission and refunds in one sheet.',
+        q:'How do you know app payouts are correct?', opts:[
+          [0,'We accept what the app pays'],
+          [1,'Our accountant looks at it sometimes'],
+          [2,'Each payout is matched against orders, commissions and refunds'] ]}
+    }},
+    { id:'review', name:'Review & people', risk:'Cost problems surface months late, if at all.',
+      fix:'Work out food cost % every month: opening stock + purchases - closing stock, divided by food sales.',
+      q:'How would you know if food cost went up last month?', opts:[
+        [0,'Only when money feels tight'],
+        [2,'Food cost % is worked out every month from purchases and stock'],
+        [1,'Gut feel, or the accountant says so at year end'] ]}
+  ];
+
+  // Last question: the key-person test.
+  var KEY_PEOPLE = [
+    { id:'chef',    label:'Head chef', ask:'If your head chef was away for a week, what would slip?', line:'If your head chef is away for a week' },
+    { id:'manager', label:'Manager',   ask:'If your manager was away for a week, what would slip?',   line:'If your manager is away for a week' },
+    { id:'owner',   label:'Me',        ask:'If you were away for a week, what would slip?',           line:'If you\'re away for a week' }
+  ];
+
+  // "Biggest risk" = the first area in this order that is missing; if none, the first that depends on a person.
+  var RISK_ORDER = ['cash','purchase','kitchen','storage','prep','service','review'];
+
+  // System level from the number of systemized areas (out of 7).
+  var LEVELS = [
+    { min:6, n:3, name:'System-run' },
+    { min:3, n:2, name:'Partly systemized' },
+    { min:0, n:1, name:'Person-run' }
+  ];
+
+  // Sample maps shown on the landing page (one picked at random).
+  var SAMPLES = [
+    { title:'A 60-cover dine-in', format:'dinein', answers:{ purchase:1, storage:1, prep:1, kitchen:0, service:1, cash:0, review:1 }, key:{ person:'chef', areas:['purchase','storage','prep','kitchen'], none:false } },
+    { title:'A 2-outlet QSR',     format:'qsr',    answers:{ purchase:2, storage:1, prep:1, kitchen:2, service:0, cash:1, review:0 }, key:{ person:'manager', areas:['storage','service','cash'], none:false } },
+    { title:'A cloud kitchen on two apps', format:'cloud', answers:{ purchase:1, storage:0, prep:1, kitchen:1, service:1, cash:0, review:0 }, key:{ person:'owner', areas:['purchase','prep','kitchen','service'], none:false } }
+  ];
+
+  // Call booking: time windows (keep the HH:MM start, the app sorts by it).
+  var SLOTS = [ { v:'10:00 – 12:00 (morning)', l:'Morning' }, { v:'12:00 – 16:00 (afternoon)', l:'Afternoon' }, { v:'16:00 – 20:00 (evening)', l:'Evening' } ];
+  var BOOK_DAYS = 6;
+
+  // Your business WhatsApp number (10 digits, no +91). While empty, the "Confirm on WhatsApp" button stays hidden.
+  var WHATSAPP = '';
+
+  /* ============================== ENGINE ============================== */
+
+  var db = null;
+  try{
+    var fbApp = firebase.initializeApp({
+      apiKey: "AIzaSyBbEjsvTcWKqQs5pGsSdVYTxWtwKdr3zcU",
+      authDomain: "diahnosis-room.firebaseapp.com",
+      projectId: "diahnosis-room",
+      storageBucket: "diahnosis-room.firebasestorage.app",
+      messagingSenderId: "197732013160",
+      appId: "1:197732013160:web:86f938ffbabb1858fa57dd"
+    }, 'systemmap');
+    db = fbApp.firestore();
+  }catch(e){ db = null; }
+
+  function areasFor(format){
+    return AREAS.map(function(a){
+      if (!a.byFormat) return a;
+      var v = a.byFormat[format] || a.byFormat.dinein;
+      if (typeof v === 'string') v = a.byFormat[v];
+      return { id:a.id, name:v.name, risk:v.risk, fix:v.fix, q:v.q, opts:v.opts };
+    });
+  }
+  function deptName(d, format){ return typeof d.name==='string' ? d.name : (d.name[format]||d.name.dinein); }
+  function personOf(id){ return KEY_PEOPLE.filter(function(p){ return p.id===id; })[0] || KEY_PEOPLE[0]; }
+  var TOTAL_STEPS = AREAS.length + 2;
+
+  var LS = 'dr_systemmap_v2';
+  function load(){ try{ var v = localStorage.getItem(LS); return v ? JSON.parse(v) : null; }catch(e){ return null; } }
+  function save(){ try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} }
+  function newId(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,10); }
+  function fresh(){ return { step:'landing', format:'', answers:{}, key:{ person:'chef', areas:[], none:false }, mapId:newId(), savedKey:'', booking:{ name:'', phone:'', day:'', slot:'' }, booked:null }; }
+
+  var st = load() || fresh();
+  var sampleIdx = Math.floor(Math.random()*SAMPLES.length);
+  var app = document.getElementById('app');
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function isoDay(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function plural(n, one, many){ return n+' '+(n===1?one:many); }
+
+  // ---- diagnosis ----
+  function diagnose(s){
+    var areas = areasFor(s.format);
+    var person = personOf(s.key.person);
+    var slipped = s.key.none ? [] : s.key.areas;
+    var map = areas.map(function(a){
+      var lv = s.answers[a.id];
+      var base = lv===2 ? 'system' : (lv===1 ? 'person' : 'missing');
+      var hit = slipped.indexOf(a.id) >= 0;
+      var status = (base==='system' && hit) ? 'person' : base;   // the absence test overrides a "system" answer
+      var ans = ''; a.opts.forEach(function(o){ if (o[0]===lv) ans = o[1]; });
+      var dept = ''; DEPTS.forEach(function(d){ if (d.areas.indexOf(a.id)>=0) dept = deptName(d, s.format); });
+      return { id:a.id, name:a.name, dept:dept, status:status, risk:a.risk, fix:a.fix,
+        who: status==='system' ? 'Systemized' : (status==='missing' ? 'Missing' : (hit ? 'Runs on '+(person.id==='owner'?'you':person.label.toLowerCase()) : 'Runs on someone\'s memory')),
+        subs:[{ label:a.name, answer:ans, status:base }] };
+    });
+    var counts = { system:0, person:0, missing:0 };
+    map.forEach(function(m){ counts[m.status]++; });
+    var level = LEVELS.filter(function(l){ return counts.system >= l.min; })[0];
+    var byId = {}; map.forEach(function(m){ byId[m.id] = m; });
+    var risk = null;
+    ['missing','person'].some(function(want){
+      return RISK_ORDER.some(function(id){ if (byId[id] && byId[id].status===want){ risk = byId[id]; return true; } return false; });
+    });
+    var keyLine = slipped.length
+      ? person.line+', '+plural(slipped.length,'area slips','areas slip')+': '+slipped.map(function(id){ return byId[id] ? byId[id].name.toLowerCase() : id; }).join(', ')+'.'
+      : person.line+', nothing slips. That\'s rare.';
+    var headline = 'Level '+level.n+' of 3 · '+level.name+' — '+counts.system+' of '+map.length+' areas run on a system.';
+    return { map:map, counts:counts, level:level, risk:risk, keyLine:keyLine, slipped:slipped.length, headline:headline, format:s.format };
+  }
+
+  // ---- saving (create-only documents; the page never reads anything back) ----
+  function payloadBase(r){
+    return {
+      v:2, mapId:st.mapId, format:st.format,
+      answers:JSON.parse(JSON.stringify(st.answers)),
+      keyPerson:{ person:st.key.person, areas:st.key.none ? [] : st.key.areas.slice(0,10) },
+      map:r.map.map(function(m){ return { id:m.id, name:m.name, dept:m.dept, status:m.status, who:m.who, subs:m.subs }; }),
+      counts:r.counts, level:r.level.n,
+      risk:r.risk ? r.risk.risk : '',
+      headline:(r.headline+' '+r.keyLine).slice(0,300),
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+  }
+  function writeDoc(data){
+    if (!db) return Promise.reject(new Error('offline'));
+    var ref = db.collection('systemMaps').doc(newId());
+    return new Promise(function(resolve, reject){
+      var timer = setTimeout(function(){ reject(new Error('timeout')); }, 15000);
+      ref.set(data).then(function(){ clearTimeout(timer); resolve(); }, function(e){ clearTimeout(timer); reject(e); });
+    });
+  }
+  // Anonymous daily counts (visit → start → finish → book) so the owner can see where people drop off.
+  // Counted once per browser session; skipped when testing locally.
+  function track(ev){
+    if (!db || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+    try{ if (sessionStorage.getItem('dr_t_'+ev)) return; sessionStorage.setItem('dr_t_'+ev, '1'); }catch(e){}
+    var o = {}; o[ev] = firebase.firestore.FieldValue.increment(1);
+    db.collection('smStats').doc(isoDay(new Date())).set(o, { merge:true }).catch(function(){});
+  }
+  function saveMapOnce(r){
+    var k = JSON.stringify([st.format, st.answers, st.key]);
+    if (st.savedKey===k) return;
+    var data = payloadBase(r); data.kind = 'map';
+    writeDoc(data).then(function(){ st.savedKey = k; save(); }, function(){});
+  }
+
+  // ---- hierarchy board ----
+  var DOT = { system:'ok', person:'warn', missing:'bad' };
+  function groupByDept(r){
+    var byId = {}; r.map.forEach(function(m){ byId[m.id] = m; });
+    return DEPTS.map(function(d){ return { name:deptName(d, r.format), areas:d.areas.map(function(a){ return byId[a]; }).filter(Boolean) }; });
+  }
+  function deptCounts(areas){
+    var p = areas.filter(function(a){ return a.status==='person'; }).length;
+    var m = areas.filter(function(a){ return a.status==='missing'; }).length;
+    if (!p && !m) return 'All systemized';
+    return [m ? '<span class="bad">'+m+' missing</span>' : '', p ? '<span class="warn">'+p+' on people</span>' : ''].filter(Boolean).join(' · ');
+  }
+  function rootNode(r, title){
+    return '<div class="n root" data-node="root"><div class="t1">'+esc(title)+'</div><div class="t2">'+esc(FORMATS[r.format].label)+' · '+r.counts.system+' of '+r.map.length+' systemized</div></div>';
+  }
+  function deptNode(g, i){ return '<div class="n dept" data-node="d'+i+'"><div class="t1">'+esc(g.name)+'</div><div class="t2 cnt">'+deptCounts(g.areas)+'</div></div>'; }
+  function areaNode(a, di){ return '<div class="n area s-'+a.status+'" data-node="a'+di+'"><div class="t1">'+esc(a.name)+'</div><div class="t2">'+esc(a.who)+'</div></div>'; }
+  function leafNode(a){ return '<div class="n leaf"><div class="t2">'+esc(a.subs[0].answer)+'</div></div>'; }
+
+  function boardH(r, o){
+    var groups = groupByDept(r);
+    return '<div class="hwrap"><div class="ht"><svg class="wires" aria-hidden="true"></svg>' +
+      '<div class="rootcell">'+rootNode(r, o.title)+'</div>' +
+      groups.map(function(g, i){ return '<div class="deptcell" style="grid-column:span '+g.areas.length+';">'+deptNode(g, i)+'</div>'; }).join('') +
+      groups.map(function(g, i){ return g.areas.map(function(a){
+        return '<div class="areacell">'+areaNode(a, i)+(o.leaves ? '<div class="leafwrap">'+leafNode(a)+'</div>' : '')+'</div>';
+      }).join(''); }).join('') +
+    '</div></div>';
+  }
+  function boardV(r, o){
+    var groups = groupByDept(r);
+    return '<div class="vt">'+rootNode(r, o.title)+'<div class="kids">' +
+      groups.map(function(g, i){
+        return '<div class="item">'+deptNode(g, i)+'<div class="kids">' +
+          g.areas.map(function(a){
+            return '<div class="item">'+areaNode(a, i)+(o.leaves ? '<div class="kids"><div class="item">'+leafNode(a)+'</div></div>' : '')+'</div>';
+          }).join('') + '</div></div>';
+      }).join('') + '</div></div>';
+  }
+  var H_WIDTH = 1134, H_MIN_SCALE = 0.74;
+  function offsetIn(el, root){ var x = 0, y = 0; while (el && el!==root){ x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x:x, y:y }; }
+  var boardSpec = null, boardMode = '', printing = false;
+  // PDFs get the vertical tree, which fits a portrait page.
+  window.addEventListener('beforeprint', function(){ printing = true; boardMode = ''; layoutBoard(); });
+  window.addEventListener('afterprint', function(){ printing = false; boardMode = ''; layoutBoard(); });
+  function layoutBoard(){
+    var board = app.querySelector('.board'); if (!board || !boardSpec) return;
+    var avail = board.clientWidth - 36;
+    var mode = (printing || avail/H_WIDTH < H_MIN_SCALE) ? 'v' : 'h';
+    if (mode!==boardMode || !board.firstChild){ board.innerHTML = mode==='h' ? boardH(boardSpec.r, boardSpec) : boardV(boardSpec.r, boardSpec); boardMode = mode; }
+    if (mode!=='h') return;
+    var wrap = board.querySelector('.hwrap'), ht = board.querySelector('.ht'), svg = ht.querySelector('svg.wires');
+    ht.style.transform = 'none';
+    function pt(node, where){ var o = offsetIn(node, ht); return { x:o.x + node.offsetWidth/2, y: where==='top' ? o.y : o.y + node.offsetHeight }; }
+    function elbow(a, b){ var my = (a.y + b.y)/2; return 'M'+a.x+','+a.y+' V'+my+' H'+b.x+' V'+b.y; }
+    var root = ht.querySelector('[data-node="root"]'), depts = ht.querySelectorAll('.n.dept'), paths = [];
+    for (var i=0; i<depts.length; i++){
+      paths.push(elbow(pt(root,'bottom'), pt(depts[i],'top')));
+      var areas = ht.querySelectorAll('[data-node="a'+i+'"]');
+      for (var j=0; j<areas.length; j++) paths.push(elbow(pt(depts[i],'bottom'), pt(areas[j],'top')));
+    }
+    svg.setAttribute('width', ht.offsetWidth); svg.setAttribute('height', ht.offsetHeight);
+    svg.innerHTML = paths.map(function(d){ return '<path d="'+d+'"/>'; }).join('');
+    var s = Math.min(1, avail/H_WIDTH);
+    ht.style.transform = 'scale('+s+')';
+    ht.style.marginLeft = s===1 ? ((avail-H_WIDTH)/2)+'px' : '0';
+    wrap.style.height = Math.ceil(ht.offsetHeight*s)+'px';
+  }
+  var resizeT = null;
+  window.addEventListener('resize', function(){ clearTimeout(resizeT); resizeT = setTimeout(layoutBoard, 120); });
+
+  function findings(r){
+    var out = '';
+    if (r.risk) out += '<div class="finding"><i class="dot bad"></i><div><b>Biggest risk · '+esc(r.risk.name)+'.</b> '+esc(r.risk.risk)+'</div></div>';
+    out += '<div class="finding"><i class="dot '+(r.slipped ? 'warn' : 'ok')+'"></i><div>'+esc(r.keyLine)+'</div></div>';
+    return out;
+  }
+  // One concrete step for the biggest risk: value up front, the rest is for the call.
+  function firstFix(r){
+    if (!r.risk || !r.risk.fix) return '';
+    return '<div class="fixcard"><div class="eyebrow">Your first fix · '+esc(r.risk.name)+'</div>' +
+      '<div class="fixtext">'+esc(r.risk.fix)+'</div>' +
+      '<div class="fixnote">Start this week. It\'s one step; on the Snapshot Call we map the rest.</div></div>';
+  }
+  function levelBlock(r){
+    return '<div class="level"><div class="meter" aria-hidden="true">'+[1,2,3].map(function(n){ return '<i class="'+(n<=r.level.n?'on':'')+'"></i>'; }).join('')+'</div>' +
+      '<div><div class="eyebrow">System level</div><div class="lv">Level '+r.level.n+' · '+esc(r.level.name)+'</div></div></div>' +
+      '<p class="lead" style="margin-top:8px;">'+r.counts.system+' of '+r.map.length+' areas run on a system. '+
+        (r.counts.person ? plural(r.counts.person,'depends','depend')+' on people' : '')+(r.counts.person && r.counts.missing ? ', and ' : '')+(r.counts.missing ? plural(r.counts.missing,'has','have')+' nobody handling '+(r.counts.missing===1?'it':'them') : '')+(r.counts.person||r.counts.missing ? '.' : '')+'</p>';
+  }
+  function legend(){ return '<div class="legend"><span><i class="dot ok"></i>Systemized</span><span><i class="dot warn"></i>Depends on a person</span><span><i class="dot bad"></i>Missing</span></div>'; }
+
+  // ---- screens ----
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+  var SITE = 'https://abhishekand1111-prog.github.io/';
+  function hasMap(){
+    return !!st.format && areasFor(st.format).every(function(a){ return st.answers[a.id]!==undefined; }) && (st.key.none || st.key.areas.length>0);
+  }
+  var stepIdx = function(){ var m = /^q(\d+)$/.exec(st.step); return m ? parseInt(m[1],10) : -1; };
+
+  function viewLanding(){
+    var smp = SAMPLES[sampleIdx];
+    var r = diagnose({ format:smp.format, answers:smp.answers, key:smp.key });
+    boardSpec = { r:r, title:smp.title, leaves:false };
+    return '<div class="hero"><div class="eyebrow" style="margin-bottom:10px;">Free restaurant check</div><h1>Does your restaurant run on a system, or on people?</h1>' +
+      '<p class="lead">Answer 9 quick questions and get a map of your operation, from supply to management, showing which parts run on a system and which stop when one person is away.</p>' +
+      '<div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary" data-a="begin">Check my restaurant · 60 seconds</button></div>' +
+      (hasMap() ? '<div style="margin-top:10px;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button></div>' : '') +
+      '<div class="trust">'+['Free','9 taps, no typing','No sales figures asked','Anonymous'].map(function(x){ return '<span>'+TICK+esc(x)+'</span>'; }).join('')+'</div></div>' +
+      '<div class="showcase">' +
+        '<div class="showhead"><span class="sample-tag">Sample System Map</span>' +
+          '<button class="btn-text" data-a="sample">Another example →</button></div>' +
+        '<div class="showtitle">'+esc(smp.title)+'</div>' +
+        '<div class="showlevel"><span class="meter" aria-hidden="true">'+[1,2,3].map(function(n){ return '<i class="'+(n<=r.level.n?'on':'')+'"></i>'; }).join('')+'</span>Level '+r.level.n+' of 3 · '+esc(r.level.name)+'</div>' +
+        '<p class="muted" style="margin-top:6px; font-size:14px;">'+esc(r.keyLine)+'</p>' +
+        legend() +
+        '<div class="board" role="img" aria-label="Sample system map"></div>' +
+        '<div class="showfoot"><span>This is what yours will look like, in 60 seconds.</span><button class="btn btn-primary" data-a="begin2">Map my restaurant →</button></div>' +
+      '</div>';
+  }
+
+  function qFrame(i, inner){
+    return '<div class="progress"><i style="width:'+Math.round((i/TOTAL_STEPS)*100)+'%"></i></div>' +
+      '<div class="qhead"><span class="eyebrow">'+(i+1)+' of '+TOTAL_STEPS+'</span>' +
+      '<button class="btn-text" data-a="back">← Back</button></div>' + inner;
+  }
+  function viewQuestion(i){
+    if (i===0){
+      return qFrame(0, '<div class="qtext">What kind of place do you run?</div>' +
+        Object.keys(FORMATS).map(function(k){
+          return '<button class="opt '+(st.format===k?'on':'')+'" data-a="fmt" data-v="'+k+'"><b>'+FORMATS[k].label+'</b><span>'+FORMATS[k].hint+'</span></button>';
+        }).join(''));
+    }
+    var areas = areasFor(st.format);
+    if (i <= areas.length){
+      var a = areas[i-1];
+      var dept = ''; DEPTS.forEach(function(d){ if (d.areas.indexOf(a.id)>=0) dept = deptName(d, st.format); });
+      return qFrame(i, '<div class="eyebrow" style="margin-top:14px; color:var(--ink);">'+esc(dept)+' · '+esc(a.name)+'</div>' +
+        '<div class="qtext">'+esc(a.q)+'</div>' +
+        a.opts.map(function(o){ return '<button class="opt '+(st.answers[a.id]===o[0]?'on':'')+'" data-a="ans" data-k="'+a.id+'" data-v="'+o[0]+'">'+esc(o[1])+'</button>'; }).join(''));
+    }
+    var p = personOf(st.key.person);
+    return qFrame(i, '<div class="eyebrow" style="margin-top:14px; color:var(--ink);">Last one · the key-person test</div>' +
+      '<div class="sublab">Who is most important day to day?</div>' +
+      '<div class="chips">'+KEY_PEOPLE.map(function(k){ return '<button class="chip '+(st.key.person===k.id?'on':'')+'" data-a="kp" data-v="'+k.id+'">'+esc(k.label)+'</button>'; }).join('')+'</div>' +
+      '<div class="qtext" style="margin-top:20px;">'+esc(p.ask)+'</div>' +
+      '<div class="muted" style="margin:-8px 0 12px;">Tap everything that would slip.</div>' +
+      '<div class="chips">'+areas.map(function(a){ return '<button class="chip '+(!st.key.none && st.key.areas.indexOf(a.id)>=0?'on':'')+'" data-a="ka" data-v="'+a.id+'">'+esc(a.name)+'</button>'; }).join('') +
+        '<button class="chip '+(st.key.none?'on':'')+'" data-a="knone">Nothing, it would run fine</button></div>' +
+      '<div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary" data-a="finish" '+((st.key.none||st.key.areas.length)?'':'disabled')+'>See my system map</button></div>');
+  }
+
+  function viewResult(){
+    var r = diagnose(st);
+    saveMapOnce(r);
+    boardSpec = { r:r, title:'Your restaurant', leaves:true };
+    var today = new Date().toLocaleDateString('en-IN',{ day:'numeric', month:'short', year:'numeric' });
+    return '<div class="report-head"><span class="eyebrow" style="color:var(--ink);">Your System Map</span><span class="eyebrow">'+esc(FORMATS[st.format].label)+' · '+esc(today)+'</span></div>' +
+      '<div class="printonly"><img src="assets/dr-logo.png" alt="" height="70"><span>Free System Map · '+esc(SITE.replace('https://',''))+'</span></div>' +
+      levelBlock(r) + findings(r) + firstFix(r) + legend() +
+      '<div class="board" role="img" aria-label="Your restaurant as a hierarchy of departments and areas"></div>' +
+      '<div class="card">' +
+        '<div class="eyebrow" style="color:var(--ink);">Free Snapshot Call · 20 minutes</div>' +
+        '<div style="font-size:20px; font-weight:800; margin-top:6px; line-height:1.3;">Want to know what to fix first?</div>' +
+        '<ul class="perks">' +
+          '<li>'+TICK+'<span>We go through this map with you, area by area.</span></li>' +
+          '<li>'+TICK+'<span>We point out which gap is most likely costing you money.</span></li>' +
+          '<li>'+TICK+'<span>No charge and no obligation. Your answers are already with us.</span></li>' +
+        '</ul>' +
+        '<div class="cta" style="margin-top:18px;"><button class="btn btn-primary" data-a="to" data-v="book">Book my free Snapshot Call</button></div>' +
+      '</div>' +
+      '<div class="after">' +
+        '<a class="btn-text" href="https://wa.me/?text='+encodeURIComponent('Does your restaurant run on a system, or on people? Free 60-second check: '+SITE)+'" target="_blank" rel="noopener">Send this check to another owner</a>' +
+        '<button class="btn-text" data-a="print">Save my map as PDF</button>' +
+        '<button class="btn-text" data-a="restart">Start over</button>' +
+      '</div>';
+  }
+
+  function bookDays(){
+    var out = [];
+    for (var i=1; i<=BOOK_DAYS; i++){
+      var d = new Date(); d.setDate(d.getDate()+i);
+      out.push({ v:isoDay(d), l: i===1 ? 'Tomorrow' : d.toLocaleDateString('en-IN',{ weekday:'short', day:'numeric' }) });
+    }
+    return out;
+  }
+  function normPhone(v){
+    var d = String(v||'').replace(/[\s\-().]/g,'');
+    if (/^\+91/.test(d)) d = d.slice(3); else if (/^91\d{10}$/.test(d)) d = d.slice(2); else if (/^0\d{10}$/.test(d)) d = d.slice(1);
+    return d;
+  }
+  function bookingProblems(b){
+    var p = {};
+    if (!String(b.name||'').trim()) p.name = 'Enter your name.';
+    if (!/^[6-9]\d{9}$/.test(normPhone(b.phone))) p.phone = 'Enter a valid 10-digit mobile number.';
+    if (!bookDays().some(function(d){ return d.v===b.day; })) p.day = 'Pick a day.';
+    if (!SLOTS.some(function(s){ return s.v===b.slot; })) p.slot = 'Pick a time.';
+    return p;
+  }
+  function viewBook(){
+    var b = st.booking;
+    return '<div class="eyebrow">Free Snapshot Call · 20 minutes</div>' +
+      '<h2 style="font-size:26px; margin-top:6px;">When should we call you?</h2>' +
+      '<p class="lead" style="font-size:15px;">We\'ll go through your map with you. Your answers are already with us.</p>' +
+      '<div class="two">' +
+        '<div><label class="f" for="bname">Your name</label><input class="t" id="bname" data-b="name" maxlength="80" autocomplete="name" value="'+esc(b.name)+'"><div class="err" data-e="name"></div></div>' +
+        '<div><label class="f" for="bphone">Mobile number</label><input class="t" id="bphone" data-b="phone" type="tel" inputmode="tel" maxlength="16" autocomplete="tel" value="'+esc(b.phone)+'" placeholder="10-digit mobile"><div class="err" data-e="phone"></div></div>' +
+      '</div>' +
+      '<div class="sublab">Day</div><div class="chips">'+bookDays().map(function(d){ return '<button class="chip '+(b.day===d.v?'on':'')+'" data-a="day" data-v="'+d.v+'">'+esc(d.l)+'</button>'; }).join('')+'</div><div class="err" data-e="day"></div>' +
+      '<div class="sublab">Time</div><div class="chips">'+SLOTS.map(function(s){ return '<button class="chip '+(b.slot===s.v?'on':'')+'" data-a="slot" data-v="'+esc(s.v)+'">'+esc(s.l)+'</button>'; }).join('')+'</div><div class="err" data-e="slot"></div>' +
+      '<div class="err" data-e="send"></div>' +
+      '<div class="cta" style="justify-content:space-between; align-items:center;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button>' +
+      '<button class="btn btn-primary" data-a="send" style="min-width:200px;">Request call</button></div>' +
+      '<p class="muted" style="margin-top:14px;">We only use your number to call you about this. <a href="privacy.html" style="color:inherit;">How we handle your details</a></p>';
+  }
+  function viewBooked(){
+    var b = st.booked || {};
+    var day = ''; try{ day = new Date(b.day+'T00:00:00').toLocaleDateString('en-IN',{ weekday:'long', day:'numeric', month:'long' }); }catch(e){}
+    var slot = (SLOTS.filter(function(s){ return s.v===b.slot; })[0] || {}).l || '';
+    return '<div class="done-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>' +
+      '<h2 style="font-size:26px;">Request received</h2>' +
+      '<p class="lead">We\'ll call you on <b>'+esc(day)+'</b>, '+esc(slot.toLowerCase())+', on '+esc(b.phone||'')+'.</p>' +
+      (WHATSAPP ? '<div class="cta" style="justify-content:flex-start;"><a class="btn btn-primary" style="text-decoration:none;" target="_blank" rel="noopener" href="https://wa.me/91'+WHATSAPP+'?text='+encodeURIComponent('Hi, this is '+(b.name||'')+'. I just booked a Snapshot Call for '+day+', '+slot.toLowerCase()+'.')+'">Confirm on WhatsApp</a></div>' +
+        '<p class="muted" style="margin-top:8px;">One tap confirms your slot, so we both have it on WhatsApp.</p>' : '') +
+      '<div class="cta" style="justify-content:flex-start; gap:10px; flex-wrap:wrap;"><button class="btn" data-a="to" data-v="result">View my map</button><a class="btn" href="#how" style="text-decoration:none;">How we work →</a></div>';
+  }
+
+  function render(){
+    var h, i = stepIdx();
+    boardSpec = null; boardMode = '';
+    if (st.step==='landing') h = viewLanding();
+    else if (i>=0) h = viewQuestion(Math.min(i, TOTAL_STEPS-1));
+    else if (st.step==='result' && st.format) h = viewResult();
+    else if (st.step==='book' && st.format) h = viewBook();
+    else if (st.step==='booked') h = viewBooked();
+    else { st.step = 'landing'; h = viewLanding(); }
+    document.body.setAttribute('data-step', i>=0 ? 'q' : st.step);
+    app.innerHTML = '<div class="fade">'+h+'</div>';
+    layoutBoard();
+    save();
+  }
+  function go(step){ st.step = step; render(); window.scrollTo(0,0); }
+  var advancing = false;
+  function advance(){
+    if (advancing) return; advancing = true;
+    setTimeout(function(){ advancing = false; go('q'+(stepIdx()+1)); }, 230);
+  }
+  function showErrors(p){ ['name','phone','day','slot','send'].forEach(function(k){ var el = app.querySelector('[data-e="'+k+'"]'); if (el) el.textContent = p[k]||''; }); }
+
+  app.addEventListener('click', function(ev){
+    var t = ev.target.closest('[data-a]'); if (!t || advancing) return;
+    var a = t.dataset.a;
+    if (a==='begin' || a==='begin2'){ track('start'); go('q0'); }
+    else if (a==='sample'){ sampleIdx = (sampleIdx+1) % SAMPLES.length; render(); }
+    else if (a==='back'){ var i = stepIdx(); go(i<=0 ? 'landing' : 'q'+(i-1)); }
+    else if (a==='fmt'){
+      if (st.format && st.format!==t.dataset.v){ st.answers = {}; st.key = { person:st.key.person, areas:[], none:false }; }
+      st.format = t.dataset.v; render(); advance();
+    }
+    else if (a==='ans'){ st.answers[t.dataset.k] = parseInt(t.dataset.v,10); render(); advance(); }
+    else if (a==='kp'){ st.key.person = t.dataset.v; render(); }
+    else if (a==='ka'){
+      var id = t.dataset.v, list = st.key.areas, at = list.indexOf(id);
+      st.key.none = false;
+      if (at>=0) list.splice(at,1); else list.push(id);
+      render();
+    }
+    else if (a==='knone'){ st.key.none = !st.key.none; if (st.key.none) st.key.areas = []; render(); }
+    else if (a==='finish'){ track('finish'); go('result'); }
+    else if (a==='print'){ window.print(); }
+    else if (a==='restart'){ var keep = st.booking; st = fresh(); st.booking = keep; go('landing'); }
+    else if (a==='to'){ go(t.dataset.v); }
+    else if (a==='day'){ st.booking.day = t.dataset.v; render(); }
+    else if (a==='slot'){ st.booking.slot = t.dataset.v; render(); }
+    else if (a==='send'){
+      var b = st.booking, p = bookingProblems(b);
+      showErrors(p);
+      if (Object.keys(p).length){ var first = app.querySelector('[data-b="'+Object.keys(p)[0]+'"]'); if (first) first.focus(); return; }
+      t.disabled = true; t.textContent = 'Sending…';
+      var data = payloadBase(diagnose(st));
+      data.kind = 'call';
+      data.status = 'new';
+      data.contact = { name:String(b.name).trim().slice(0,80), phone:normPhone(b.phone), date:b.day, slot:b.slot };
+      writeDoc(data).then(function(){
+        st.booked = { name:data.contact.name, phone:data.contact.phone, day:b.day, slot:b.slot };
+        track('book');
+        go('booked');
+      }, function(){
+        t.disabled = false; t.textContent = 'Request call';
+        showErrors({ send:'Couldn\'t send right now. Check your connection and try again.' });
+      });
+    }
   });
-  var db = firebase.firestore();
+  app.addEventListener('input', function(ev){
+    var t = ev.target;
+    if (t.dataset.b){ st.booking[t.dataset.b] = t.value; save(); var e = app.querySelector('[data-e="'+t.dataset.b+'"]'); if (e) e.textContent = ''; }
+  });
 
-  document.getElementById('fyear').textContent = new Date().getFullYear();
-
-  // Sticky phone CTA: shows once the hero is scrolled past, hides near the System Map band and the form.
+  // ---- the page around the map: start buttons, section links, logo, sticky phone button ----
+  document.addEventListener('click', function(ev){
+    if (ev.target.closest('.js-begin')){ track('start'); go('q0'); return; }
+    var home = ev.target.closest('[data-home]');
+    if (home){ ev.preventDefault(); go('landing'); return; }
+    var sec = ev.target.closest('[data-sec]');
+    if (sec && st.step!=='landing' && st.step!=='booked'){
+      ev.preventDefault();
+      st.step = 'landing'; render();
+      var target = document.querySelector(sec.getAttribute('href'));
+      if (target) setTimeout(function(){ target.scrollIntoView({ behavior:'smooth' }); }, 30);
+    }
+  });
   (function(){
     var bar = document.getElementById('mcta');
-    if (!('IntersectionObserver' in window) || !bar) return;
-    var seen = {};
+    if (!bar || !('IntersectionObserver' in window)) return;
+    // Shown once the start button has scrolled away; hidden again while the contact form is on screen.
+    var past = false, atForm = false;
+    function upd(){ bar.classList.toggle('show', past && !atForm); }
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ seen[en.target.id || 'hero'] = en.isIntersecting; });
-      bar.classList.toggle('show', !seen.hero && !seen.map && !seen.contact);
-    }, { threshold:0, rootMargin:'-80px 0px 0px 0px' });
-    io.observe(document.querySelector('.hero'));
-    io.observe(document.getElementById('map'));
-    io.observe(document.getElementById('contact'));
+      entries.forEach(function(en){ past = !en.isIntersecting && en.boundingClientRect.top < 0; });
+      upd();
+    }, { rootMargin:'-70px 0px 0px 0px' });
+    var contact = document.getElementById('contact');
+    if (contact) new IntersectionObserver(function(entries){ atForm = entries[0].isIntersecting; upd(); }).observe(contact);
+    var watchStart = function(){ var b = app.querySelector('[data-a="begin"]'); if (b) io.observe(b); };
+    new MutationObserver(function(){ io.disconnect(); past = false; upd(); watchStart(); }).observe(app, { childList:true });
+    watchStart();
+  })();
+  var fy = document.getElementById('fyear'); if (fy) fy.textContent = new Date().getFullYear();
+
+  // ---- "Get in touch" form (lands in the app's Call Requests as a website inquiry) ----
+  (function(){
+    var form = document.getElementById('leadForm'); if (!form) return;
+    var errBox = document.getElementById('ldError'), btn = document.getElementById('ldSubmit');
+    function val(id){ return document.getElementById(id).value.trim(); }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = val('ldName'), biz = val('ldBiz'), phone = normPhone(val('ldPhone'));
+      if (!name || !biz || !val('ldPhone')){ errBox.textContent = 'Please fill in your name, restaurant name and phone number.'; return; }
+      if (!/^[6-9]\d{9}$/.test(phone)){ errBox.textContent = 'Enter a valid 10-digit mobile number.'; return; }
+      errBox.textContent = '';
+      btn.disabled = true; btn.textContent = 'Sending…';
+      writeDoc({
+        v:2, kind:'inquiry', status:'new',
+        contact:{ name:name.slice(0,80), phone:phone, business:biz.slice(0,80), location:val('ldLoc').slice(0,80), email:val('ldEmail').slice(0,120), message:val('ldMsg').slice(0,1000) },
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function(){
+        form.style.display = 'none';
+        document.getElementById('ldThanks').style.display = 'block';
+      }, function(){
+        btn.disabled = false; btn.textContent = 'Send inquiry';
+        errBox.textContent = 'Couldn\'t send right now. Check your connection, or email us directly.';
+      });
+    });
   })();
 
-  function normalizeMobile(v){
-    var digits = String(v||'').replace(/[\s\-().]/g, '');
-    if (/^\+91/.test(digits)) return digits.slice(3);
-    if (/^91\d{10}$/.test(digits)) return digits.slice(2);
-    if (/^0\d{10}$/.test(digits)) return digits.slice(1);
-    return digits;
-  }
-  function isValidMobile(v){ return /^[6-9]\d{9}$/.test(normalizeMobile(v)); }
-
-  var form = document.getElementById('leadForm');
-  var errBox = document.getElementById('ldError');
-  var submitBtn = document.getElementById('ldSubmit');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('ldName').value.trim();
-    var biz = document.getElementById('ldBiz').value.trim();
-    var loc = document.getElementById('ldLoc').value.trim();
-    var phone = document.getElementById('ldPhone').value.trim();
-    var email = document.getElementById('ldEmail').value.trim();
-    var msg = document.getElementById('ldMsg').value.trim();
-
-    if (!name || !biz || !phone){
-      errBox.textContent = 'Please fill in your name, business name and phone number.';
-      errBox.style.display = 'block';
-      return;
-    }
-    if (!isValidMobile(phone)){
-      errBox.textContent = 'Enter a valid 10-digit mobile number (starts with 6, 7, 8 or 9).';
-      errBox.style.display = 'block';
-      return;
-    }
-    errBox.style.display = 'none';
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-
-    // Lands in the app's Call Requests screen (systemMaps collection, create-only for the public).
-    db.collection('systemMaps').add({
-      v: 2, kind: 'inquiry', status: 'new',
-      contact: { name: name.slice(0,80), phone: normalizeMobile(phone), business: biz.slice(0,80),
-        location: loc.slice(0,80), email: email.slice(0,120), message: msg.slice(0,1000) },
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function(){
-      form.classList.add('hidden');
-      document.getElementById('ldThanks').classList.add('show');
-    }).catch(function(err){
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send inquiry';
-      errBox.textContent = 'Something went wrong sending this — please try again, or email us directly.';
-      errBox.style.display = 'block';
-    });
-  });
+  // A finished or booked visit reopens on its map; anything half-done restarts from the landing page.
+  // This is the homepage, so every visit opens on the landing screen; a finished map is one tap away ("Back to my map").
+  st.step = 'landing';
+  track('visit');
+  render();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ boardMode = ''; layoutBoard(); });
+})();
 </script>
 </body>
 </html>
