@@ -5,8 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Restaurant System Map</title>
 <meta name="description" content="A 60-second check that maps your restaurant from supply to management and shows which parts run on a system and which run on someone's memory.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Does your restaurant run on a system, or on people?">
+<meta property="og:description" content="A free 60-second check that maps your restaurant from supply to management. No sales figures asked.">
+<meta property="og:url" content="https://abhishekand1111-prog.github.io/system-map/">
+<meta property="og:image" content="https://abhishekand1111-prog.github.io/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
@@ -19,20 +26,8 @@
     --font:'Inter',-apple-system,"Segoe UI",sans-serif;
     --mono:'IBM Plex Mono',Consolas,monospace;
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#0A0A0A; --surface:#141414; --surface-2:#1E1E1E;
-      --ink:#FFFFFF; --ink-600:#B0B0B0; --ink-400:#767676;
-      --line:#262626; --line-strong:#3E3E3E; --dot:#242424;
-      --warn:#E0A63A; --bad:#EE6A5F;
-    }
-  }
-  :root[data-theme="dark"]{
-    --paper:#0A0A0A; --surface:#141414; --surface-2:#1E1E1E;
-    --ink:#FFFFFF; --ink-600:#B0B0B0; --ink-400:#767676;
-    --line:#262626; --line-strong:#3E3E3E; --dot:#242424;
-    --warn:#E0A63A; --bad:#EE6A5F;
-  }
+  /* Always white with black, to match the brand (no dark variant). */
+  :root{ color-scheme:light; }
   *{box-sizing:border-box;}
   @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
   html,body{background:var(--paper); margin:0; overflow-x:clip;}
@@ -42,8 +37,23 @@
   h1,h2,h3{margin:0; letter-spacing:-0.015em; text-wrap:balance;}
   .shell{max-width:720px; margin:0 auto; padding:20px 16px 48px; min-height:100vh;}
   .top{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:26px;}
-  .brand{font-weight:800; font-size:15px; color:var(--ink); text-decoration:none;}
+  .top{padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--ink); text-decoration:none;}
+  .brand img{height:26px; width:auto; display:block;}
   .brand span{color:var(--ink-400); font-weight:600;}
+  .toplink{font-size:13.5px; font-weight:600; color:var(--ink-600); text-decoration:none;}
+  .toplink:hover{color:var(--ink);}
+  .hero{position:relative;}
+  .hero h1{font-size:34px; line-height:1.12;}
+  @media (max-width:460px){ .hero h1{font-size:29px;} }
+  .trust{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:14px; font-size:13px; color:var(--ink-600);}
+  .trust span{display:inline-flex; align-items:center; gap:6px;}
+  .trust svg, .perks svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex:none;}
+  .card{border:1.5px solid var(--ink); border-radius:var(--r-l); padding:20px 20px 18px; margin-top:18px; background:var(--surface);}
+  .perks{list-style:none; padding:0; margin:12px 0 0;}
+  .perks li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink-600); margin-top:8px; line-height:1.45;}
+  .perks li svg{margin-top:3px; color:var(--ink);}
+  .after{display:flex; justify-content:center; gap:6px 20px; flex-wrap:wrap; margin-top:12px;}
   .eyebrow{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-400);}
   .lead{color:var(--ink-600); font-size:16px; margin:10px 0 0;}
   .muted{color:var(--ink-400); font-size:13px;}
@@ -54,6 +64,7 @@
   .btn:disabled{opacity:.35; cursor:not-allowed;}
   .btn-text{border:none; background:none; color:var(--ink-600); padding:8px 2px; min-height:auto; font-weight:600; font-size:14px;}
   .btn-text:hover{background:none; color:var(--ink);}
+  a.btn-text{text-decoration:none;}
   .cta{display:flex; justify-content:center; margin-top:26px;}
   .cta .btn{min-width:300px;}
   @media (max-width:460px){ .cta .btn{width:100%; min-width:0;} }
@@ -63,9 +74,12 @@
   .progress i{display:block; height:3px; background:var(--ink); transition:width .25s ease;}
   .qhead{display:flex; justify-content:space-between; align-items:center; gap:10px;}
   .qtext{font-size:23px; font-weight:800; line-height:1.3; margin:8px 0 16px;}
-  .opt{display:block; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:var(--r-m); padding:15px 16px; margin-top:10px; font-size:16px; line-height:1.4; transition:border-color .12s, background .12s;}
-  .opt:hover{border-color:var(--line-strong);}
+  .opt{display:block; position:relative; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:var(--r-m); padding:15px 16px 15px 50px; margin-top:10px; font-size:16px; line-height:1.4; transition:border-color .12s, background .12s, transform .12s, box-shadow .12s;}
+  .opt::before{content:""; position:absolute; left:17px; top:50%; width:18px; height:18px; margin-top:-9px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface); box-sizing:border-box;}
+  .opt:hover{border-color:var(--ink); box-shadow:0 2px 0 var(--ink);}
+  .opt:active{transform:translateY(1px); box-shadow:none;}
   .opt.on{border-color:var(--ink); background:var(--ink); color:var(--paper); font-weight:600;}
+  .opt.on::before{border-color:var(--paper); background:radial-gradient(circle, var(--paper) 0 4px, transparent 4.5px);}
   .opt b{display:block; font-size:16px;}
   .opt span{display:block; font-size:13px; color:var(--ink-600); margin-top:2px;}
   .opt.on span{color:var(--paper); opacity:.75;}
@@ -142,7 +156,7 @@
 </head>
 <body>
 <div class="shell">
-  <div class="top"><a class="brand" href="../">Diagnosis Room <span>· System Map</span></a></div>
+  <div class="top"><a class="brand" href="../"><img src="../assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room <span>· System Map</span></a><a class="toplink" href="../">About us</a></div>
   <div id="app"></div>
   <div class="fine">Answers are saved anonymously. Your number is only saved if you book a call.</div>
 </div>
@@ -445,15 +459,18 @@
   function legend(){ return '<div class="legend"><span><i class="dot ok"></i>Systemized</span><span><i class="dot warn"></i>Depends on a person</span><span><i class="dot bad"></i>Missing</span></div>'; }
 
   // ---- screens ----
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+  var SITE = 'https://abhishekand1111-prog.github.io/system-map/';
   var stepIdx = function(){ var m = /^q(\d+)$/.exec(st.step); return m ? parseInt(m[1],10) : -1; };
 
   function viewLanding(){
     var smp = SAMPLES[sampleIdx];
     var r = diagnose({ format:smp.format, answers:smp.answers, key:smp.key });
     boardSpec = { r:r, title:smp.title, leaves:false };
-    return '<h1 style="font-size:32px; line-height:1.15;">Does your restaurant run on a system, or on people?</h1>' +
+    return '<div class="hero"><div class="eyebrow" style="margin-bottom:10px;">Free restaurant check</div><h1>Does your restaurant run on a system, or on people?</h1>' +
       '<p class="lead">Answer 9 quick questions and get a map of your operation, from supply to management, showing which parts run on a system and which stop when one person is away.</p>' +
       '<div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary" data-a="begin">Check my restaurant · 60 seconds</button></div>' +
+      '<div class="trust">'+['Free','9 taps, no typing','No sales figures asked','Anonymous'].map(function(x){ return '<span>'+TICK+esc(x)+'</span>'; }).join('')+'</div></div>' +
       '<div style="margin-top:34px; display:flex; justify-content:space-between; align-items:center; gap:10px;"><span class="sample-tag">Sample map</span>' +
         '<button class="btn-text" data-a="sample">Show another example →</button></div>' +
       '<div style="font-size:19px; font-weight:800; margin-top:10px;">'+esc(smp.title)+' · Level '+r.level.n+', '+esc(r.level.name)+'</div>' +
@@ -501,7 +518,20 @@
     return '<div class="report-head"><span class="eyebrow" style="color:var(--ink);">Your System Map</span><span class="eyebrow">'+esc(FORMATS[st.format].label)+' · '+esc(today)+'</span></div>' +
       levelBlock(r) + findings(r) + legend() +
       '<div class="board" role="img" aria-label="Your restaurant as a hierarchy of departments and areas"></div>' +
-      '<div class="cta"><button class="btn btn-primary" data-a="to" data-v="book">Book a 20-min Snapshot Call</button></div>';
+      '<div class="card">' +
+        '<div class="eyebrow" style="color:var(--ink);">Free Snapshot Call · 20 minutes</div>' +
+        '<div style="font-size:20px; font-weight:800; margin-top:6px; line-height:1.3;">Want to know what to fix first?</div>' +
+        '<ul class="perks">' +
+          '<li>'+TICK+'<span>We go through this map with you, area by area.</span></li>' +
+          '<li>'+TICK+'<span>We point out which gap is most likely costing you money.</span></li>' +
+          '<li>'+TICK+'<span>No charge and no obligation. Your answers are already with us.</span></li>' +
+        '</ul>' +
+        '<div class="cta" style="margin-top:18px;"><button class="btn btn-primary" data-a="to" data-v="book">Book my free Snapshot Call</button></div>' +
+      '</div>' +
+      '<div class="after">' +
+        '<a class="btn-text" href="https://wa.me/?text='+encodeURIComponent('Does your restaurant run on a system, or on people? Free 60-second check: '+SITE)+'" target="_blank" rel="noopener">Send this check to another owner</a>' +
+        '<button class="btn-text" data-a="restart">Start over</button>' +
+      '</div>';
   }
 
   function bookDays(){
@@ -547,7 +577,7 @@
     return '<div class="done-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>' +
       '<h2 style="font-size:26px;">Request received</h2>' +
       '<p class="lead">We\'ll call you on <b>'+esc(day)+'</b>, '+esc(slot.toLowerCase())+', on '+esc(b.phone||'')+'.</p>' +
-      '<div class="cta" style="justify-content:flex-start;"><button class="btn" data-a="to" data-v="result">View my map</button></div>';
+      '<div class="cta" style="justify-content:flex-start; gap:10px; flex-wrap:wrap;"><button class="btn" data-a="to" data-v="result">View my map</button><a class="btn" href="../" style="text-decoration:none;">How we work →</a></div>';
   }
 
   function render(){
@@ -591,6 +621,7 @@
     }
     else if (a==='knone'){ st.key.none = !st.key.none; if (st.key.none) st.key.areas = []; render(); }
     else if (a==='finish'){ go('result'); }
+    else if (a==='restart'){ var keep = st.booking; st = fresh(); st.booking = keep; go('landing'); }
     else if (a==='to'){ go(t.dataset.v); }
     else if (a==='day'){ st.booking.day = t.dataset.v; render(); }
     else if (a==='slot'){ st.booking.slot = t.dataset.v; render(); }
