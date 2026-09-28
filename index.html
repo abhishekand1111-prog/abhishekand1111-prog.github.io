@@ -45,6 +45,18 @@
   .brand img{height:26px; width:auto; display:block;}
   .brand span{color:var(--ink-400); font-weight:600;}
   .top{position:sticky; top:0; z-index:20; background:rgba(255,255,255,.94); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); margin:-20px -16px 26px; padding:14px 16px;}
+  /* Full-width bar behind the header on wide screens */
+  .top::before{content:""; position:absolute; z-index:-1; top:0; bottom:-1px; left:50%; width:100vw; margin-left:-50vw; background:rgba(255,255,255,.94); border-bottom:1px solid var(--line);}
+  .top{border-bottom-color:transparent !important;}
+  .heads{display:flex; gap:4px; margin:-8px 0 16px; overflow-x:auto; scrollbar-width:none;}
+  .heads::-webkit-scrollbar{display:none;}
+  .heads span{flex:1 1 0; min-width:max-content; text-align:center; font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-400); padding:5px 8px; border-radius:999px; border:1px solid var(--line);}
+  .heads span.done{color:var(--ink); border-color:var(--line-strong);}
+  .heads span.on{background:var(--ink); color:#fff; border-color:var(--ink);}
+  @media (max-width:460px){ .heads{gap:3px;} .heads span{padding:5px 3px; font-size:11px; letter-spacing:.03em;} }
+  button, a{-webkit-tap-highlight-color:transparent;}
+  :focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+  .opt:focus-visible, .chip:focus-visible{outline-offset:3px;}
   .toplinks{display:flex; align-items:center; gap:16px;}
   .toplink{font-size:13.5px; font-weight:600; color:var(--ink-600); text-decoration:none;}
   .toppill{background:var(--ink); color:#fff !important; padding:7px 13px; border-radius:20px; font-weight:700;}
@@ -519,7 +531,7 @@
   // Sample maps shown on the landing page (one picked at random).
   var SAMPLES = [
     { title:'A 60-cover dine-in', format:'dinein',
-      answers:{ purchase:1, control:1, wastage:0, prep:1, portions:0, foodcost:1, counter:1, speed:0, cash:0, hiring:1, staffcontrol:1, payout:1, dcontrol:1 },
+      answers:{ purchase:1, control:2, wastage:0, prep:1, portions:0, foodcost:1, counter:2, speed:0, cash:2, hiring:1, staffcontrol:1, payout:1, dcontrol:1 },
       key:{ person:'chef', areas:['purchase','control','wastage','prep','portions'], none:false } },
     { title:'A 2-outlet QSR', format:'qsr',
       answers:{ purchase:2, control:1, wastage:1, prep:1, portions:2, foodcost:0, counter:2, speed:0, cash:1, hiring:0, staffcontrol:1, payout:0, dcontrol:1 },
@@ -813,8 +825,15 @@
       '</div>';
   }
 
+  // The 5 heads as a small tracker, so 15 questions read as 5 short sections.
+  function headsBar(i){
+    if (!st.format || i<1) return '';
+    var areas = areasFor(st.format), cur = i<=areas.length ? areas[i-1].id : null;
+    var curIdx = cur ? DEPTS.map(function(d){ return d.areas.indexOf(cur)>=0; }).indexOf(true) : DEPTS.length;
+    return '<div class="heads">'+DEPTS.map(function(d, k){ return '<span class="'+(k<curIdx?'done':(k===curIdx?'on':''))+'">'+esc(deptName(d, st.format))+'</span>'; }).join('')+'</div>';
+  }
   function qFrame(i, inner){
-    return '<div class="progress"><i style="width:'+Math.round((i/TOTAL_STEPS)*100)+'%"></i></div>' +
+    return '<div class="progress"><i style="width:'+Math.round((i/TOTAL_STEPS)*100)+'%"></i></div>' + headsBar(i) +
       '<div class="qhead"><span class="eyebrow">'+(i+1)+' of '+TOTAL_STEPS+'</span>' +
       '<button class="btn-text" data-a="back">← Back</button></div>' + inner;
   }
