@@ -232,6 +232,11 @@
   .lossyear{font-size:14.5px; color:var(--ink); font-weight:600; margin-top:6px;}
   .lossparts{font-size:14px; color:var(--ink-600); margin-top:6px;}
   .lossnote{font-size:12px; color:var(--ink-400); margin-top:12px; line-height:1.45;}
+  @media (max-width:460px){
+    .bookfoot{flex-direction:column-reverse; align-items:stretch !important; gap:6px;}
+    .bookfoot .btn{min-width:0 !important; width:100%;}
+    .level{flex-direction:column; align-items:flex-start; gap:8px;}
+  }
   .fixcard{margin-top:16px; background:var(--ink); color:#fff; border-radius:var(--r-l); padding:18px 18px 16px;}
   .fixcard .eyebrow{color:#fff; opacity:.7;}
   .fixtext{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:21px; font-weight:700; line-height:1.25; margin-top:8px;}
@@ -922,7 +927,7 @@
       '<div class="sublab">Day</div><div class="chips">'+bookDays().map(function(d){ return '<button class="chip '+(b.day===d.v?'on':'')+'" data-a="day" data-v="'+d.v+'">'+esc(d.l)+'</button>'; }).join('')+'</div><div class="err" data-e="day"></div>' +
       '<div class="sublab">Time</div><div class="chips">'+SLOTS.map(function(s){ return '<button class="chip '+(b.slot===s.v?'on':'')+'" data-a="slot" data-v="'+esc(s.v)+'">'+esc(s.l)+'</button>'; }).join('')+'</div><div class="err" data-e="slot"></div>' +
       '<div class="err" data-e="send"></div>' +
-      '<div class="cta" style="justify-content:space-between; align-items:center;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button>' +
+      '<div class="cta bookfoot" style="justify-content:space-between; align-items:center;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button>' +
       '<button class="btn btn-primary" data-a="send" style="min-width:200px;">Request call</button></div>' +
       '<p class="muted" style="margin-top:14px;">We only use your number to call you about this. <a href="privacy.html" style="color:inherit;">How we handle your details</a></p>';
   }
