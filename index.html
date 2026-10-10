@@ -668,11 +668,22 @@
   }
   // Anonymous daily counts (visit → start → finish → book) so the owner can see where people drop off.
   // Counted once per browser session; skipped when testing locally.
+  // Visitors who arrive from an outreach message (?src=lead) are also counted separately (leadVisit, leadStart…), one field per write.
+  var FROM_LEAD = false;
+  try{
+    if (/[?&]src=lead\b/.test(location.search)) sessionStorage.setItem('dr_src', 'lead');
+    FROM_LEAD = sessionStorage.getItem('dr_src')==='lead';
+  }catch(e){ FROM_LEAD = /[?&]src=lead\b/.test(location.search); }
   function track(ev){
     if (!db || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
     try{ if (sessionStorage.getItem('dr_t_'+ev)) return; sessionStorage.setItem('dr_t_'+ev, '1'); }catch(e){}
+    var ref = db.collection('smStats').doc(isoDay(new Date()));
     var o = {}; o[ev] = firebase.firestore.FieldValue.increment(1);
-    db.collection('smStats').doc(isoDay(new Date())).set(o, { merge:true }).catch(function(){});
+    ref.set(o, { merge:true }).catch(function(){});
+    if (FROM_LEAD){
+      var l = {}; l['lead'+ev.charAt(0).toUpperCase()+ev.slice(1)] = firebase.firestore.FieldValue.increment(1);
+      ref.set(l, { merge:true }).catch(function(){});
+    }
   }
   function saveMapOnce(r){
     var k = JSON.stringify([st.format, st.answers, st.key]);
