@@ -98,15 +98,26 @@
   .field input:focus, .field textarea:focus{outline:none; border-color:var(--ink);}
   .contactline{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:16px; font-size:14px;}
   .contactline a{color:var(--ink); font-weight:600;}
-  .foot{margin-top:48px; padding-top:22px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ink-400);}
-  .foot .brand{font-size:13.5px;}
-  .foot .brand img{height:22px;}
+  /* Footer: a full-width black band that closes the page */
+  .foot{position:relative; isolation:isolate; margin-top:64px; padding:36px 0 26px; color:#fff;}
+  .foot::before{content:""; position:absolute; z-index:-1; top:0; bottom:-48px; left:50%; width:100vw; margin-left:-50vw; background:var(--ink);}
+  .foot .brand{color:#fff; font-size:19px;}
+  .foot .brand img{height:24px; filter:invert(1);}
+  .foot-top{display:flex; justify-content:space-between; gap:24px 40px; flex-wrap:wrap;}
+  .foot-tag{margin:10px 0 0; font-size:13.5px; line-height:1.55; color:rgba(255,255,255,.62);}
+  .foot-links{display:grid; grid-template-columns:auto auto; gap:10px 28px; align-content:start;}
+  .foot-links a{color:#fff; text-decoration:none; font-size:14px; font-weight:600;}
+  .foot-links a:hover{text-decoration:underline; text-underline-offset:3px;}
+  .foot-bot{display:flex; justify-content:space-between; gap:10px; margin-top:28px; padding-top:16px; border-top:1px solid rgba(255,255,255,.16); font-size:12.5px; color:rgba(255,255,255,.55);}
+  .foot-bot a{color:inherit;}
+  .foot :focus-visible{outline-color:#fff;}
   .mcta{display:none;}
   @media (max-width:760px){
     .mcta{display:block; position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); z-index:30; transform:translateY(160%); transition:transform .25s ease;}
     .mcta .btn{width:100%; box-shadow:0 8px 24px rgba(0,0,0,.2);}
     body[data-step="landing"] .mcta.show{transform:none;}
     body[data-step="landing"] .shell{padding-bottom:96px;}
+    body[data-step="landing"] .foot::before{bottom:-96px;}
   }
   @media (max-width:560px){
     .steps{grid-template-columns:1fr;}
@@ -302,16 +313,123 @@
   .showfoot span{font-family:var(--disp); font-size:18px; font-weight:600;}
   @media (max-width:460px){ .showfoot .btn{width:100%;} .showtitle{font-size:26px;} }
   @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+  /* ---- Page polish: section rhythm, steps, closing call-back ---- */
+  .sec > .eyebrow{display:flex; align-items:center; gap:10px; color:var(--ink);}
+  .sec > .eyebrow::before{content:""; width:22px; height:2px; background:var(--ink); flex:none;}
+  .sec{padding-top:56px; margin-top:56px;}
+  .steps{grid-template-columns:repeat(3,1fr); gap:12px;}
+  .step{border-width:1px; border-color:var(--line-strong); padding:18px 16px; transition:border-color .15s, transform .15s, box-shadow .15s;}
+  .step:hover{border-color:var(--ink); transform:translateY(-2px); box-shadow:0 10px 24px -14px rgba(0,0,0,.35);}
+  .step .num{width:auto; height:auto; background:none; color:var(--ink-400); border-radius:0; display:block; font-family:var(--disp); font-size:30px; font-weight:800; line-height:1;}
+  .step:hover .num{color:var(--ink);}
+  .step h3{margin-top:12px;}
+  @media (max-width:640px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:460px){ .steps{grid-template-columns:1fr;} .step{display:grid; grid-template-columns:44px 1fr; column-gap:4px;} .step .num{grid-row:span 2; font-size:26px;} .step h3{margin-top:0;} }
+  .res .ic{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .outcome{padding:18px 16px;}
+  .outcome b{font-size:19px;}
+  .faq summary{transition:color .15s;}
+  .faq summary:hover{color:var(--ink-600);}
+  .faq details[open] .pm{background:var(--ink); color:#fff;}
+  .btn-primary{transition:background .15s, opacity .15s, transform .15s, box-shadow .15s;}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 8px 18px -10px rgba(0,0,0,.6); opacity:1;}
+  .btn-primary:active{transform:none; box-shadow:none;}
+
+  /* Problem → solution, joined by an arrow */
+  .ps{position:relative;}
+  .ps::after{content:"→"; position:absolute; left:50%; top:50%; width:38px; height:38px; margin:-19px 0 0 -19px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; line-height:1;}
+  @media (max-width:560px){
+    .ps{gap:22px;} .ps::after{display:none;}
+    .ps-sol{position:relative;}
+    .ps-sol::before{content:"↓"; position:absolute; left:50%; top:-30px; width:38px; height:38px; margin-left:-19px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; line-height:1;}
+  }
+
+  /* The call-back box is the page's closing action */
+  .cbbox{margin-top:22px; border-color:var(--ink); background-color:#fff; padding:24px 22px 18px; box-shadow:0 18px 40px -22px rgba(0,0,0,.3);}
+  .cb-title{font-family:var(--disp); font-size:30px; font-weight:800; line-height:1.05;}
+  .cb-perks{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+  .cb-perks span{font-size:12.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--surface-2);}
+  .cbbox .field textarea{min-height:64px;}
+  @media (max-width:460px){ .cbbox{padding:20px 16px 14px;} .cb-title{font-size:26px;} .cbbox .cta .btn{width:100%;} }
+
+  /* Sections ease in as they scroll into view (browsers that support it; others just show them) */
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){
+      .step, .res, .outcome, .faq details, .ps > div, .cbbox{animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;}
+    }
+  }
+  @keyframes rise{from{opacity:0; translate:0 18px;} to{opacity:1; translate:none;}}
+  @media print{ .foot{display:none;} }
+
+  /* Hero: the answer we want them to give, set in a black block */
+  .hero h1{line-height:1.16;}
+  .hero .hl{background:linear-gradient(var(--ink),var(--ink)) 0 70% / 100% 84% no-repeat; color:#fff; padding:0 .16em; border-radius:8px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+
+  /* The 5 heads, moving in a black band */
+  .ticker{position:relative; margin:34px 0 0; left:50%; width:100vw; margin-left:-50vw; background:var(--ink); color:#fff; overflow:hidden; padding:13px 0;}
+  .ticker-track{display:flex; width:max-content; animation:tick 28s linear infinite;}
+  .ticker span{font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:0 22px;}
+  .ticker i{font-style:normal; opacity:.45; font-size:13px; align-self:center;}
+  @keyframes tick{to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
+  .ticker + .showcase{margin-top:0;}
+  .ticker + .showcase::before{border-top:none;}
+  @media print{ .ticker{display:none;} }
+
+  /* People vs system */
+  .vs{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px;}
+  .vs-col{border-radius:var(--r-l); padding:20px 20px 16px;}
+  .vs-people{background:var(--surface-2); color:var(--ink-600);}
+  .vs-system{background:var(--ink); color:#fff;}
+  .vs-head{display:flex; align-items:center; gap:10px; font-family:var(--disp); font-size:22px; font-weight:800; color:inherit;}
+  .vs-system .vs-head{color:#fff;} .vs-people .vs-head{color:var(--ink);}
+  .vs-badge{flex:none; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; font-family:var(--font);}
+  .vs-people .vs-badge{background:#fff; color:var(--bad); border:1.5px solid var(--line-strong);}
+  .vs-system .vs-badge{background:#fff; color:var(--ink);}
+  .vs ul{list-style:none; margin:14px 0 0; padding:0;}
+  .vs li{padding:10px 0; border-top:1px solid rgba(0,0,0,.08); font-size:15px; line-height:1.4;}
+  .vs-system li{border-top-color:rgba(255,255,255,.14); color:rgba(255,255,255,.88);}
+  .vs-people li{color:var(--ink-600);}
+  @media (max-width:560px){ .vs{grid-template-columns:1fr;} }
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){ .vs-col{animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;} }
+  }
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="top"><a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room</a>
-    <div class="toplinks"><a class="toplink hide-sm" href="#how" data-sec>How we work</a><a class="toplink hide-sm" href="#system" data-sec>One-time system</a><a class="toplink toppill" href="#contact" data-sec>Contact</a></div></div>
+    <div class="toplinks"><a class="toplink hide-sm" href="#how" data-sec>How we work</a><a class="toplink hide-sm" href="#system" data-sec>One-time system</a><a class="toplink toppill" href="#callback" data-sec>Call back</a></div></div>
   <div id="app"></div>
   <div class="fine">Answers are saved anonymously. Your number is only saved if you book a call. <a href="privacy.html" style="color:inherit;">Privacy</a></div>
 
   <div class="site">
+    <section class="sec" id="difference">
+      <div class="eyebrow">The difference</div>
+      <h2>Same restaurant. Two ways to run it.</h2>
+      <div class="vs">
+        <div class="vs-col vs-people">
+          <div class="vs-head"><span class="vs-badge">✕</span>Runs on people</div>
+          <ul>
+            <li>Stock is ordered on someone's gut feel</li>
+            <li>Portions change with whoever is cooking</li>
+            <li>A week off for the chef is a crisis</li>
+            <li>You find the wastage at month end</li>
+          </ul>
+        </div>
+        <div class="vs-col vs-system">
+          <div class="vs-head"><span class="vs-badge">✓</span>Runs on a system</div>
+          <ul>
+            <li>Orders follow levels anyone can check</li>
+            <li>Every plate goes out to the same standard</li>
+            <li>Anyone trained can run the shift</li>
+            <li>Wastage is logged and seen every day</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="sec" id="how">
       <div class="eyebrow">How we do it</div>
       <h2>We don't fix problems. We fix the system that keeps producing them.</h2>
@@ -343,6 +461,23 @@
       <div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary js-begin">Check my restaurant · 60 seconds</button></div>
     </section>
 
+    <section class="sec" id="faq">
+      <div class="eyebrow">Questions owners ask</div>
+      <h2>Before you call</h2>
+      <div class="faq">
+        <details><summary>Is the first conversation really free?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>Yes. The first call is to understand what's going on in your restaurant and whether we can help. No commitment, no charge.</p></details>
+        <details><summary>Do I have to share my sales figures?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>No. The System Map is about how your restaurant runs, not what it earns. If you like, you can pick a rough sales range at the end to see what the gaps may be costing you. That stays on your phone and isn't saved. Real numbers come in later, when we trace problems to what they cost you.</p></details>
+        <details><summary>Is this about catching my staff out?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>No. We observe the floor to see how the system behaves under pressure. When the same mistake keeps happening, it's usually the system producing it, not the person.</p></details>
+        <details><summary>Is this a one-time report?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>No. With consulting, we run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it. If you'd rather run it yourself, we can build the whole system for you for a one-time fee.</p></details>
+        <details><summary>What kind of restaurants do you work with?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <p>We design systems for dine-in restaurants and QSRs. Not sure if we're a fit? Take the 60-second check above, or request a call back below.</p></details>
+      </div>
+    </section>
+
     <section class="sec" id="system">
       <div class="ps">
         <div class="ps-prob">
@@ -356,8 +491,9 @@
       </div>
 
       <div class="cbbox" id="callback">
-        <div style="font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:22px; font-weight:700;">Request a call back</div>
-        <p class="sub" style="margin-top:4px;">Leave your number and we'll call to understand your restaurant and quote the one-time fee.</p>
+        <div class="cb-title">Request a call back</div>
+        <p class="sub" style="margin-top:4px;">Leave your number. We'll call to understand your restaurant and quote the one-time fee.</p>
+        <div class="cb-perks"><span>Free first call</span><span>Within 1 business day</span><span>No commitment</span></div>
         <form id="cbForm" novalidate>
           <div class="two">
             <div class="field"><label for="cbName">Your name *</label><input id="cbName" type="text" autocomplete="name" maxlength="80"></div>
@@ -367,6 +503,7 @@
             <div class="field"><label for="cbBiz">Restaurant name *</label><input id="cbBiz" type="text" autocomplete="organization" maxlength="80"></div>
             <div class="field"><label for="cbLoc">City / area</label><input id="cbLoc" type="text" autocomplete="address-level2" maxlength="80"></div>
           </div>
+          <div class="field"><label for="cbMsg">What's not working? (optional)</label><textarea id="cbMsg" maxlength="600" rows="2" placeholder="e.g. Food cost keeps rising and I can't see why"></textarea></div>
           <div class="sublab">Best time to call</div>
           <div class="chips" id="cbTimes"><button type="button" class="chip" data-cb-time="Morning">Morning</button><button type="button" class="chip" data-cb-time="Afternoon">Afternoon</button><button type="button" class="chip" data-cb-time="Evening">Evening</button></div>
           <div class="err" id="cbError"></div>
@@ -380,52 +517,21 @@
       </div>
     </section>
 
-    <section class="sec" id="faq">
-      <div class="eyebrow">Questions owners ask</div>
-      <h2>Before you get in touch</h2>
-      <div class="faq">
-        <details><summary>Is the first conversation really free?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>Yes. The first call is to understand what's going on in your restaurant and whether we can help. No commitment, no charge.</p></details>
-        <details><summary>Do I have to share my sales figures?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>No. The System Map is about how your restaurant runs, not what it earns. If you like, you can pick a rough sales range at the end to see what the gaps may be costing you. That stays on your phone and isn't saved. Real numbers come in later, when we trace problems to what they cost you.</p></details>
-        <details><summary>Is this about catching my staff out?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>No. We observe the floor to see how the system behaves under pressure. When the same mistake keeps happening, it's usually the system producing it, not the person.</p></details>
-        <details><summary>Is this a one-time report?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>No. With consulting, we run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it. If you'd rather run it yourself, we can build the whole system for you for a one-time fee.</p></details>
-        <details><summary>What kind of restaurants do you work with?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>We design systems for dine-in restaurants and QSRs. Not sure if we're a fit? Take the 60-second check above, or send us a message below.</p></details>
-      </div>
-    </section>
-
-    <section class="sec" id="contact">
-      <div class="eyebrow">Get in touch</div>
-      <h2>Rather just talk to us?</h2>
-      <p class="sub">Tell us what's not working and we'll reach out to set up a first conversation. No commitment, no charge.</p>
-      <form id="leadForm" novalidate>
-        <div class="two">
-          <div class="field"><label for="ldName">Your name *</label><input id="ldName" type="text" autocomplete="name" maxlength="80"></div>
-          <div class="field"><label for="ldPhone">Phone / WhatsApp *</label><input id="ldPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="10-digit mobile"></div>
+    <footer class="foot" id="sitefoot">
+      <div class="foot-top">
+        <div>
+          <a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="19" height="22">Diagnosis Room</a>
+          <p class="foot-tag">Systems consulting for restaurants.<br>Based in Panchkula · serving the Tricity and Punjab.</p>
         </div>
-        <div class="two">
-          <div class="field"><label for="ldBiz">Restaurant name *</label><input id="ldBiz" type="text" autocomplete="organization" maxlength="80"></div>
-          <div class="field"><label for="ldLoc">City / area</label><input id="ldLoc" type="text" autocomplete="address-level2" maxlength="80"></div>
-        </div>
-        <div class="field"><label for="ldEmail">Email (optional)</label><input id="ldEmail" type="email" autocomplete="email" maxlength="120"></div>
-        <div class="field"><label for="ldMsg">What are you looking for?</label><textarea id="ldMsg" maxlength="1000" placeholder="e.g. Tickets take too long at peak — not sure if it's staffing or the system"></textarea></div>
-        <div class="err" id="ldError"></div>
-        <div class="cta" style="justify-content:flex-start; margin-top:18px;"><button type="submit" class="btn btn-primary" id="ldSubmit">Send inquiry</button></div>
-        <p class="muted" style="margin-top:12px;">We only use this to get in touch about your inquiry. <a href="privacy.html" style="color:inherit;">Privacy</a></p>
-      </form>
-      <div id="ldThanks" style="display:none; margin-top:20px;" class="card">
-        <div style="font-size:18px; font-weight:800;">Thanks, we've got it.</div>
-        <p class="lead" style="font-size:15px;">We'll reach out within one business day.</p>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="#how" data-sec>How we work</a>
+          <a href="#system" data-sec>One-time system</a>
+          <a href="#faq" data-sec>Questions</a>
+          <a href="#callback" data-sec>Request a call back</a>
+        </nav>
       </div>
-   </section>
-
-    <div class="foot">
-      <a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="19" height="22">Diagnosis Room</a>
-      <span>© <span id="fyear"></span> Diagnosis Room · Systems consulting for restaurants · <a href="privacy.html" style="color:inherit;">Privacy</a></span>
-    </div>
+      <div class="foot-bot"><span>© <span id="fyear"></span> Diagnosis Room</span><a href="privacy.html">Privacy</a></div>
+    </footer>
   </div>
 </div>
 <div class="mcta" id="mcta"><button class="btn btn-primary js-begin">Check my restaurant · 60 seconds</button></div>
@@ -875,11 +981,12 @@
     var smp = SAMPLES[sampleIdx];
     var r = diagnose({ format:smp.format, answers:smp.answers, key:smp.key });
     boardSpec = { r:r, title:smp.title, leaves:false };
-    return '<div class="hero"><div class="eyebrow" style="margin-bottom:10px;">Free restaurant check</div><h1>Does your restaurant run on a system, or on people?</h1>' +
+    return '<div class="hero"><div class="eyebrow" style="margin-bottom:10px;">Free restaurant check</div><h1>Does your restaurant run <span class="hl">on a system</span>, or on people?</h1>' +
       '<p class="lead">Answer 15 quick questions and get a map of your operation, from inventory to delivery, showing which parts run on a system and which stop when one person is away.</p>' +
       '<div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary" data-a="begin">Check my restaurant · 60 seconds</button></div>' +
       (hasMap() ? '<div style="margin-top:10px;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button></div>' : '') +
       '<div class="trust">'+['Free','15 taps, no typing','No figures needed','Anonymous'].map(function(x){ return '<span>'+TICK+esc(x)+'</span>'; }).join('')+'</div></div>' +
+      tickerHtml() +
       '<div class="showcase">' +
         '<div class="showhead"><span class="sample-tag">Sample System Map</span>' +
           '<button class="btn-text" data-a="sample">Another example →</button></div>' +
@@ -890,6 +997,13 @@
         '<div class="board" role="img" aria-label="Sample system map"></div>' +
         '<div class="showfoot"><span>This is what yours will look like, in 60 seconds.</span><button class="btn btn-primary" data-a="begin2">Map my restaurant →</button></div>' +
       '</div>';
+  }
+
+  // A moving band of the 5 heads under the hero (the list is doubled so the loop is seamless).
+  function tickerHtml(){
+    var names = DEPTS.map(function(d){ return deptName(d, 'dinein'); });
+    var row = names.map(function(n){ return '<span>'+esc(n)+'</span><i>✦</i>'; }).join('');
+    return '<div class="ticker" role="img" aria-label="The System Map covers '+esc(names.join(', '))+'"><div class="ticker-track" aria-hidden="true">'+row+row+row+row+'</div></div>';
   }
 
   // The 5 heads as a small tracker, so 15 questions read as 5 short sections.
@@ -1152,46 +1266,20 @@
       entries.forEach(function(en){ past = !en.isIntersecting && en.boundingClientRect.top < 0; });
       upd();
     }, { rootMargin:'-70px 0px 0px 0px' });
-    // Hidden while either form (call-back or contact) is on screen.
-    var formsOn = {};
+    // Hidden while the call-back form or the footer is on screen.
+    var onScreen = {};
     var fio = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ formsOn[en.target.id] = en.isIntersecting; });
-      atForm = !!(formsOn.callback || formsOn.contact); upd();
+      entries.forEach(function(en){ onScreen[en.target.id] = en.isIntersecting; });
+      atForm = !!(onScreen.callback || onScreen.sitefoot); upd();
     });
-    ['callback','contact'].forEach(function(id){ var el = document.getElementById(id); if (el) fio.observe(el); });
+    ['callback','sitefoot'].forEach(function(id){ var el = document.getElementById(id); if (el) fio.observe(el); });
     var watchStart = function(){ var b = app.querySelector('[data-a="begin"]'); if (b) io.observe(b); };
     new MutationObserver(function(){ io.disconnect(); past = false; upd(); watchStart(); }).observe(app, { childList:true });
     watchStart();
   })();
   var fy = document.getElementById('fyear'); if (fy) fy.textContent = new Date().getFullYear();
 
-  // ---- "Get in touch" form (lands in the app's Call Requests as a website inquiry) ----
-  (function(){
-    var form = document.getElementById('leadForm'); if (!form) return;
-    var errBox = document.getElementById('ldError'), btn = document.getElementById('ldSubmit');
-    function val(id){ return document.getElementById(id).value.trim(); }
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var name = val('ldName'), biz = val('ldBiz'), phone = normPhone(val('ldPhone'));
-      if (!name || !biz || !val('ldPhone')){ errBox.textContent = 'Please fill in your name, restaurant name and phone number.'; return; }
-      if (!/^[6-9]\d{9}$/.test(phone)){ errBox.textContent = 'Enter a valid 10-digit mobile number.'; return; }
-      errBox.textContent = '';
-      btn.disabled = true; btn.textContent = 'Sending…';
-      writeDoc({
-        v:2, kind:'inquiry', status:'new',
-        contact:{ name:name.slice(0,80), phone:phone, business:biz.slice(0,80), location:val('ldLoc').slice(0,80), email:val('ldEmail').slice(0,120), message:val('ldMsg').slice(0,1000) },
-        createdAt:firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function(){
-        form.style.display = 'none';
-        document.getElementById('ldThanks').style.display = 'block';
-      }, function(){
-        btn.disabled = false; btn.textContent = 'Send inquiry';
-        errBox.textContent = 'Couldn\'t send right now. Check your connection, or email us directly.';
-      });
-    });
-  })();
-
-  // ---- "Request a call back" for the one-time system (lands in the app as a website inquiry) ----
+  // ---- "Request a call back": the page's only contact form (lands in the app as a website inquiry) ----
   (function(){
     var form = document.getElementById('cbForm'); if (!form) return;
     var errBox = document.getElementById('cbError'), btn = document.getElementById('cbSubmit'), when = '';
@@ -1211,7 +1299,7 @@
       writeDoc({
         v:2, kind:'inquiry', status:'new',
         contact:{ name:name.slice(0,80), phone:phone, business:biz.slice(0,80), location:val('cbLoc').slice(0,80), email:'',
-          message:('Call back request: one-time system (custom build).'+(when ? ' Best time: '+when+'.' : '')).slice(0,1000) },
+          message:('Call back request: one-time system (custom build).'+(when ? ' Best time: '+when+'.' : '')+(val('cbMsg') ? ' Note: '+val('cbMsg') : '')).slice(0,1000) },
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
       }).then(function(){
         form.style.display = 'none';
