@@ -318,14 +318,34 @@
   .sec > .eyebrow{display:flex; align-items:center; gap:10px; color:var(--ink);}
   .sec > .eyebrow::before{content:""; width:22px; height:2px; background:var(--ink); flex:none;}
   .sec{padding-top:56px; margin-top:56px;}
-  .steps{grid-template-columns:repeat(3,1fr); gap:12px;}
-  .step{border-width:1px; border-color:var(--line-strong); padding:18px 16px; transition:border-color .15s, transform .15s, box-shadow .15s;}
-  .step:hover{border-color:var(--ink); transform:translateY(-2px); box-shadow:0 10px 24px -14px rgba(0,0,0,.35);}
-  .step .num{width:auto; height:auto; background:none; color:var(--ink-400); border-radius:0; display:block; font-family:var(--disp); font-size:30px; font-weight:800; line-height:1;}
-  .step:hover .num{color:var(--ink);}
-  .step h3{margin-top:12px;}
-  @media (max-width:640px){ .steps{grid-template-columns:1fr 1fr;} }
-  @media (max-width:460px){ .steps{grid-template-columns:1fr;} .step{display:grid; grid-template-columns:44px 1fr; column-gap:4px;} .step .num{grid-row:span 2; font-size:26px;} .step h3{margin-top:0;} }
+  /* How we do it: three phases, each step with what you get from it */
+  .phases{margin-top:26px; display:flex; flex-direction:column; gap:14px;}
+  .phase{border:1.5px solid var(--ink); border-radius:var(--r-l); overflow:hidden; background:#fff;}
+  .ph-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 12px; padding:14px 20px; background:var(--surface-2); border-bottom:1.5px solid var(--ink);}
+  .ph-tag{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-400);}
+  .ph-name{font-family:var(--disp); font-size:26px; font-weight:800; line-height:1; text-transform:uppercase; letter-spacing:.04em;}
+  .ph-line{font-size:14px; color:var(--ink-600); margin-left:auto;}
+  .ph-step{display:grid; grid-template-columns:72px 1fr auto; gap:6px 16px; align-items:center; padding:18px 20px; transition:background .15s;}
+  .ph-step + .ph-step{border-top:1px solid var(--line);}
+  .ph-step:hover{background:#FAFAFA;}
+  .ph-n{font-family:var(--disp); font-size:50px; font-weight:800; line-height:.9; color:transparent; -webkit-text-stroke:1.5px var(--ink); transition:color .15s;}
+  .ph-step:hover .ph-n{color:var(--ink);}
+  .ph-body h3{font-size:19px;}
+  .ph-body p{margin:4px 0 0; font-size:14px; color:var(--ink-600); line-height:1.5; max-width:430px;}
+  .ph-get{justify-self:end; white-space:nowrap; font-size:12.5px; font-weight:700; padding:6px 11px; border-radius:999px; border:1.5px solid var(--ink); background:#fff;}
+  .ph-get::before{content:"You get · "; font-weight:500; color:var(--ink-400);}
+  .ph-dark{background:var(--ink); color:#fff;}
+  .ph-dark .ph-head{background:var(--ink); border-bottom-color:rgba(255,255,255,.2);}
+  .ph-dark .ph-tag{color:rgba(255,255,255,.55);} .ph-dark .ph-line, .ph-dark .ph-body p{color:rgba(255,255,255,.72);}
+  .ph-dark .ph-step:hover{background:#111;}
+  .ph-dark .ph-n{-webkit-text-stroke-color:#fff;} .ph-dark .ph-step:hover .ph-n{color:#fff;}
+  .ph-dark .ph-get{background:#fff; color:var(--ink); border-color:#fff;}
+  @media (max-width:640px){
+    .ph-head{padding:12px 16px;} .ph-line{margin-left:0; flex-basis:100%;}
+    .ph-step{grid-template-columns:52px 1fr; padding:16px; align-items:start;}
+    .ph-n{font-size:38px;}
+    .ph-get{grid-column:2; justify-self:start; white-space:normal;}
+  }
   .res .ic{background:var(--ink); color:#fff; border-color:var(--ink);}
   .outcome{padding:18px 16px;}
   .outcome b{font-size:19px;}
@@ -356,7 +376,7 @@
   /* Sections ease in as they scroll into view (browsers that support it; others just show them) */
   @supports (animation-timeline: view()){
     @media (prefers-reduced-motion: no-preference){
-      .step, .res, .outcome, .faq details, .ps > div, .cbbox{animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;}
+      .phase, .res, .outcome, .faq details, .ps > div, .cbbox{animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;}
     }
   }
   @keyframes rise{from{opacity:0; translate:0 18px;} to{opacity:1; translate:none;}}
@@ -482,13 +502,22 @@
       <div class="eyebrow">How we do it</div>
       <h2>We don't fix problems. We fix the system that keeps producing them.</h2>
       <p class="sub">The map above shows where your system breaks. This is the loop we run with you until it holds on its own, without you standing over it.</p>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><h3>You reach out</h3><p>Tell us what's not working. We listen for the pattern behind it, not just the complaint, and book a visit.</p></div>
-        <div class="step"><div class="num">2</div><h3>We observe the system</h3><p>We walk your floor against a full checklist, not to catch people, but to see how the real system behaves under pressure.</p></div>
-        <div class="step"><div class="num">3</div><h3>We trace it to numbers</h3><p>Every observation becomes a number (cost, wastage, cycle time), so the system's behaviour is visible, not a feeling.</p></div>
-        <div class="step"><div class="num">4</div><h3>We redesign the structure</h3><p>A prioritised plan that targets root causes, not symptoms: the fewest changes that fix the most leaks.</p></div>
-        <div class="step"><div class="num">5</div><h3>We install it with your team</h3><p>We build the SOPs and habits alongside your team, and stay until the new system is actually running.</p></div>
-        <div class="step"><div class="num">6</div><h3>We monitor the drift</h3><p>Every system drifts. Regular re-checks catch it early, so we tune it instead of rebuilding it.</p></div>
+      <div class="phases">
+        <div class="phase">
+          <div class="ph-head"><span class="ph-tag">Phase 1</span><span class="ph-name">Diagnose</span><span class="ph-line">See the system as it really runs</span></div>
+          <div class="ph-step"><span class="ph-n">01</span><div class="ph-body"><h3>You reach out</h3><p>Tell us what's not working. We listen for the pattern behind it, not just the complaint, and book a visit.</p></div><span class="ph-get">A free first call</span></div>
+          <div class="ph-step"><span class="ph-n">02</span><div class="ph-body"><h3>We observe the system</h3><p>We walk your floor against a full checklist, not to catch people, but to see how the real system behaves under pressure.</p></div><span class="ph-get">A scored floor audit</span></div>
+          <div class="ph-step"><span class="ph-n">03</span><div class="ph-body"><h3>We trace it to numbers</h3><p>Every observation becomes a number (cost, wastage, cycle time), so the system's behaviour is visible, not a feeling.</p></div><span class="ph-get">The cost of each gap</span></div>
+        </div>
+        <div class="phase">
+          <div class="ph-head"><span class="ph-tag">Phase 2</span><span class="ph-name">Build</span><span class="ph-line">Fix the structure, not the symptoms</span></div>
+          <div class="ph-step"><span class="ph-n">04</span><div class="ph-body"><h3>We redesign the structure</h3><p>A prioritised plan that targets root causes: the fewest changes that fix the most leaks.</p></div><span class="ph-get">A root-cause plan</span></div>
+          <div class="ph-step"><span class="ph-n">05</span><div class="ph-body"><h3>We install it with your team</h3><p>We build the SOPs and habits alongside your team, and stay until the new system is actually running.</p></div><span class="ph-get">SOPs your team runs</span></div>
+        </div>
+        <div class="phase ph-dark">
+          <div class="ph-head"><span class="ph-tag">Phase 3</span><span class="ph-name">Hold</span><span class="ph-line">Keep it running without you</span></div>
+          <div class="ph-step"><span class="ph-n">06</span><div class="ph-body"><h3>We monitor the drift</h3><p>Every system drifts. Regular re-checks catch it early, so we tune it instead of rebuilding it.</p></div><span class="ph-get">Re-checks that catch drift</span></div>
+        </div>
       </div>
     </section>
 
