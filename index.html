@@ -366,16 +366,42 @@
   .hero h1{line-height:1.16;}
   .hero .hl{background:linear-gradient(var(--ink),var(--ink)) 0 70% / 100% 84% no-repeat; color:#fff; padding:0 .16em; border-radius:8px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 
-  /* The 5 heads, moving in a black band */
-  .ticker{position:relative; margin:34px 0 0; left:50%; width:100vw; margin-left:-50vw; background:var(--ink); color:#fff; overflow:hidden; padding:13px 0;}
-  .ticker-track{display:flex; width:max-content; animation:tick 28s linear infinite;}
-  .ticker span{font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:0 22px;}
-  .ticker i{font-style:normal; opacity:.45; font-size:13px; align-self:center;}
-  @keyframes tick{to{transform:translateX(-50%);}}
-  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
-  .ticker + .showcase{margin-top:0;}
-  .ticker + .showcase::before{border-top:none;}
-  @media print{ .ticker{display:none;} }
+  /* What a system is: the five parts, drawn as a loop, with a worked example per area */
+  .sysdia{--bw:min(calc(100vw - 32px), 1040px); width:var(--bw); margin-left:calc((100% - var(--bw)) / 2);}
+  .sysdia{position:relative; margin-top:26px; border:1.5px solid var(--ink); border-radius:var(--r-l); padding:22px 18px 18px;
+    background-color:#fff; background-image:radial-gradient(var(--dot) 1.2px, transparent 1.2px); background-size:18px 18px;}
+  .sd-tabs{display:flex; flex-wrap:wrap; align-items:center; gap:8px;}
+  .sd-tabs .sd-lab{font-family:var(--disp); font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-400); margin-right:4px;}
+  .sd-tabs button{border:1.5px solid var(--line-strong); background:#fff; color:var(--ink); border-radius:999px; padding:7px 14px; font-size:14px; font-weight:600;}
+  .sd-tabs button[aria-selected="true"]{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .sd-flow{list-style:none; margin:20px 0 0; padding:0; display:grid; grid-template-columns:repeat(5,1fr); gap:22px;}
+  .sd-node{position:relative; background:#fff; border:1.5px solid var(--ink); border-radius:var(--r-m); padding:12px 12px 13px; display:flex; flex-direction:column;}
+  .sd-node:not(:last-child)::after{content:""; position:absolute; top:26px; right:-21px; width:20px; height:1.5px; background:var(--ink);}
+  .sd-node:not(:last-child)::before{content:""; position:absolute; top:22px; right:-21px; border:5px solid transparent; border-left:7px solid var(--ink); border-right:0;}
+  .sd-k{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--ink-400);}
+  .sd-name{font-family:var(--disp); font-size:19px; font-weight:800; line-height:1.1; margin-top:2px;}
+  .sd-def{font-size:12.5px; color:var(--ink-600); line-height:1.35; margin-top:4px;}
+  .sd-ex{margin-top:10px; padding-top:9px; border-top:1px dashed var(--line-strong); font-size:13.5px; font-weight:600; line-height:1.35; flex:1;}
+  .sd-loop{position:relative; margin:14px 0 0; height:34px;}
+  .sd-loop::before{content:""; position:absolute; left:10%; right:10%; top:0; height:20px; border:1.5px dashed var(--ink); border-top:none; border-radius:0 0 14px 14px;}
+  .sd-loop::after{content:""; position:absolute; left:calc(10% - 5px); top:-4px; border:5px solid transparent; border-bottom:7px solid var(--ink); border-top:0;}
+  .sd-loop span{position:absolute; left:50%; top:9px; transform:translateX(-50%); background:#fff; padding:0 10px; font-family:var(--disp); font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap;}
+  .sd-foot{margin-top:6px; font-size:14px; color:var(--ink-600);}
+  .sd-foot b{color:var(--ink);}
+  @media (max-width:760px){
+    .sd-flow{grid-template-columns:1fr; gap:14px; padding-left:26px;}
+    .sd-node{display:grid; grid-template-columns:118px 1fr; column-gap:12px; align-items:start;}
+    .sd-node > .sd-k, .sd-node > .sd-name, .sd-node > .sd-def{grid-column:1;}
+    .sd-node > .sd-ex{grid-column:2; grid-row:1 / span 3; margin:0; padding:0 0 0 12px; border-top:none; border-left:1px dashed var(--line-strong); align-self:stretch;}
+    .sd-node:not(:last-child)::after{top:auto; bottom:-14px; right:auto; left:24px; width:1.5px; height:13px;}
+    .sd-node:not(:last-child)::before{display:none;}
+    .sd-flow{padding-left:0;}
+    .sd-loop{height:auto; margin-top:12px;}
+    .sd-loop::before, .sd-loop::after{display:none;}
+    .sd-loop span{position:static; transform:none; display:block; padding:9px 12px; border:1.5px dashed var(--ink); border-radius:var(--r-m); text-align:center; white-space:normal;}
+  }
+  @media (max-width:420px){ .sd-node{grid-template-columns:96px 1fr;} .sd-name{font-size:17px;} }
+  @media print{ .sysdia{break-inside:avoid;} }
 
   /* People vs system */
   .vs{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px;}
@@ -405,6 +431,28 @@
   <div class="fine">Answers are saved anonymously. Your number is only saved if you book a call. <a href="privacy.html" style="color:inherit;">Privacy</a></div>
 
   <div class="site">
+    <section class="sec" id="what">
+      <div class="eyebrow">What a system is</div>
+      <h2>A system is how the work gets done when nobody is watching.</h2>
+      <p class="sub">Every part of a restaurant that runs well has the same five parts. When one of them is missing, the work falls back on a person, and stops when that person does.</p>
+      <div class="sysdia">
+        <div class="sd-tabs" role="tablist" aria-label="Example area"><span class="sd-lab">See it on</span>
+          <button type="button" role="tab" aria-selected="true" data-sd="purchase">Purchase</button>
+          <button type="button" role="tab" aria-selected="false" data-sd="portions">Portions</button>
+          <button type="button" role="tab" aria-selected="false" data-sd="cash">Cash</button>
+        </div>
+        <ol class="sd-flow">
+          <li class="sd-node"><span class="sd-k">01</span><span class="sd-name">Standard</span><span class="sd-def">What "right" looks like, written down</span><span class="sd-ex" data-sdx="0">A par level for every item</span></li>
+          <li class="sd-node"><span class="sd-k">02</span><span class="sd-name">Owner</span><span class="sd-def">A role, not a name, answers for it</span><span class="sd-ex" data-sdx="1">The storekeeper orders, the owner approves</span></li>
+          <li class="sd-node"><span class="sd-k">03</span><span class="sd-name">Routine</span><span class="sd-def">When it happens, without being told</span><span class="sd-ex" data-sdx="2">Stock counted and order sent before 11 am</span></li>
+          <li class="sd-node"><span class="sd-k">04</span><span class="sd-name">Check</span><span class="sd-def">A control point that catches the mistake</span><span class="sd-ex" data-sdx="3">Goods weighed against the bill at receiving</span></li>
+          <li class="sd-node"><span class="sd-k">05</span><span class="sd-name">Record</span><span class="sd-def">A number that shows it's working</span><span class="sd-ex" data-sdx="4">Purchase register, reviewed every week</span></li>
+        </ol>
+        <div class="sd-loop" aria-hidden="true"><span>↺ Review the record, tune the standard</span></div>
+        <p class="sd-foot">Take away any one part and it becomes <b>"ask the chef"</b> or <b>"the manager knows"</b>. That's what the System Map finds, and what we build.</p>
+      </div>
+    </section>
+
     <section class="sec" id="difference">
       <div class="eyebrow">The difference</div>
       <h2>Same restaurant. Two ways to run it.</h2>
@@ -986,7 +1034,6 @@
       '<div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary" data-a="begin">Check my restaurant · 60 seconds</button></div>' +
       (hasMap() ? '<div style="margin-top:10px;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button></div>' : '') +
       '<div class="trust">'+['Free','15 taps, no typing','No figures needed','Anonymous'].map(function(x){ return '<span>'+TICK+esc(x)+'</span>'; }).join('')+'</div></div>' +
-      tickerHtml() +
       '<div class="showcase">' +
         '<div class="showhead"><span class="sample-tag">Sample System Map</span>' +
           '<button class="btn-text" data-a="sample">Another example →</button></div>' +
@@ -997,13 +1044,6 @@
         '<div class="board" role="img" aria-label="Sample system map"></div>' +
         '<div class="showfoot"><span>This is what yours will look like, in 60 seconds.</span><button class="btn btn-primary" data-a="begin2">Map my restaurant →</button></div>' +
       '</div>';
-  }
-
-  // A moving band of the 5 heads under the hero (the list is doubled so the loop is seamless).
-  function tickerHtml(){
-    var names = DEPTS.map(function(d){ return deptName(d, 'dinein'); });
-    var row = names.map(function(n){ return '<span>'+esc(n)+'</span><i>✦</i>'; }).join('');
-    return '<div class="ticker" role="img" aria-label="The System Map covers '+esc(names.join(', '))+'"><div class="ticker-track" aria-hidden="true">'+row+row+row+row+'</div></div>';
   }
 
   // The 5 heads as a small tracker, so 15 questions read as 5 short sections.
@@ -1278,6 +1318,21 @@
     watchStart();
   })();
   var fy = document.getElementById('fyear'); if (fy) fy.textContent = new Date().getFullYear();
+
+  // ---- "What a system is": switch the worked example between areas ----
+  (function(){
+    var EX = {
+      purchase:['A par level for every item','The storekeeper orders, the owner approves','Stock counted and order sent before 11 am','Goods weighed against the bill at receiving','Purchase register, reviewed every week'],
+      portions:['A recipe card with the weight of every item','The kitchen head on each shift','Every plate weighed or measured at plating','Five plates spot-checked every shift','Food cost % each week, against the target'],
+      cash:['Every order goes through the billing system','The cashier on each shift','Cash counted at every shift close','A second person matches the count to the system','A daily cash sheet, every difference explained']
+    };
+    var tabs = document.querySelector('.sd-tabs'); if (!tabs) return;
+    tabs.addEventListener('click', function(e){
+      var b = e.target.closest('[data-sd]'); if (!b) return;
+      [].forEach.call(tabs.querySelectorAll('[data-sd]'), function(x){ x.setAttribute('aria-selected', x===b ? 'true' : 'false'); });
+      [].forEach.call(document.querySelectorAll('[data-sdx]'), function(el){ el.textContent = EX[b.dataset.sd][+el.dataset.sdx]; });
+    });
+  })();
 
   // ---- "Request a call back": the page's only contact form (lands in the app as a website inquiry) ----
   (function(){
