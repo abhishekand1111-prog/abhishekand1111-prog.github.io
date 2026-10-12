@@ -237,6 +237,20 @@
     .bookfoot .btn{min-width:0 !important; width:100%;}
     .level{flex-direction:column; align-items:flex-start; gap:8px;}
   }
+  /* One-time system: one problem, one solution, then the call-back form */
+  .ps{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .ps-prob{background:var(--ink); color:#fff; border-radius:var(--r-l); padding:22px 20px;}
+  .ps-sol{border:1.5px solid var(--ink); border-radius:var(--r-l); padding:22px 20px; background:var(--surface);}
+  .ps-tag{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;}
+  .ps-prob .ps-tag{color:#ff8a80;}
+  .ps-sol .ps-tag{color:var(--ink-400);}
+  .ps-text{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:25px; font-weight:700; line-height:1.15; margin-top:10px;}
+  .cbbox{margin-top:16px; border:1.5px solid var(--line); border-radius:var(--r-l); padding:20px 18px 16px; background-color:#FAFAFA; background-image:radial-gradient(#E2E2E2 1.1px, transparent 1.1px); background-size:18px 18px;}
+  .cbbox .field input{background:#fff;}
+  .sysoffer{margin-top:12px; border:1.5px dashed var(--ink); border-radius:var(--r-l); padding:16px 18px; display:flex; flex-direction:column; align-items:flex-start; gap:10px;}
+  .sysoffer-t{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:19px; font-weight:700; line-height:1.2;}
+  @media print{ .sysoffer{display:none !important;} }
+  @media (max-width:560px){ .ps{grid-template-columns:1fr;} .ps-text{font-size:23px;} }
   .fixcard{margin-top:16px; background:var(--ink); color:#fff; border-radius:var(--r-l); padding:18px 18px 16px;}
   .fixcard .eyebrow{color:#fff; opacity:.7;}
   .fixtext{font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:21px; font-weight:700; line-height:1.25; margin-top:8px;}
@@ -293,7 +307,7 @@
 <body>
 <div class="shell">
   <div class="top"><a class="brand" href="./" data-home><img src="assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room</a>
-    <div class="toplinks"><a class="toplink hide-sm" href="#how" data-sec>How we work</a><a class="toplink toppill" href="#contact" data-sec>Contact</a></div></div>
+    <div class="toplinks"><a class="toplink hide-sm" href="#how" data-sec>How we work</a><a class="toplink hide-sm" href="#system" data-sec>One-time system</a><a class="toplink toppill" href="#contact" data-sec>Contact</a></div></div>
   <div id="app"></div>
   <div class="fine">Answers are saved anonymously. Your number is only saved if you book a call. <a href="privacy.html" style="color:inherit;">Privacy</a></div>
 
@@ -329,6 +343,43 @@
       <div class="cta" style="justify-content:flex-start;"><button class="btn btn-primary js-begin">Check my restaurant · 60 seconds</button></div>
     </section>
 
+    <section class="sec" id="system">
+      <div class="ps">
+        <div class="ps-prob">
+          <div class="ps-tag">The problem</div>
+          <div class="ps-text">Your operations are stuck, and you can't see where the money is leaking.</div>
+        </div>
+        <div class="ps-sol">
+          <div class="ps-tag">The solution</div>
+          <div class="ps-text">We build a complete system for your restaurant, fully customised to it. You run it, you stay in control, and you pay a one-time fee.</div>
+        </div>
+      </div>
+
+      <div class="cbbox" id="callback">
+        <div style="font-family:'Barlow Semi Condensed','Inter',sans-serif; font-size:22px; font-weight:700;">Request a call back</div>
+        <p class="sub" style="margin-top:4px;">Leave your number and we'll call to understand your restaurant and quote the one-time fee.</p>
+        <form id="cbForm" novalidate>
+          <div class="two">
+            <div class="field"><label for="cbName">Your name *</label><input id="cbName" type="text" autocomplete="name" maxlength="80"></div>
+            <div class="field"><label for="cbPhone">Phone / WhatsApp *</label><input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="10-digit mobile"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="cbBiz">Restaurant name *</label><input id="cbBiz" type="text" autocomplete="organization" maxlength="80"></div>
+            <div class="field"><label for="cbLoc">City / area</label><input id="cbLoc" type="text" autocomplete="address-level2" maxlength="80"></div>
+          </div>
+          <div class="sublab">Best time to call</div>
+          <div class="chips" id="cbTimes"><button type="button" class="chip" data-cb-time="Morning">Morning</button><button type="button" class="chip" data-cb-time="Afternoon">Afternoon</button><button type="button" class="chip" data-cb-time="Evening">Evening</button></div>
+          <div class="err" id="cbError"></div>
+          <div class="cta" style="justify-content:flex-start; margin-top:18px;"><button type="submit" class="btn btn-primary" id="cbSubmit">Request a call back</button></div>
+          <p class="muted" style="margin-top:12px;">We only use your number to call you about this. <a href="privacy.html" style="color:inherit;">Privacy</a></p>
+        </form>
+        <div id="cbThanks" style="display:none; margin-top:14px;">
+          <div style="font-size:18px; font-weight:800;">Thanks, we'll call you back.</div>
+          <p class="lead" style="font-size:15px;">Usually within one business day<span id="cbThanksTime"></span>.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="sec" id="faq">
       <div class="eyebrow">Questions owners ask</div>
       <h2>Before you get in touch</h2>
@@ -340,7 +391,7 @@
         <details><summary>Is this about catching my staff out?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
           <p>No. We observe the floor to see how the system behaves under pressure. When the same mistake keeps happening, it's usually the system producing it, not the person.</p></details>
         <details><summary>Is this a one-time report?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <p>No. We run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it.</p></details>
+          <p>No. With consulting, we run a loop with you: observe, redesign, install with your team, then re-check for drift, until the system holds without you standing over it. If you'd rather run it yourself, we can build the whole system for you for a one-time fee.</p></details>
         <details><summary>What kind of restaurants do you work with?<span class="pm"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></summary>
           <p>We design systems for dine-in restaurants and QSRs. Not sure if we're a fit? Take the 60-second check above, or send us a message below.</p></details>
       </div>
@@ -898,6 +949,11 @@
         '</ul>' +
         '<div class="cta" style="margin-top:18px;"><button class="btn btn-primary" data-a="to" data-v="book">Book my free Snapshot Call</button></div>' +
       '</div>' +
+      '<div class="sysoffer">' +
+        '<div class="ps-tag" style="color:var(--ink-400);">Prefer to fix it yourself?</div>' +
+        '<div class="sysoffer-t">We\'ll build the full system around this map, for a one-time fee. You run it and stay in control.</div>' +
+        '<button class="btn" data-a="to" data-v="sysreq">Request a call back</button>' +
+      '</div>' +
       '<div class="after">' +
         '<a class="btn-text" href="https://wa.me/?text='+encodeURIComponent('Does your restaurant run on a system, or on people? Free 60-second check: '+SITE)+'" target="_blank" rel="noopener">Send this check to another owner</a>' +
         '<button class="btn-text" data-a="print">Save my map as PDF</button>' +
@@ -942,6 +998,29 @@
       '<button class="btn btn-primary" data-a="send" style="min-width:200px;">Request call</button></div>' +
       '<p class="muted" style="margin-top:14px;">We only use your number to call you about this. <a href="privacy.html" style="color:inherit;">How we handle your details</a></p>';
   }
+  // One-time system: call-back request that carries the owner's map (saved as a 'call' with a "One-time system" slot).
+  var SYS_TIMES = ['Morning','Afternoon','Evening'];
+  function viewSysReq(){
+    var b = st.booking;
+    return '<div class="eyebrow">One-time system · built around your map</div>' +
+      '<h2 style="font-size:26px; margin-top:6px;">We\'ll call you back</h2>' +
+      '<p class="lead" style="font-size:15px;">We\'ll go through your map and quote the one-time fee for building your system. Your answers are already with us.</p>' +
+      '<div class="two">' +
+        '<div><label class="f" for="sname">Your name</label><input class="t" id="sname" data-b="name" maxlength="80" autocomplete="name" value="'+esc(b.name)+'"><div class="err" data-e="name"></div></div>' +
+        '<div><label class="f" for="sphone">Mobile number</label><input class="t" id="sphone" data-b="phone" type="tel" inputmode="tel" maxlength="16" autocomplete="tel" value="'+esc(b.phone)+'" placeholder="10-digit mobile"><div class="err" data-e="phone"></div></div>' +
+      '</div>' +
+      '<div class="sublab">Best time to call</div><div class="chips">'+SYS_TIMES.map(function(x){ return '<button class="chip '+(st.sysTime===x?'on':'')+'" data-a="systime" data-v="'+x+'">'+x+'</button>'; }).join('')+'</div>' +
+      '<div class="err" data-e="send"></div>' +
+      '<div class="cta bookfoot" style="justify-content:space-between; align-items:center;"><button class="btn-text" data-a="to" data-v="result">← Back to my map</button>' +
+      '<button class="btn btn-primary" data-a="sendsys" style="min-width:200px;">Request a call back</button></div>' +
+      '<p class="muted" style="margin-top:14px;">We only use your number to call you about this. <a href="privacy.html" style="color:inherit;">Privacy</a></p>';
+  }
+  function viewSysDone(){
+    return '<div class="done-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>' +
+      '<h2 style="font-size:26px;">Request received</h2>' +
+      '<p class="lead">We\'ll call you back on '+esc((st.sysDone||{}).phone||'')+(st.sysDone && st.sysDone.time ? ', in the '+esc(st.sysDone.time.toLowerCase()) : '')+', usually within one business day.</p>' +
+      '<div class="cta" style="justify-content:flex-start;"><button class="btn" data-a="to" data-v="result">View my map</button></div>';
+  }
   function viewBooked(){
     var b = st.booked || {};
     var day = ''; try{ day = new Date(b.day+'T00:00:00').toLocaleDateString('en-IN',{ weekday:'long', day:'numeric', month:'long' }); }catch(e){}
@@ -962,6 +1041,8 @@
     else if (st.step==='result' && st.format) h = viewResult();
     else if (st.step==='book' && st.format) h = viewBook();
     else if (st.step==='booked') h = viewBooked();
+    else if (st.step==='sysreq' && st.format) h = viewSysReq();
+    else if (st.step==='sysdone') h = viewSysDone();
     else { st.step = 'landing'; h = viewLanding(); }
     document.body.setAttribute('data-step', i>=0 ? 'q' : st.step);
     app.innerHTML = '<div class="fade">'+h+'</div>';
@@ -1002,6 +1083,28 @@
     else if (a==='sales'){ var sv = parseInt(t.dataset.v, 10); st.sales = st.sales===sv ? 0 : sv; var y = window.scrollY; render(); window.scrollTo(0, y); }
     else if (a==='day'){ st.booking.day = t.dataset.v; render(); }
     else if (a==='slot'){ st.booking.slot = t.dataset.v; render(); }
+    else if (a==='systime'){ st.sysTime = st.sysTime===t.dataset.v ? '' : t.dataset.v; render(); }
+    else if (a==='sendsys'){
+      var sb = st.booking, sp = {};
+      if (!String(sb.name||'').trim()) sp.name = 'Enter your name.';
+      if (!/^[6-9]\d{9}$/.test(normPhone(sb.phone))) sp.phone = 'Enter a valid 10-digit mobile number.';
+      showErrors(sp);
+      if (Object.keys(sp).length){ var sf = app.querySelector('[data-b="'+Object.keys(sp)[0]+'"]'); if (sf) sf.focus(); return; }
+      t.disabled = true; t.textContent = 'Sending…';
+      var tmr = new Date(); tmr.setDate(tmr.getDate()+1);
+      var sdata = payloadBase(diagnose(st));
+      sdata.kind = 'call';
+      sdata.status = 'new';
+      // The app recognises a one-time system request by this slot text.
+      sdata.contact = { name:String(sb.name).trim().slice(0,80), phone:normPhone(sb.phone), date:isoDay(tmr), slot:('One-time system'+(st.sysTime ? ' · '+st.sysTime : '')).slice(0,40) };
+      writeDoc(sdata).then(function(){
+        st.sysDone = { phone:sdata.contact.phone, time:st.sysTime||'' };
+        go('sysdone');
+      }, function(){
+        t.disabled = false; t.textContent = 'Request a call back';
+        showErrors({ send:'Couldn\'t send right now. Check your connection and try again.' });
+      });
+    }
     else if (a==='send'){
       var b = st.booking, p = bookingProblems(b);
       showErrors(p);
@@ -1049,8 +1152,13 @@
       entries.forEach(function(en){ past = !en.isIntersecting && en.boundingClientRect.top < 0; });
       upd();
     }, { rootMargin:'-70px 0px 0px 0px' });
-    var contact = document.getElementById('contact');
-    if (contact) new IntersectionObserver(function(entries){ atForm = entries[0].isIntersecting; upd(); }).observe(contact);
+    // Hidden while either form (call-back or contact) is on screen.
+    var formsOn = {};
+    var fio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ formsOn[en.target.id] = en.isIntersecting; });
+      atForm = !!(formsOn.callback || formsOn.contact); upd();
+    });
+    ['callback','contact'].forEach(function(id){ var el = document.getElementById(id); if (el) fio.observe(el); });
     var watchStart = function(){ var b = app.querySelector('[data-a="begin"]'); if (b) io.observe(b); };
     new MutationObserver(function(){ io.disconnect(); past = false; upd(); watchStart(); }).observe(app, { childList:true });
     watchStart();
@@ -1079,6 +1187,39 @@
       }, function(){
         btn.disabled = false; btn.textContent = 'Send inquiry';
         errBox.textContent = 'Couldn\'t send right now. Check your connection, or email us directly.';
+      });
+    });
+  })();
+
+  // ---- "Request a call back" for the one-time system (lands in the app as a website inquiry) ----
+  (function(){
+    var form = document.getElementById('cbForm'); if (!form) return;
+    var errBox = document.getElementById('cbError'), btn = document.getElementById('cbSubmit'), when = '';
+    function val(id){ return document.getElementById(id).value.trim(); }
+    document.getElementById('cbTimes').addEventListener('click', function(e){
+      var b = e.target.closest('[data-cb-time]'); if (!b) return;
+      when = when===b.dataset.cbTime ? '' : b.dataset.cbTime;
+      [].forEach.call(this.querySelectorAll('[data-cb-time]'), function(x){ x.classList.toggle('on', x.dataset.cbTime===when); });
+    });
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = val('cbName'), biz = val('cbBiz'), phone = normPhone(val('cbPhone'));
+      if (!name || !biz || !val('cbPhone')){ errBox.textContent = 'Please fill in your name, restaurant name and phone number.'; return; }
+      if (!/^[6-9]\d{9}$/.test(phone)){ errBox.textContent = 'Enter a valid 10-digit mobile number.'; return; }
+      errBox.textContent = '';
+      btn.disabled = true; btn.textContent = 'Sending…';
+      writeDoc({
+        v:2, kind:'inquiry', status:'new',
+        contact:{ name:name.slice(0,80), phone:phone, business:biz.slice(0,80), location:val('cbLoc').slice(0,80), email:'',
+          message:('Call back request: one-time system (custom build).'+(when ? ' Best time: '+when+'.' : '')).slice(0,1000) },
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function(){
+        form.style.display = 'none';
+        document.getElementById('cbThanksTime').textContent = when ? ', in the '+when.toLowerCase() : '';
+        document.getElementById('cbThanks').style.display = 'block';
+      }, function(){
+        btn.disabled = false; btn.textContent = 'Request a call back';
+        errBox.textContent = 'Couldn\'t send right now. Check your connection and try again.';
       });
     });
   })();
