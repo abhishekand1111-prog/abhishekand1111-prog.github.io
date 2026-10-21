@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /audit-app/
+
+Sitemap: https://diagnosisroom.com/sitemap.xml
