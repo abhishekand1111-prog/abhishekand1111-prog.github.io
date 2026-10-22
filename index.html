@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Diagnosis Room | Restaurant, Hotel &amp; Franchise Systems Consultant, Chandigarh</title>
-<meta name="description" content="Systems consultant for restaurants, hotels and franchise brands, based in Panchkula and serving Chandigarh, Mohali, Punjab and India. SOPs, food cost control, inventory, kitchen and outlet audits.">
+<title>Diagnosis Room | Systems for Restaurants, Hotels &amp; Franchise Brands</title>
+<meta name="description" content="Systems consultant for restaurants, hotels and franchise brands. SOPs, food cost control, inventory, kitchen and outlet audits.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://diagnosisroom.com/">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0A0A0A">
+<script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,8 +47,8 @@
 </script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Diagnosis Room">
-<meta property="og:title" content="Does your business run on a system, or on people?">
-<meta property="og:description" content="Systems for restaurants, hotels and franchise brands. SOPs, food cost, inventory and outlet audits.">
+<meta property="og:title" content="Your kitchen, running without you.">
+<meta property="og:description" content="Systems for restaurants, hotels and franchise brands. Free 60-second System Map.">
 <meta property="og:url" content="https://diagnosisroom.com/">
 <meta property="og:image" content="https://diagnosisroom.com/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -56,99 +57,321 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow+Semi+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap">
 <style>
-  /* Three paths: each one a full clickable card */
-  .paths{display:grid; gap:12px; margin-top:30px;}
-  .path{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px 18px; align-items:center; padding:20px 20px 18px; border:1.5px solid var(--ink); border-radius:var(--r-l); color:var(--ink); text-decoration:none; background:#fff; transition:transform .15s, box-shadow .15s, background .15s;}
-  .path:hover{transform:translateY(-2px); box-shadow:0 14px 30px -18px rgba(0,0,0,.45);}
-  .path-who{font-family:var(--disp); font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-400);}
-  .path h2{font-size:30px; line-height:1.05; margin-top:4px;}
-  .path p{margin:6px 0 0; font-size:14.5px; color:var(--ink-600); line-height:1.5; max-width:470px;}
-  .path-go{width:46px; height:46px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex:none;}
-  .path.feature{background:var(--ink); color:#fff;}
-  .path.feature .path-who{color:rgba(255,255,255,.6);}
-  .path.feature p{color:rgba(255,255,255,.75);}
-  .path.feature .path-go{background:#fff; color:var(--ink);}
-  .path-tag{display:inline-block; margin-top:10px; font-size:12.5px; font-weight:700; padding:5px 11px; border-radius:999px; border:1.5px solid currentColor;}
-  @media (max-width:460px){ .path{grid-template-columns:1fr;} .path-go{display:none;} .path h2{font-size:27px;} }
-  .loop{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:20px;}
-  .loop > div{border:1px solid var(--line); border-radius:var(--r-m); padding:14px 16px;}
-  .loop .ph-tag{display:block;}
-  .loop h3{font-size:22px; text-transform:uppercase; letter-spacing:.04em; margin-top:4px;}
-  .loop p{margin:4px 0 0; font-size:14px; color:var(--ink-600); line-height:1.5;}
-  @media (max-width:560px){ .loop{grid-template-columns:1fr;} }
+  /* Layout: a short film in five scenes. Black terminal bar that shows the system at work, a lit-pass hero,
+     one idea per screen, three doors, a closing call. Brand stays black and white; the only colour is the red "live" dot. */
+  :root{
+    --ink:#0A0A0A; --ink-2:#161616; --paper:#FFFFFF; --stone:#F2F1EF;
+    --grey:#6E6E6E; --grey-l:#A9A9A9; --line:#E4E4E4; --live:#E5392B;
+    --serif:'Instrument Serif', 'Times New Roman', Georgia, serif;
+    --label:'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+    --mono:'IBM Plex Mono', Consolas, monospace;
+    --sans:'Inter', -apple-system, 'Segoe UI', sans-serif;
+    --signal:#D7381F;
+    --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0; background:var(--paper); overflow-x:clip;}
+  body{color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid currentColor; outline-offset:3px;}
+  .gut{padding-left:max(18px, env(safe-area-inset-left, 0px)); padding-right:max(18px, env(safe-area-inset-right, 0px));}
+  .wrap{max-width:1120px; margin:0 auto;}
+
+  /* ---- Terminal bar + live strip (sticky) ---- */
+  .head{position:sticky; top:0; z-index:50;}
+  .term{background:#000; color:#fff; font-family:var(--mono); font-size:12.5px; line-height:1.5; padding-block:10px 9px;}
+  .term .wrap{display:flex; justify-content:space-between; align-items:center; gap:14px;}
+  /* The dr mark floats with the page, no background: white on dark sections, black on light ones */
+  .fmark{position:fixed; z-index:60; top:calc(var(--headh, 76px) + 16px); left:max(18px, env(safe-area-inset-left, 0px)); mix-blend-mode:difference; line-height:0;}
+  .fmark img{height:34px; width:auto; display:block; filter:invert(1);}
+  @media (prefers-reduced-motion: no-preference){ .fmark{animation:rise .8s ease-out .2s both;} }
+  @media (max-width:460px){ .fmark img{height:28px;} }
+  .log{flex:1; min-width:0; height:1.5em; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+  .log::after{content:"▍"; animation:blink 1s steps(1) infinite; margin-left:1px;}
+  @keyframes blink{50%{opacity:0;}}
+  .term-r{flex:none; display:flex; gap:18px; font-weight:500;}
+  .term-r a{text-decoration:none; letter-spacing:.06em;}
+  .term-r a:hover{text-decoration:underline; text-underline-offset:3px;}
+  /* The one colour on the page: ticket-printer red, used on the live strip and one detail further down */
+  .strip{background:var(--signal); color:#fff; font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; text-align:center; padding-block:9px;}
+  .strip i{display:inline-block; width:8px; height:8px; border-radius:50%; background:#fff; margin-right:10px; vertical-align:1px; animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{50%{opacity:.25;}}
+
+  /* ---- Hero: the pass after closing, one lamp still on ---- */
+  .hero{position:relative; isolation:isolate; overflow:hidden; background:var(--ink); color:#fff; min-height:min(88svh, 820px); display:flex; flex-direction:column;}
+  .hero::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.16; mix-blend-mode:screen; pointer-events:none;}
+  .lamp{position:absolute; z-index:-2; left:50%; top:0; width:min(1100px, 160vw); height:100%; transform:translateX(-50%); pointer-events:none;}
+  .lamp .cord{position:absolute; left:50%; top:0; width:1px; height:14%; background:rgba(255,255,255,.35);}
+  .lamp .shade{position:absolute; left:50%; top:14%; width:64px; height:22px; margin-left:-32px; background:#2A2A2A; border-radius:32px 32px 4px 4px; box-shadow:0 6px 18px rgba(255,255,255,.18);}
+  .lamp .bulb{position:absolute; left:50%; top:calc(14% + 20px); width:26px; height:8px; margin-left:-13px; border-radius:50%; background:#fff; filter:blur(2px);}
+  .lamp .cone{position:absolute; left:50%; top:calc(14% + 22px); width:100%; height:80%; transform:translateX(-50%);
+    clip-path:polygon(47% 0, 53% 0, 88% 100%, 12% 100%);
+    background:linear-gradient(180deg, rgba(255,255,255,.30), rgba(255,255,255,.07) 55%, rgba(255,255,255,0) 92%); filter:blur(6px);
+    animation:flick 7s ease-in-out infinite;}
+  .lamp .pool{position:absolute; left:50%; bottom:6%; width:70%; height:120px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(closest-side, rgba(255,255,255,.16), transparent);}
+  .lamp .pass{position:absolute; left:8%; right:8%; bottom:12%; height:2px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);}
+  @keyframes flick{0%,100%{opacity:1;} 46%{opacity:1;} 47%{opacity:.82;} 48%{opacity:1;} 73%{opacity:.93;}}
+  .hero-top{display:flex; justify-content:space-between; align-items:center; padding-block:22px 0;}
+  .hero-bar{width:100%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;}
+  .hero-bar .ul{justify-self:end;}
+  .logo{font-family:var(--label); font-weight:700; font-size:22px; letter-spacing:.01em; text-decoration:none; color:#fff;}
+  .ul{font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:underline; text-underline-offset:4px;}
+  .hero-mid{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding-block:56px 40px;}
+  .hero h1{font-family:var(--serif); font-weight:400; font-size:clamp(46px, 8.6vw, 112px); line-height:.96; letter-spacing:-.01em; margin:0; max-width:11ch; text-wrap:balance;}
+  .hero h1 em{font-style:italic; color:rgba(255,255,255,.72);}
+  .hero-sub{font-size:16px; color:rgba(255,255,255,.7); margin:20px 0 0; max-width:34ch; text-wrap:balance;}
+  .btn{display:inline-flex; align-items:center; gap:10px; margin-top:30px; padding:13px 22px; border:1px solid currentColor; font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; transition:background .2s, color .2s;}
+  .btn-light{background:#fff; color:var(--ink); border-color:#fff; box-shadow:0 0 0 1px rgba(255,255,255,.25), 0 10px 30px -10px rgba(255,255,255,.35);}
+  .btn-light:hover{background:transparent; color:#fff;}
+  .btn-dark{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .btn-dark:hover{background:transparent; color:var(--ink);}
+  .fine{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; margin-top:14px; opacity:.55;}
+  /* The ticket rail at the pass: each hanging ticket is one check the system ran today */
+  .rail{position:relative; margin:0 auto; width:min(1060px, 100%); padding-top:14px;}
+  .rail::before{content:""; position:absolute; left:0; right:0; top:8px; height:6px; border-radius:3px; background:linear-gradient(180deg, #8C8C8C, #3A3A3A 60%, #1C1C1C); box-shadow:0 2px 6px rgba(0,0,0,.6);}
+  .tix{list-style:none; margin:0; padding:0 2%; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:14px;}
+  .tix li{position:relative; transform-origin:50% -6px; animation:sway 6s ease-in-out infinite;}
+  .tix li:nth-child(2){animation-delay:-1.4s;} .tix li:nth-child(3){animation-delay:-3s;} .tix li:nth-child(4){animation-delay:-.6s;} .tix li:nth-child(5){animation-delay:-4.2s;}
+  .tix li::before{content:""; position:absolute; left:50%; top:-10px; width:22px; height:12px; margin-left:-11px; background:#2B2B2B; border-radius:2px; z-index:1;}
+  .tk{background:#F3F3F0; color:#111; font-family:var(--mono); font-size:11px; line-height:1.45; padding:12px 11px 18px; box-shadow:0 14px 26px -12px rgba(0,0,0,.8);
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 6px),92% 100%,84% calc(100% - 6px),76% 100%,68% calc(100% - 6px),60% 100%,52% calc(100% - 6px),44% 100%,36% calc(100% - 6px),28% 100%,20% calc(100% - 6px),12% 100%,4% calc(100% - 6px),0 100%);}
+  .tk-h{display:flex; justify-content:space-between; gap:6px; font-weight:600; letter-spacing:.08em; padding-bottom:6px; border-bottom:1px dashed #999; text-transform:uppercase;}
+  .tk-b{padding-top:7px; color:#333;}
+  .tk-b b{display:block; color:#111; font-weight:600;}
+  .tk-ok{margin-top:7px; padding-top:6px; border-top:1px dashed #999; font-weight:600; letter-spacing:.06em; text-transform:uppercase;}
+  .tk-ok::before{content:"✓ ";}
+  @keyframes sway{0%,100%{transform:rotate(-1.2deg);} 50%{transform:rotate(1.2deg);}}
+  @media (max-width:900px){ .tix{grid-template-columns:repeat(3, minmax(0,1fr));} .tix li:nth-child(n+4){display:none;} }
+  @media (max-width:460px){ .tix{gap:9px; padding:0;} .tk{font-size:10px; padding:10px 8px 16px;} .tk-h{letter-spacing:.04em;} }
+  .cue{text-align:center; padding-block:0 26px; font-family:var(--serif); font-style:italic; font-size:19px; color:rgba(255,255,255,.6);}
+
+  /* ---- Scenes ---- */
+  .scene{padding-block:clamp(90px, 16vh, 170px);}
+  .kicker{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--grey);}
+  .big{font-family:var(--serif); font-weight:400; font-size:clamp(42px, 7vw, 92px); line-height:1; letter-spacing:-.01em; margin:18px 0 0; text-wrap:balance;}
+  .big.dim{color:var(--grey-l);}
+  .note{font-size:16.5px; color:var(--grey); margin:26px 0 0; max-width:40ch; line-height:1.5;}
+
+  .s-absent{background:var(--paper);}
+  .s-absent .wrap{max-width:980px;}
+
+  .s-list{background:var(--stone); position:relative; isolation:isolate;}
+  .s-list::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.06; mix-blend-mode:multiply;}
+  .s-list .wrap{display:flex; flex-direction:column; align-items:center; text-align:center;}
+  .s-list .wrap > div{display:flex; flex-direction:column; align-items:center;}
+  .s-list .brigade{max-width:560px; margin-top:28px;}
+  .s-list h2{font-family:var(--serif); font-weight:400; font-size:clamp(40px, 5.4vw, 70px); line-height:1; margin:14px 0 0;}
+  .s-list .btn{margin-top:30px;}
+  /* The brigade: identical chefs in a line, one system behind every shift */
+  .brigade{display:block; width:100%; max-width:460px; height:auto; margin-top:22px;}
+  .brigade use{--btn:var(--stone); --scarf:var(--stone); --scarf-o:.5;}
+  .brigade .front{--scarf:var(--signal); --scarf-o:1;}
+  .brigade .back{color:#B9B9B6;} .brigade .mid{color:#6F6F6C;} .brigade .front{color:#111;}
+  .s-doors{background:var(--ink); color:#fff; position:relative; isolation:isolate;}
+  .s-doors::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.12; mix-blend-mode:screen;}
+  .s-doors .kicker{color:rgba(255,255,255,.55);}
+  .s-doors .big{margin-bottom:46px;}
+  .doors{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.18);}
+  .door{position:relative; display:flex; flex-direction:column; justify-content:space-between; min-height:300px; padding:26px 24px 22px; background:var(--ink); color:#fff; text-decoration:none; overflow:hidden; transition:background .25s, color .25s;}
+  .door .who{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; opacity:.6;}
+  .door h3{font-family:var(--serif); font-weight:400; font-size:clamp(38px, 4vw, 52px); line-height:1; margin:18px 0 0;}
+  .door p{font-size:15px; line-height:1.5; margin:12px 0 0; opacity:.72; max-width:26ch;}
+  .door .go{display:flex; justify-content:space-between; align-items:center; margin-top:28px; font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;}
+  .door .go b{font-size:22px; font-weight:400; transition:transform .25s;}
+  .door:hover, .door:focus-visible{background:#fff; color:var(--ink); outline:none;}
+  .door:hover .go b, .door:focus-visible .go b{transform:translateX(6px);}
+
+  .s-close{position:relative; isolation:isolate; overflow:hidden; background:var(--ink); color:#fff; text-align:center; border-top:1px solid rgba(255,255,255,.12);}
+  .s-close::before{content:""; position:absolute; inset:0; z-index:-2; background:radial-gradient(ellipse 60% 70% at 50% 0%, rgba(255,255,255,.16), transparent 70%);}
+  .s-close::after{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.12; mix-blend-mode:screen; pointer-events:none;}
+  .s-close .big{margin:0 auto; max-width:15ch;}
+
+  .foot{background:var(--paper); border-top:1px solid var(--ink); padding-block:22px calc(22px + env(safe-area-inset-bottom, 0px));}
+  .foot .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:14px 28px; align-items:center;}
+  .foot nav{display:flex; flex-wrap:wrap; gap:10px 22px;}
+  .foot .ul{font-size:11.5px;}
+  .foot-l{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--grey); text-transform:uppercase;}
+
+  /* Hero opening sequence: the lamp warms up, then the words arrive one after another */
+  @media (prefers-reduced-motion: no-preference){
+    .lamp .cone, .lamp .pool{animation:warm 1.6s ease-out both, flick 7s ease-in-out 1.6s infinite;}
+    .lamp .pool{animation:warm 1.6s ease-out both;}
+    .hero-top .logo{animation:rise .8s ease-out .1s both;}
+    .hero h1 .l1{display:inline-block; animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both;}
+    .hero h1 em{display:inline-block; animation:rise 1s cubic-bezier(.2,.7,.2,1) .6s both;}
+    .hero-sub{animation:rise .9s ease-out .9s both;}
+    .hero-mid .btn{animation:rise .9s ease-out 1.05s both;}
+    .hero-mid .fine{animation:fadein .9s ease-out 1.2s both;}
+    .tk{animation:drop .9s cubic-bezier(.3,1.4,.5,1) both;}
+    .tix li:nth-child(1) .tk{animation-delay:1.3s;} .tix li:nth-child(2) .tk{animation-delay:1.42s;} .tix li:nth-child(3) .tk{animation-delay:1.54s;}
+    .tix li:nth-child(4) .tk{animation-delay:1.66s;} .tix li:nth-child(5) .tk{animation-delay:1.78s;}
+    /* Chefs step forward and doors open in turn, once each is on screen (only when JS is running) */
+    .js .brigade use{transform-box:fill-box; transform-origin:50% 100%; opacity:0; transform:translateY(18px); transition:opacity .7s ease-out, transform .9s cubic-bezier(.2,.7,.2,1);}
+    .js .brigade.in use{opacity:1; transform:none;}
+    .js .brigade.in .front{transition-delay:.05s;} .js .brigade.in .mid{transition-delay:.25s;} .js .brigade.in .back{transition-delay:.45s;}
+    .js .door{opacity:0; transform:translateY(24px); transition:opacity .7s ease-out, transform .8s cubic-bezier(.2,.7,.2,1), background .25s, color .25s;}
+    .js .doors.in .door{opacity:1; transform:none;}
+    .js .doors.in .door:nth-child(2){transition-delay:.12s, .12s, 0s, 0s;} .js .doors.in .door:nth-child(3){transition-delay:.24s, .24s, 0s, 0s;}
+  }
+  @keyframes warm{from{opacity:0;} to{opacity:1;}}
+  @keyframes fadein{from{opacity:0;} to{opacity:.55;}}
+  @keyframes drop{from{opacity:0; transform:translateY(-26px);} to{opacity:1; transform:none;}}
+
+  /* Scroll reveal, only where supported and wanted; everything is visible without it */
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){
+      .rv{animation:rise linear both; animation-timeline:view(); animation-range:entry 5% entry 45%;}    }
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(28px);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+
+  @media (max-width:820px){
+    .doors{grid-template-columns:1fr;}
+    .door{min-height:0;}
+    .term-r .hide-sm{display:none;}
+  }
+  @media (max-width:460px){
+    .term{font-size:11.5px;}
+    .strip{font-size:10.5px; letter-spacing:.08em;}
+    .hero-top .ul{display:none;}
+  }
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="top"><a class="brand" href="./"><img src="assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room</a>
-    <div class="toplinks"><a class="toplink hide-sm js-keep" href="hotels/">Hotels</a><a class="toplink hide-sm js-keep" href="franchise/">Franchise brands</a><a class="toplink toppill js-keep" href="restaurants/">Free check</a></div></div>
 
-  <div class="hero">
-    <div class="eyebrow">Systems consultant · Chandigarh Tricity, Punjab and India</div>
-    <h1>Does your business run on a system, or on people?</h1>
-    <p class="lead">We build the systems that keep food businesses running when the owner, the chef or the manager isn't there: SOPs, food cost control, inventory, and kitchen and outlet audits. Pick what you run.</p>
+<header class="head">
+  <div class="term gut">
+    <div class="wrap">
+      <div class="log" id="log" aria-hidden="true">&gt; Counting stock against par levels...</div>
+      <div class="term-r"><a class="hide-sm js-keep" href="restaurants/#callback">CALL BACK</a></div>
+    </div>
   </div>
+  <div class="strip gut"><i aria-hidden="true"></i>Systems for restaurants, hotels and franchise brands</div>
+</header>
 
-  <nav class="paths" aria-label="Choose your business">
-    <a class="path feature js-keep" href="restaurants/">
-      <div>
-        <div class="path-who">Restaurants and cafés</div>
-        <h2>Restaurant systems</h2>
-        <p>Food cost, portions, purchase, stock, wastage and staff. Find out in 60 seconds which parts of your restaurant run on a system and which run on one person.</p>
-        <span class="path-tag">Free 60-second System Map</span>
-      </div>
-      <span class="path-go" aria-hidden="true">→</span>
-    </a>
-    <a class="path js-keep" href="hotels/">
-      <div>
-        <div class="path-who">Independent hotels</div>
-        <h2>Hotel F&amp;B systems</h2>
-        <p>Kitchen, store, banquet and room-service controls, so food cost and guest reviews stop depending on who is on shift.</p>
-      </div>
-      <span class="path-go" aria-hidden="true">→</span>
-    </a>
-    <a class="path js-keep" href="franchise/">
-      <div>
-        <div class="path-who">QSR and franchise head offices</div>
-        <h2>Franchise systems</h2>
-        <p>The same recipe and standard at every outlet, a weekly scorecard for the whole network, and franchisees who reach payback.</p>
-      </div>
-      <span class="path-go" aria-hidden="true">→</span>
-    </a>
-  </nav>
+<a class="fmark" href="./" aria-label="Diagnosis Room home"><img src="assets/dr-mark.png" alt="" width="29" height="34"></a>
 
-  <section class="sec" id="how">
-    <div class="eyebrow">How we work</div>
-    <h2>We don't fix problems. We fix the system that keeps producing them.</h2>
-    <div class="loop">
-      <div><span class="ph-tag">Phase 1</span><h3>Diagnose</h3><p>We observe how the work really runs and turn every gap into a number: cost, wastage, time.</p></div>
-      <div><span class="ph-tag">Phase 2</span><h3>Build</h3><p>We write the SOPs, checks and records with your team and stay until they run.</p></div>
-      <div><span class="ph-tag">Phase 3</span><h3>Hold</h3><p>Regular re-checks catch drift early, so the system keeps working without you.</p></div>
+<main>
+  <section class="hero">
+    <div class="lamp" aria-hidden="true"><span class="cord"></span><span class="shade"></span><span class="bulb"></span><span class="cone"></span><span class="pool"></span><span class="pass"></span></div>
+    <div class="hero-top gut"><div class="wrap hero-bar">
+      <span></span>
+      <a class="logo" href="./">Diagnosis Room</a>
+      <a class="ul js-keep" href="restaurants/">Free check</a>
+    </div></div>
+    <div class="hero-mid gut">
+      <h1><span class="l1">Your kitchen,</span> <em>running without you.</em></h1>
+      <p class="hero-sub">We build the systems your restaurant runs on.</p>
+      <a class="btn btn-light js-keep" href="restaurants/">Check my restaurant</a>
+      <div class="fine">60 seconds · Free</div>
+    </div>
+    <div class="gut" style="padding-bottom:30px;">
+      <div class="rail" role="img" aria-label="Kitchen ticket rail showing today's system checks: stock, portions, wastage, cash and delivery payout, all done">
+        <ul class="tix" aria-hidden="true">
+          <li><div class="tk"><div class="tk-h"><span>Store</span><span>06:30</span></div><div class="tk-b"><b>Paneer 4.2 kg</b>Par level 5 kg</div><div class="tk-ok">Order raised</div></div></li>
+          <li><div class="tk"><div class="tk-h"><span>Pass</span><span>13:15</span></div><div class="tk-b"><b>Plate 182 g</b>Recipe card 180 g</div><div class="tk-ok">In spec</div></div></li>
+          <li><div class="tk"><div class="tk-h"><span>Waste</span><span>16:00</span></div><div class="tk-b"><b>Rice 1.8 kg</b>Reason: over-prep</div><div class="tk-ok">Logged</div></div></li>
+          <li><div class="tk"><div class="tk-h"><span>Cash</span><span>23:30</span></div><div class="tk-b"><b>Drawer = system</b>Shift closed</div><div class="tk-ok">Matched</div></div></li>
+          <li><div class="tk"><div class="tk-h"><span>Payout</span><span>Mon</span></div><div class="tk-b"><b>Zomato</b>Expected = paid</div><div class="tk-ok">Checked</div></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cue">Scroll to see how</div>
+  </section>
+
+  <section class="scene s-absent gut">
+    <div class="wrap">
+      <div class="kicker rv">Never depend on one person again</div>
+      <p class="big rv">Your chef takes a week off.</p>
+      <p class="big dim rv">Nothing changes.</p>
+      <p class="note rv">Because the work runs on a system, not on someone's memory.</p>
     </div>
   </section>
 
-  <footer class="foot" id="sitefoot">
-    <div class="foot-top">
-      <div>
-        <a class="brand" href="./"><img src="assets/dr-mark.png" alt="" width="19" height="22">Diagnosis Room</a>
-        <p class="foot-tag">Restaurant, hotel and franchise systems consulting.<br>Based in Panchkula · serving Chandigarh, Mohali, Panchkula, Punjab and India.</p>
+  <section class="scene s-list gut">
+    <div class="wrap">
+      <div class="rv">
+        <div class="kicker">Diagnosis Room builds it</div>
+        <svg class="brigade" viewBox="0 0 460 300" role="img" aria-label="A kitchen brigade of five identical chefs standing in a line">
+          <defs>
+            <symbol id="chef" viewBox="0 0 120 260">
+              <circle cx="40" cy="42" r="17" fill="currentColor"/>
+              <circle cx="60" cy="30" r="21" fill="currentColor"/>
+              <circle cx="80" cy="42" r="17" fill="currentColor"/>
+              <rect x="34" y="40" width="52" height="24" rx="3" fill="currentColor"/>
+              <rect x="36" y="58" width="48" height="5" style="fill:var(--btn)" opacity=".35"/>
+              <circle cx="60" cy="84" r="18" fill="currentColor"/>
+              <rect x="52" y="98" width="16" height="10" fill="currentColor"/>
+              <path d="M20 122 Q22 106 46 104 L60 118 L74 104 Q98 106 100 122 L106 252 L14 252 Z" fill="currentColor"/>
+              <path d="M47 104 L60 126 L73 104 Z" style="fill:var(--scarf); fill-opacity:var(--scarf-o)"/>
+              <path d="M60 126 L60 252" style="stroke:var(--btn)" stroke-width="1.2" opacity=".35"/>
+              <g style="fill:var(--btn)"><circle cx="50" cy="146" r="3"/><circle cx="70" cy="146" r="3"/><circle cx="50" cy="172" r="3"/><circle cx="70" cy="172" r="3"/><circle cx="50" cy="198" r="3"/><circle cx="70" cy="198" r="3"/></g>
+              <path d="M24 130 L18 214 M96 130 L102 214" style="stroke:var(--btn)" stroke-width="1.4" opacity=".4" fill="none"/>
+            </symbol>
+          </defs>
+          <g fill="#000" opacity=".1"><ellipse cx="77" cy="273" rx="40" ry="5"/><ellipse cx="383" cy="273" rx="40" ry="5"/><ellipse cx="148" cy="282" rx="46" ry="6"/><ellipse cx="312" cy="282" rx="46" ry="6"/><ellipse cx="230" cy="292" rx="52" ry="7"/></g>
+          <use href="#chef" class="back" x="30" y="69" width="94" height="203"/>
+          <use href="#chef" class="back" x="336" y="69" width="94" height="203"/>
+          <use href="#chef" class="mid" x="95" y="52" width="106" height="229"/>
+          <use href="#chef" class="mid" x="259" y="52" width="106" height="229"/>
+          <use href="#chef" class="front" x="170" y="30" width="120" height="260"/>
+        </svg>
+        <a class="btn btn-dark js-keep" href="restaurants/">Map my restaurant</a>
       </div>
-      <nav class="foot-links" aria-label="Footer">
-        <a class="js-keep" href="restaurants/">Restaurants</a>
-        <a class="js-keep" href="hotels/">Hotels</a>
-        <a class="js-keep" href="franchise/">Franchise brands</a>
-        <a class="js-keep" href="restaurants/#callback">Request a call back</a>
+    </div>
+  </section>
+
+  <section class="scene s-doors gut" id="choose">
+    <div class="wrap">
+      <div class="kicker rv">Pick what you run</div>
+      <p class="big rv">Three ways in.</p>
+      <nav class="doors" aria-label="Choose your business">
+        <a class="door js-keep" href="restaurants/">
+          <div><div class="who">Restaurants and cafés</div><h3>Restaurants</h3><p>See which parts of your restaurant run on a system and which run on one person.</p></div>
+          <div class="go"><span>Free 60-second check</span><b aria-hidden="true">→</b></div>
+        </a>
+        <a class="door js-keep" href="hotels/">
+          <div><div class="who">Independent hotels</div><h3>Hotels</h3><p>Kitchen, store and banquet controls that hold on every shift.</p></div>
+          <div class="go"><span>Hotel F&amp;B systems</span><b aria-hidden="true">→</b></div>
+        </a>
+        <a class="door js-keep" href="franchise/">
+          <div><div class="who">QSR and franchise head offices</div><h3>Franchise brands</h3><p>Every outlet as good as your best one.</p></div>
+          <div class="go"><span>Franchise systems</span><b aria-hidden="true">→</b></div>
+        </a>
       </nav>
     </div>
-    <div class="foot-bot"><span>© <span id="fyear"></span> Diagnosis Room</span><a href="privacy.html">Privacy</a></div>
-  </footer>
-</div>
+  </section>
+
+  <section class="scene s-close gut">
+    <div class="wrap">
+      <p class="big rv">Run on a system, starting tonight.</p>
+      <a class="btn btn-light js-keep" href="restaurants/">Get my System Map</a>
+      <div class="fine">Free · 60 seconds · No figures needed</div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot gut">
+  <div class="wrap">
+    <nav aria-label="Footer">
+      <a class="ul js-keep" href="restaurants/">Restaurants</a>
+      <a class="ul js-keep" href="hotels/">Hotels</a>
+      <a class="ul js-keep" href="franchise/">Franchise</a>
+      <a class="ul js-keep" href="restaurants/#callback">Call back</a>
+      <a class="ul" href="privacy.html">Privacy</a>
+    </nav>
+    <div class="foot-l">© <span id="fyear"></span> Diagnosis Room</div>
+  </div>
+</footer>
+
 <script>
 (function(){
   var fy = document.getElementById('fyear'); if (fy) fy.textContent = new Date().getFullYear();
+
   // Carry ?src=lead (from outreach messages) through to the page the visitor picks, so the funnel still counts them.
   if (location.search){
     [].forEach.call(document.querySelectorAll('a.js-keep'), function(a){
@@ -156,6 +379,53 @@
       a.setAttribute('href', i < 0 ? h + location.search : h.slice(0, i) + location.search + h.slice(i));
     });
   }
+
+  // Keep the floating mark just below the sticky bar, whatever height the bar wraps to.
+  var head = document.querySelector('.head');
+  function headH(){ document.documentElement.style.setProperty('--headh', head.offsetHeight + 'px'); }
+  headH(); window.addEventListener('resize', headH);
+
+  // Chefs and doors animate in once they're on screen.
+  var reveal = document.querySelectorAll('.brigade, .doors');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold:.25 });
+    [].forEach.call(reveal, function(el){ io.observe(el); });
+  } else {
+    [].forEach.call(reveal, function(el){ el.classList.add('in'); });
+  }
+
+  // The terminal bar: the system at work, one sentence at a time. Types it, holds it, erases it, types the next.
+  var LINES = [
+    'Counting stock against par levels...',
+    'Raising tomorrow\'s purchase order...',
+    'Weighing plate 3 of 5 at the pass...',
+    'Logging today\'s wastage: 2.4 kg...',
+    'Matching cash to the billing system...',
+    'Checking yesterday\'s Zomato payout...',
+    'Reading this week\'s food cost: 31.8%...',
+    'Training the new hire on the closing checklist...'
+  ];
+  var log = document.getElementById('log');
+  if (!log || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var idx = 0;
+  function erase(then){
+    var t = log.textContent.slice(2);
+    (function del(){
+      if (t.length){ t = t.slice(0, -1); log.textContent = '> ' + t; setTimeout(del, 12); }
+      else setTimeout(then, 250);
+    })();
+  }
+  function next(){
+    idx = (idx + 1) % LINES.length;
+    var text = LINES[idx], n = 0;
+    (function type(){
+      if (n <= text.length){ log.textContent = '> ' + text.slice(0, n++); setTimeout(type, 28 + Math.random()*30); }
+      else setTimeout(function(){ erase(next); }, 2000);
+    })();
+  }
+  setTimeout(function(){ erase(next); }, 2200);
 })();
 </script>
 </body>
