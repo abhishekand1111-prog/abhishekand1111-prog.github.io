@@ -87,7 +87,7 @@
   .term .wrap{display:flex; justify-content:space-between; align-items:center; gap:14px;}
   /* The dr mark floats with the page, no background: white on dark sections, black on light ones */
   .fmark{position:fixed; z-index:60; top:calc(var(--headh, 76px) + 16px); left:max(18px, env(safe-area-inset-left, 0px)); mix-blend-mode:difference; line-height:0;}
-  .fmark img{height:34px; width:auto; display:block; filter:invert(1);}
+  .fmark img{height:34px; width:auto; display:block; filter:invert(1); will-change:transform;}
   @media (prefers-reduced-motion: no-preference){ .fmark{animation:rise .8s ease-out .2s both;} }
   /* Narrower screens have no side margin to float in, so the mark rides at the left of the black bar instead of over the text */
   @media (max-width:1239px){
@@ -404,6 +404,24 @@
   var head = document.querySelector('.head');
   function headH(){ document.documentElement.style.setProperty('--headh', head.offsetHeight + 'px'); }
   headH(); window.addEventListener('resize', headH);
+
+  // The dr mark glides as you scroll: it trails a little behind the page, tilts with the speed, then settles back.
+  (function(){
+    var mark = document.querySelector('.fmark img');
+    if (!mark || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var last = window.scrollY, y = 0, running = false;
+    function frame(){
+      var now = window.scrollY, d = now - last; last = now;
+      var max = window.innerWidth < 1240 ? 10 : 26;   // smaller glide while it sits in the black bar
+      var target = Math.max(-max, Math.min(max, -d * 1.4));
+      y += (target - y) * 0.14;
+      mark.style.transform = 'translateY(' + y.toFixed(2) + 'px) rotate(' + (y * 0.55).toFixed(2) + 'deg)';
+      if (Math.abs(y) > 0.05 || d !== 0) requestAnimationFrame(frame);
+      else { mark.style.transform = ''; running = false; }
+    }
+    // `last` keeps the position from when the glide last settled, so the first frame already sees the scroll distance.
+    window.addEventListener('scroll', function(){ if (!running){ running = true; requestAnimationFrame(frame); } }, { passive:true });
+  })();
 
   // Chefs and doors animate in once they're on screen.
   var reveal = document.querySelectorAll('.brigade, .doors, .rv');

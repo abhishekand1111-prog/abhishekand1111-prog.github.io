@@ -962,7 +962,7 @@
     FROM_LEAD = sessionStorage.getItem('dr_src')==='lead';
   }catch(e){ FROM_LEAD = /[?&]src=lead\b/.test(location.search); }
   function track(ev){
-    if (!db || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+    if (!db || /^(localhost|127\.0\.0\.1|)$/.test(location.hostname)) return;   // also skips files opened straight from disk
     try{ if (sessionStorage.getItem('dr_t_'+ev)) return; sessionStorage.setItem('dr_t_'+ev, '1'); }catch(e){}
     var ref = db.collection('smStats').doc(isoDay(new Date()));
     var o = {}; o[ev] = firebase.firestore.FieldValue.increment(1);
