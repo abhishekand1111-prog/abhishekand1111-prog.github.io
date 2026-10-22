@@ -32,8 +32,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/pin.css">
 <style>
   .gar{display:inline-flex; gap:4px; vertical-align:middle; margin-left:4px;}
   .gar span{font-family:var(--mono); font-size:11px; font-weight:600; color:#fff; padding:1px 6px; border-radius:4px;}
@@ -45,7 +46,7 @@
   .snap .btn{margin-top:16px; background:#fff; color:var(--ink); border-color:#fff;}
 </style>
 </head>
-<body>
+<body data-pin=".dark-grid > div, .snap, .phase, .calc, .svc > div, .cbbox">
 <div class="shell">
   <div class="top"><a class="brand" href="../"><img src="../assets/dr-mark.png" alt="" width="22" height="26">Diagnosis Room</a>
     <div class="toplinks"><a class="toplink hide-sm" href="#process">Process</a><a class="toplink hide-sm" href="#payback">Franchisee payback</a><a class="toplink toppill" href="#callback">Call back</a></div></div>
@@ -222,5 +223,6 @@
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
 <script src="../assets/callback.js"></script>
+<script src="../assets/reveal.js"></script>
 </body>
 </html>

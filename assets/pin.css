@@ -1,0 +1,26 @@
+/* Pinboard look shared by the restaurants, hotels and franchise pages (the homepage has its own copy).
+   Dotted board, red pushpins, slight tilts, and cards that drop onto the board as they come on screen. */
+:root{ --signal:#D7381F; --dots:#D3D3D3; --board:#FAFAFA; }
+
+.dotboard{background-color:var(--board); background-image:radial-gradient(var(--dots) 1.2px, transparent 1.2px); background-size:18px 18px; background-attachment:fixed;}
+
+/* A red pushpin at the top centre of whatever carries .pin */
+.pin{position:relative; --r:0deg; --y:0px; transform:translateY(var(--y)) rotate(var(--r));}
+.pin::before{content:""; position:absolute; z-index:3; top:-9px; left:50%; width:18px; height:18px; margin-left:-9px; border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #FF9B8C 0 12%, var(--signal) 45%, #8A1E10 100%);
+  box-shadow:0 2px 3px rgba(0,0,0,.35), 2px 7px 8px -3px rgba(0,0,0,.3); pointer-events:none;}
+.pin::after{content:""; position:absolute; z-index:2; top:3px; left:calc(50% + 2px); width:10px; height:4px; border-radius:50%; background:rgba(0,0,0,.18); filter:blur(2px); pointer-events:none;}
+.pinned-shadow{box-shadow:0 1px 2px rgba(0,0,0,.08), 0 18px 34px -18px rgba(0,0,0,.35);}
+
+/* Tilts: alternating so a row of cards looks hand-pinned */
+.tilt-1{--r:-1.4deg;} .tilt-2{--r:.9deg;} .tilt-3{--r:-.6deg;} .tilt-4{--r:1.2deg;}
+
+/* Scroll reveal (only when JS runs; nothing is hidden without it) */
+@media (prefers-reduced-motion: no-preference){
+  .pin{transition:transform .8s cubic-bezier(.2,.7,.2,1), opacity .7s ease-out, box-shadow .3s; transition-delay:var(--d, 0s);}
+  .js .reveal{opacity:0; transform:translateY(36px); transition:opacity .9s ease-out, transform 1s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d, 0s);}
+  .js .reveal.in{opacity:1; transform:none;}
+  .js .pin.reveal{--y:-30px; transform:translateY(var(--y)) rotate(var(--r));}
+  .js .pin.reveal.in{--y:0px; transform:translateY(var(--y)) rotate(var(--r));}
+}
+@media (prefers-reduced-motion: reduce){ .pin, .reveal{transition:none !important;} }

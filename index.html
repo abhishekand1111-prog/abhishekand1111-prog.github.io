@@ -89,7 +89,12 @@
   .fmark{position:fixed; z-index:60; top:calc(var(--headh, 76px) + 16px); left:max(18px, env(safe-area-inset-left, 0px)); mix-blend-mode:difference; line-height:0;}
   .fmark img{height:34px; width:auto; display:block; filter:invert(1);}
   @media (prefers-reduced-motion: no-preference){ .fmark{animation:rise .8s ease-out .2s both;} }
-  @media (max-width:460px){ .fmark img{height:28px;} }
+  /* Narrower screens have no side margin to float in, so the mark rides at the left of the black bar instead of over the text */
+  @media (max-width:1239px){
+    .fmark{top:8px;}
+    .fmark img{height:22px;}
+    .term .wrap{padding-left:36px;}
+  }
   .log{flex:1; min-width:0; height:1.5em; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
   .log::after{content:"▍"; animation:blink 1s steps(1) infinite; margin-left:1px;}
   @keyframes blink{50%{opacity:0;}}
@@ -120,7 +125,7 @@
   .hero-bar .ul{justify-self:end;}
   .logo{font-family:var(--label); font-weight:700; font-size:22px; letter-spacing:.01em; text-decoration:none; color:#fff;}
   .ul{font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:underline; text-underline-offset:4px;}
-  .hero-mid{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding-block:56px 40px;}
+  .hero-mid{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding-block:40px 30px;}
   .hero h1{font-family:var(--serif); font-weight:400; font-size:clamp(46px, 8.6vw, 112px); line-height:.96; letter-spacing:-.01em; margin:0; max-width:11ch; text-wrap:balance;}
   .hero h1 em{font-style:italic; color:rgba(255,255,255,.72);}
   .hero-sub{font-size:16px; color:rgba(255,255,255,.7); margin:20px 0 0; max-width:34ch; text-wrap:balance;}
@@ -132,11 +137,10 @@
   .fine{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; margin-top:14px; opacity:.55;}
   /* The ticket rail at the pass: each hanging ticket is one check the system ran today */
   .rail{position:relative; margin:0 auto; width:min(1060px, 100%); padding-top:14px;}
-  .rail::before{content:""; position:absolute; left:0; right:0; top:8px; height:6px; border-radius:3px; background:linear-gradient(180deg, #8C8C8C, #3A3A3A 60%, #1C1C1C); box-shadow:0 2px 6px rgba(0,0,0,.6);}
-  .tix{list-style:none; margin:0; padding:0 2%; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:14px;}
-  .tix li{position:relative; transform-origin:50% -6px; animation:sway 6s ease-in-out infinite;}
-  .tix li:nth-child(2){animation-delay:-1.4s;} .tix li:nth-child(3){animation-delay:-3s;} .tix li:nth-child(4){animation-delay:-.6s;} .tix li:nth-child(5){animation-delay:-4.2s;}
-  .tix li::before{content:""; position:absolute; left:50%; top:-10px; width:22px; height:12px; margin-left:-11px; background:#2B2B2B; border-radius:2px; z-index:1;}
+  .tix{list-style:none; margin:0; padding:0 2%; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:18px;}
+  /* Each ticket is pinned up with a red pin, each at its own slight angle */
+  .tix li{transform-origin:50% 0; transform:rotate(var(--r, 0deg));}
+  .tix li:nth-child(1){--r:-2deg;} .tix li:nth-child(2){--r:1.4deg;} .tix li:nth-child(3){--r:-.8deg;} .tix li:nth-child(4){--r:1.8deg;} .tix li:nth-child(5){--r:-1.3deg;}
   .tk{background:#F3F3F0; color:#111; font-family:var(--mono); font-size:11px; line-height:1.45; padding:12px 11px 18px; box-shadow:0 14px 26px -12px rgba(0,0,0,.8);
     clip-path:polygon(0 0,100% 0,100% calc(100% - 6px),92% 100%,84% calc(100% - 6px),76% 100%,68% calc(100% - 6px),60% 100%,52% calc(100% - 6px),44% 100%,36% calc(100% - 6px),28% 100%,20% calc(100% - 6px),12% 100%,4% calc(100% - 6px),0 100%);}
   .tk-h{display:flex; justify-content:space-between; gap:6px; font-weight:600; letter-spacing:.08em; padding-bottom:6px; border-bottom:1px dashed #999; text-transform:uppercase;}
@@ -144,45 +148,54 @@
   .tk-b b{display:block; color:#111; font-weight:600;}
   .tk-ok{margin-top:7px; padding-top:6px; border-top:1px dashed #999; font-weight:600; letter-spacing:.06em; text-transform:uppercase;}
   .tk-ok::before{content:"✓ ";}
-  @keyframes sway{0%,100%{transform:rotate(-1.2deg);} 50%{transform:rotate(1.2deg);}}
   @media (max-width:900px){ .tix{grid-template-columns:repeat(3, minmax(0,1fr));} .tix li:nth-child(n+4){display:none;} }
   @media (max-width:460px){ .tix{gap:9px; padding:0;} .tk{font-size:10px; padding:10px 8px 16px;} .tk-h{letter-spacing:.04em;} }
   .cue{text-align:center; padding-block:0 26px; font-family:var(--serif); font-style:italic; font-size:19px; color:rgba(255,255,255,.6);}
 
   /* ---- Scenes ---- */
-  .scene{padding-block:clamp(90px, 16vh, 170px);}
+  .scene{padding-block:clamp(52px, 8vh, 92px);}
+  /* The three light sections share one board, so the gap between them is halved */
+  .s-absent{padding-bottom:clamp(26px, 4vh, 46px);}
+  .s-list{padding-block:clamp(26px, 4vh, 46px);}
+  .s-doors{padding-top:clamp(26px, 4vh, 46px);}
   .kicker{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--grey);}
   .big{font-family:var(--serif); font-weight:400; font-size:clamp(42px, 7vw, 92px); line-height:1; letter-spacing:-.01em; margin:18px 0 0; text-wrap:balance;}
   .big.dim{color:var(--grey-l);}
   .note{font-size:16.5px; color:var(--grey); margin:26px 0 0; max-width:40ch; line-height:1.5;}
 
-  .s-absent{background:var(--paper);}
+  /* The pinboard: the old site's dotted board, running through the three light sections as one surface */
+  .s-absent, .s-list, .s-doors{background-color:#FAFAFA; background-image:radial-gradient(#D3D3D3 1.2px, transparent 1.2px); background-size:18px 18px; background-attachment:fixed;}
   .s-absent .wrap{max-width:980px;}
+  /* A red pushpin, the same red as the strip */
+  .pin{position:relative;}
+  .pin::before{content:""; position:absolute; z-index:3; top:-9px; left:50%; width:18px; height:18px; margin-left:-9px; border-radius:50%;
+    background:radial-gradient(circle at 34% 30%, #FF9B8C 0 12%, var(--signal) 45%, #8A1E10 100%);
+    box-shadow:0 2px 3px rgba(0,0,0,.35), 2px 7px 8px -3px rgba(0,0,0,.3);}
+  .pin::after{content:""; position:absolute; z-index:2; top:3px; left:calc(50% + 2px); width:10px; height:4px; border-radius:50%; background:rgba(0,0,0,.18); filter:blur(2px);}
+  .paper{background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.08), 0 18px 34px -18px rgba(0,0,0,.35);}
 
-  .s-list{background:var(--stone); position:relative; isolation:isolate;}
-  .s-list::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.06; mix-blend-mode:multiply;}
   .s-list .wrap{display:flex; flex-direction:column; align-items:center; text-align:center;}
-  .s-list .wrap > div{display:flex; flex-direction:column; align-items:center;}
-  .s-list .brigade{max-width:560px; margin-top:28px;}
-  .s-list h2{font-family:var(--serif); font-weight:400; font-size:clamp(40px, 5.4vw, 70px); line-height:1; margin:14px 0 0;}
+  .s-list .wrap > div{display:flex; flex-direction:column; align-items:center; width:100%;}
   .s-list .btn{margin-top:30px;}
+  .sheet{width:100%; max-width:1000px; margin-top:30px; padding:36px 28px 18px; transform:rotate(-1deg);}
   /* The brigade: identical chefs in a line, one system behind every shift */
-  .brigade{display:block; width:100%; max-width:460px; height:auto; margin-top:22px;}
-  .brigade use{--btn:var(--stone); --scarf:var(--stone); --scarf-o:.5;}
+  .brigade{display:block; width:100%; height:auto;}
+  .brigade use{--btn:#fff; --scarf:#fff; --scarf-o:.5;}
   .brigade .front{--scarf:var(--signal); --scarf-o:1;}
-  .brigade .back{color:#B9B9B6;} .brigade .mid{color:#6F6F6C;} .brigade .front{color:#111;}
-  .s-doors{background:var(--ink); color:#fff; position:relative; isolation:isolate;}
-  .s-doors::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.12; mix-blend-mode:screen;}
-  .s-doors .kicker{color:rgba(255,255,255,.55);}
-  .s-doors .big{margin-bottom:46px;}
-  .doors{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.18);}
-  .door{position:relative; display:flex; flex-direction:column; justify-content:space-between; min-height:300px; padding:26px 24px 22px; background:var(--ink); color:#fff; text-decoration:none; overflow:hidden; transition:background .25s, color .25s;}
-  .door .who{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; opacity:.6;}
+  .brigade .far{color:#CBCBC8;} .brigade .back{color:#A3A3A0;} .brigade .mid{color:#6F6F6C;} .brigade .front{color:#111;}
+
+  .s-doors .big{margin-bottom:40px;}
+  .doors{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:34px 28px;}
+  .door{--r:0deg; --y:0px; display:flex; flex-direction:column; justify-content:space-between; min-height:300px; padding:30px 24px 22px; color:var(--ink); text-decoration:none;
+    transform:translateY(var(--y)) rotate(var(--r)); transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .3s, opacity .7s ease-out;}
+  .door:nth-child(1){--r:-1.6deg;} .door:nth-child(2){--r:.9deg;} .door:nth-child(3){--r:-.7deg;}
+  .door .who{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
   .door h3{font-family:var(--serif); font-weight:400; font-size:clamp(38px, 4vw, 52px); line-height:1; margin:18px 0 0;}
-  .door p{font-size:15px; line-height:1.5; margin:12px 0 0; opacity:.72; max-width:26ch;}
-  .door .go{display:flex; justify-content:space-between; align-items:center; margin-top:28px; font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;}
+  .door p{font-size:15px; line-height:1.5; margin:12px 0 0; color:var(--grey); max-width:26ch;}
+  .door .go{display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:14px; border-top:1px dashed #C9C9C9; font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;}
   .door .go b{font-size:22px; font-weight:400; transition:transform .25s;}
-  .door:hover, .door:focus-visible{background:#fff; color:var(--ink); outline:none;}
+  .door:hover, .door:focus-visible{--r:0deg; --y:-6px; box-shadow:0 1px 2px rgba(0,0,0,.08), 0 28px 44px -20px rgba(0,0,0,.45); outline:none;}
+  .door:focus-visible{outline:2px solid var(--ink); outline-offset:4px;}
   .door:hover .go b, .door:focus-visible .go b{transform:translateX(6px);}
 
   .s-close{position:relative; isolation:isolate; overflow:hidden; background:var(--ink); color:#fff; text-align:center; border-top:1px solid rgba(255,255,255,.12);}
@@ -190,7 +203,7 @@
   .s-close::after{content:""; position:absolute; inset:0; z-index:-1; background:var(--grain); opacity:.12; mix-blend-mode:screen; pointer-events:none;}
   .s-close .big{margin:0 auto; max-width:15ch;}
 
-  .foot{background:var(--paper); border-top:1px solid var(--ink); padding-block:22px calc(22px + env(safe-area-inset-bottom, 0px));}
+  .foot{background-color:#FAFAFA; background-image:radial-gradient(#D3D3D3 1.2px, transparent 1.2px); background-size:18px 18px; background-attachment:fixed; border-top:1px solid var(--ink); padding-block:22px calc(22px + env(safe-area-inset-bottom, 0px));}
   .foot .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:14px 28px; align-items:center;}
   .foot nav{display:flex; flex-wrap:wrap; gap:10px 22px;}
   .foot .ul{font-size:11.5px;}
@@ -210,21 +223,24 @@
     .tix li:nth-child(1) .tk{animation-delay:1.3s;} .tix li:nth-child(2) .tk{animation-delay:1.42s;} .tix li:nth-child(3) .tk{animation-delay:1.54s;}
     .tix li:nth-child(4) .tk{animation-delay:1.66s;} .tix li:nth-child(5) .tk{animation-delay:1.78s;}
     /* Chefs step forward and doors open in turn, once each is on screen (only when JS is running) */
-    .js .brigade use{transform-box:fill-box; transform-origin:50% 100%; opacity:0; transform:translateY(18px); transition:opacity .7s ease-out, transform .9s cubic-bezier(.2,.7,.2,1);}
+    .js .brigade use{transform-box:fill-box; transform-origin:50% 100%; opacity:0; transform:translateY(40px); transition:opacity .9s ease-out, transform 1.1s cubic-bezier(.2,.7,.2,1);}
     .js .brigade.in use{opacity:1; transform:none;}
-    .js .brigade.in .front{transition-delay:.05s;} .js .brigade.in .mid{transition-delay:.25s;} .js .brigade.in .back{transition-delay:.45s;}
-    .js .door{opacity:0; transform:translateY(24px); transition:opacity .7s ease-out, transform .8s cubic-bezier(.2,.7,.2,1), background .25s, color .25s;}
-    .js .doors.in .door{opacity:1; transform:none;}
-    .js .doors.in .door:nth-child(2){transition-delay:.12s, .12s, 0s, 0s;} .js .doors.in .door:nth-child(3){transition-delay:.24s, .24s, 0s, 0s;}
+    .js .brigade.in .front{transition-delay:.2s;} .js .brigade.in .mid{transition-delay:.45s;} .js .brigade.in .back{transition-delay:.7s;} .js .brigade.in .far{transition-delay:.95s;}
+    /* Cards drop onto the board and get pinned, one after another */
+    .js .door{opacity:0; --y:-34px;}
+    .js .doors.in .door{opacity:1; --y:0px;}
+    .js .doors.in .door:hover, .js .doors.in .door:focus-visible{--y:-6px;}
+    .js .doors.in .door:nth-child(2){transition-delay:.15s;} .js .doors.in .door:nth-child(3){transition-delay:.3s;}
+    .js .doors.in .door:hover{transition-delay:0s;}
   }
   @keyframes warm{from{opacity:0;} to{opacity:1;}}
   @keyframes fadein{from{opacity:0;} to{opacity:.55;}}
   @keyframes drop{from{opacity:0; transform:translateY(-26px);} to{opacity:1; transform:none;}}
 
-  /* Scroll reveal, only where supported and wanted; everything is visible without it */
-  @supports (animation-timeline: view()){
-    @media (prefers-reduced-motion: no-preference){
-      .rv{animation:rise linear both; animation-timeline:view(); animation-range:entry 5% entry 45%;}    }
+  /* Scroll reveal: text rises in as it comes on screen (every browser; only when JS runs, so nothing hides without it) */
+  @media (prefers-reduced-motion: no-preference){
+    .js .rv{opacity:0; transform:translateY(44px); transition:opacity 1s ease-out, transform 1.1s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d, 0s);}
+    .js .rv.in{opacity:1; transform:none;}
   }
   @keyframes rise{from{opacity:0; transform:translateY(28px);} to{opacity:1; transform:none;}}
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
@@ -272,11 +288,11 @@
     <div class="gut" style="padding-bottom:30px;">
       <div class="rail" role="img" aria-label="Kitchen ticket rail showing today's system checks: stock, portions, wastage, cash and delivery payout, all done">
         <ul class="tix" aria-hidden="true">
-          <li><div class="tk"><div class="tk-h"><span>Store</span><span>06:30</span></div><div class="tk-b"><b>Paneer 4.2 kg</b>Par level 5 kg</div><div class="tk-ok">Order raised</div></div></li>
-          <li><div class="tk"><div class="tk-h"><span>Pass</span><span>13:15</span></div><div class="tk-b"><b>Plate 182 g</b>Recipe card 180 g</div><div class="tk-ok">In spec</div></div></li>
-          <li><div class="tk"><div class="tk-h"><span>Waste</span><span>16:00</span></div><div class="tk-b"><b>Rice 1.8 kg</b>Reason: over-prep</div><div class="tk-ok">Logged</div></div></li>
-          <li><div class="tk"><div class="tk-h"><span>Cash</span><span>23:30</span></div><div class="tk-b"><b>Drawer = system</b>Shift closed</div><div class="tk-ok">Matched</div></div></li>
-          <li><div class="tk"><div class="tk-h"><span>Payout</span><span>Mon</span></div><div class="tk-b"><b>Zomato</b>Expected = paid</div><div class="tk-ok">Checked</div></div></li>
+          <li class="pin"><div class="tk"><div class="tk-h"><span>Store</span><span>06:30</span></div><div class="tk-b"><b>Paneer 4.2 kg</b>Par level 5 kg</div><div class="tk-ok">Order raised</div></div></li>
+          <li class="pin"><div class="tk"><div class="tk-h"><span>Pass</span><span>13:15</span></div><div class="tk-b"><b>Plate 182 g</b>Recipe card 180 g</div><div class="tk-ok">In spec</div></div></li>
+          <li class="pin"><div class="tk"><div class="tk-h"><span>Waste</span><span>16:00</span></div><div class="tk-b"><b>Rice 1.8 kg</b>Reason: over-prep</div><div class="tk-ok">Logged</div></div></li>
+          <li class="pin"><div class="tk"><div class="tk-h"><span>Cash</span><span>23:30</span></div><div class="tk-b"><b>Drawer = system</b>Shift closed</div><div class="tk-ok">Matched</div></div></li>
+          <li class="pin"><div class="tk"><div class="tk-h"><span>Payout</span><span>Mon</span></div><div class="tk-b"><b>Zomato</b>Expected = paid</div><div class="tk-ok">Checked</div></div></li>
         </ul>
       </div>
     </div>
@@ -296,7 +312,8 @@
     <div class="wrap">
       <div class="rv">
         <div class="kicker">Diagnosis Room builds it</div>
-        <svg class="brigade" viewBox="0 0 460 300" role="img" aria-label="A kitchen brigade of five identical chefs standing in a line">
+        <div class="sheet paper pin">
+        <svg class="brigade" viewBox="40 0 680 300" role="img" aria-label="A kitchen brigade of seven identical chefs standing in a line">
           <defs>
             <symbol id="chef" viewBox="0 0 120 260">
               <circle cx="40" cy="42" r="17" fill="currentColor"/>
@@ -313,13 +330,16 @@
               <path d="M24 130 L18 214 M96 130 L102 214" style="stroke:var(--btn)" stroke-width="1.4" opacity=".4" fill="none"/>
             </symbol>
           </defs>
-          <g fill="#000" opacity=".1"><ellipse cx="77" cy="273" rx="40" ry="5"/><ellipse cx="383" cy="273" rx="40" ry="5"/><ellipse cx="148" cy="282" rx="46" ry="6"/><ellipse cx="312" cy="282" rx="46" ry="6"/><ellipse cx="230" cy="292" rx="52" ry="7"/></g>
-          <use href="#chef" class="back" x="30" y="69" width="94" height="203"/>
-          <use href="#chef" class="back" x="336" y="69" width="94" height="203"/>
-          <use href="#chef" class="mid" x="95" y="52" width="106" height="229"/>
-          <use href="#chef" class="mid" x="259" y="52" width="106" height="229"/>
-          <use href="#chef" class="front" x="170" y="30" width="120" height="260"/>
+          <g fill="#000" opacity=".1"><ellipse cx="95" cy="266" rx="36" ry="4"/><ellipse cx="665" cy="266" rx="36" ry="4"/><ellipse cx="185" cy="273" rx="40" ry="5"/><ellipse cx="575" cy="273" rx="40" ry="5"/><ellipse cx="280" cy="282" rx="46" ry="6"/><ellipse cx="480" cy="282" rx="46" ry="6"/><ellipse cx="380" cy="292" rx="52" ry="7"/></g>
+          <use href="#chef" class="far" x="53" y="84" width="84" height="182"/>
+          <use href="#chef" class="far" x="623" y="84" width="84" height="182"/>
+          <use href="#chef" class="back" x="138" y="70" width="94" height="203"/>
+          <use href="#chef" class="back" x="528" y="70" width="94" height="203"/>
+          <use href="#chef" class="mid" x="227" y="52" width="106" height="229"/>
+          <use href="#chef" class="mid" x="427" y="52" width="106" height="229"/>
+          <use href="#chef" class="front" x="320" y="30" width="120" height="260"/>
         </svg>
+        </div>
         <a class="btn btn-dark js-keep" href="restaurants/">Map my restaurant</a>
       </div>
     </div>
@@ -330,15 +350,15 @@
       <div class="kicker rv">Pick what you run</div>
       <p class="big rv">Three ways in.</p>
       <nav class="doors" aria-label="Choose your business">
-        <a class="door js-keep" href="restaurants/">
+        <a class="door paper pin js-keep" href="restaurants/">
           <div><div class="who">Restaurants and cafés</div><h3>Restaurants</h3><p>See which parts of your restaurant run on a system and which run on one person.</p></div>
           <div class="go"><span>Free 60-second check</span><b aria-hidden="true">→</b></div>
         </a>
-        <a class="door js-keep" href="hotels/">
+        <a class="door paper pin js-keep" href="hotels/">
           <div><div class="who">Independent hotels</div><h3>Hotels</h3><p>Kitchen, store and banquet controls that hold on every shift.</p></div>
           <div class="go"><span>Hotel F&amp;B systems</span><b aria-hidden="true">→</b></div>
         </a>
-        <a class="door js-keep" href="franchise/">
+        <a class="door paper pin js-keep" href="franchise/">
           <div><div class="who">QSR and franchise head offices</div><h3>Franchise brands</h3><p>Every outlet as good as your best one.</p></div>
           <div class="go"><span>Franchise systems</span><b aria-hidden="true">→</b></div>
         </a>
@@ -386,15 +406,29 @@
   headH(); window.addEventListener('resize', headH);
 
   // Chefs and doors animate in once they're on screen.
-  var reveal = document.querySelectorAll('.brigade, .doors');
-  if ('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { threshold:.25 });
-    [].forEach.call(reveal, function(el){ io.observe(el); });
-  } else {
-    [].forEach.call(reveal, function(el){ el.classList.add('in'); });
+  var reveal = document.querySelectorAll('.brigade, .doors, .rv');
+  // Text blocks that sit together come in one after another.
+  [].forEach.call(document.querySelectorAll('.rv'), function(el){
+    var i = 0, p = el.previousElementSibling;
+    while (p){ if (p.classList.contains('rv')) i++; p = p.previousElementSibling; }
+    if (i) el.style.setProperty('--d', (i * 0.15) + 's');
+  });
+  // Reveal anything whose top has come up into the lower part of the screen, or that is already above it
+  // (a reload halfway down, or a jump link), so nothing ever stays hidden.
+  var pending = [].slice.call(reveal), ticking = false;
+  function check(){
+    ticking = false;
+    var line = window.innerHeight * 0.88;
+    pending = pending.filter(function(el){
+      if (el.getBoundingClientRect().top < line){ el.classList.add('in'); return false; }
+      return true;
+    });
+    if (!pending.length){ window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); }
   }
+  function onScroll(){ if (!ticking){ ticking = true; setTimeout(check, 60); } }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll);
+  check();
 
   // The terminal bar: the system at work, one sentence at a time. Types it, holds it, erases it, types the next.
   var LINES = [
