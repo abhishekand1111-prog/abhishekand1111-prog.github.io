@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.diagnosisroom.daybook",
+    "sha256_cert_fingerprints": ["C7:13:78:02:92:3A:59:AB:91:49:EE:0E:F8:97:B6:BD:1E:3A:97:ED:E4:2E:BA:74:97:3D:F1:18:EF:E7:69:28"]
+  }
+}]

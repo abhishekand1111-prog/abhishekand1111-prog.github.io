@@ -1,0 +1,2 @@
+# GitHub Pages skips dot-folders by default; this serves /.well-known/assetlinks.json (Daybook Android app).
+include: [".well-known"]
